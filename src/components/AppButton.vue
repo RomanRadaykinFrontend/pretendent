@@ -22,7 +22,7 @@ export default class AppButton extends Vue {
 
   @CommonModule.Mutation( SET_PAGE ) public setPage!: any
 
-  clickOnButton(){
+  private clickOnButton(){
     this.setPage()
     this.$emit( 'button-action' )
   }

@@ -26,7 +26,6 @@ export default class LoginFormInput extends Vue {
   public emailValidate = regExpEmail
   public borderColorStyle = { 'border-color': 'rgb( 225, 225, 225 )' }
 
-
   private value = ''
   private isChecked = true
   private isError = false

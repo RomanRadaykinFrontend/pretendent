@@ -99,7 +99,7 @@
   "jest": {
     "preset": "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
     "testMatch": [
-      "<rootDir>/src/**/*.spec.ts"
+      "<rootDir>/**/*.spec.ts"
     ]
   },
   "gitHooks": {

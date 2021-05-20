@@ -49,15 +49,13 @@ export default class AppRadio extends Vue {
   public formRadioData = {} as FormData
   private picked = ''
   @Prop() private arrayOfValues!: Array<string>
-  @Prop() private name: string
+  @Prop() private name!: string
   private isNeedInput = this.arrayOfValues.includes( this.anotherAnswer )
 
   public click(){
-
     this.formRadioData[this.name] = this.picked === '' ?
       this.formRadioData[this.name] = 'noAnswered' :
       this.formRadioData[this.name] = `${this.picked} ${this.textOfAnotherAnswer}`
-    console.log( this.formRadioData )
   }
 }
 

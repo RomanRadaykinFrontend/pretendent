@@ -53,12 +53,12 @@ import { FormDataItem } from '../types/common'
 export default class AppLoginForm extends Vue {
   public formData = {} as FormData
 
-  getFormData( formArr: FormDataItem ){
+  public getFormData( formArr: FormDataItem ){
     const [ name, value ] = formArr
     this.formData[name] = value
   }
 
-  showMeData(){
+  public showMeData(){
     console.log( this.formData )
   }
 
