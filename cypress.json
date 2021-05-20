@@ -1,4 +1,5 @@
 {
+  "projectId": "pretendent_frontend",
   "pluginsFile": "tests/e2e/plugins/index.js",
   "experimentalNetworkStubbing": true
 }
