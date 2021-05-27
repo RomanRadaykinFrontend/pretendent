@@ -1,19 +1,25 @@
 <template lang="pug">
-  div.task-wrapper
-    div.task-title Какой результат напечатает нижеследующий код при исполнении согласно стандарту C++?
+  .task-wrapper
+    .task-title {{ actualQuestion }}
     app-radio(
-      name="question1"
-      :array-of-values="['answer1', 'answer2', 'answer3', 'Другое']"
-      @form-radio-change="getFormData"
+      ordinalNumber="taskNumber"
+      :array-of-values="actualAnswers"
+      :questionNumber="taskNumber"
+      :totalCount="countQuestions"
     )
-    app-task-info
+    app-task-info(
+      :totalCount="countQuestions"
+      :taskNumber="taskNumber"
+      )
 </template>
 
 <script lang="ts">
 
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import AppRadio from '../components/AppRadio.vue'
 import AppTaskInfo from '../components/AppTaskInfo.vue'
+import { namespace } from 'vuex-class'
+import { questions } from '@/common/questions'
 
 @Component({
   components: {
@@ -21,7 +27,16 @@ import AppTaskInfo from '../components/AppTaskInfo.vue'
     AppRadio,
   },
 })
-export default class AppTask extends Vue {}
+export default class AppTask extends Vue {
+  private questions = questions
+  private taskNumber = +this.$route.params.id
+  private countQuestions = Object.entries( this.questions ).length
+  private questionsArray = Object.entries( this.questions[this.taskNumber])
+  private actualTask = this.questionsArray[0]
+  private actualQuestion = this.actualTask[0]
+  private actualAnswers = this.actualTask[1]
+
+}
 
 </script>
 
@@ -42,4 +57,21 @@ export default class AppTask extends Vue {}
 
   .buttons-wrapper
     display: flex
+
+@media screen and (max-width: 1200px)
+  .task-wrapper
+    width: 50%
+    margin-top: 60px
+
+@media screen and (max-width: 800px)
+  .task-wrapper
+    width: 70%
+
+@media screen and (max-width: 550px)
+  .task-wrapper
+    width: 90%
+
+@media screen and (max-width: 350px)
+  .task-wrapper
+    width: 100%
 </style>

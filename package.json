@@ -17,6 +17,7 @@
     "lint:fix": "vue-cli-service lint ../frontend/src --fix"
   },
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.3.0",
     "@types/uuid": "^8.3.0",
     "core-js": "^3.6.5",
     "eslint-plugin-jsdoc": "^30.7.8",

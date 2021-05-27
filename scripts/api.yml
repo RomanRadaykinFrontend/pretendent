@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  title: 'Pretendent backend'
+  version: '0.1.2'
+
+servers:
+  - url: /api/v1
+
+tags:
+  - name: user
+    description: User create
+  - name: answer
+    description: Answers from the user
+
+
+paths:
+  # user creation section
+  /user:
+    post:
+      description: Create user
+      operationId: usersCreate
+      tags: ['user']
+      requestBody:
+        required: true
+        description: new user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/UserResponse'
+        '400':
+          $ref: '#/components/responses/ErrorBadRequest'
+        '409':
+          $ref: '#/components/responses/ErrorConflict'
+        '429':
+          $ref: '#/components/responses/ErrorRateLimit'     
+        '500':
+          $ref: '#/components/responses/ErrorUnexpected'
+
+  
+  # responses received from users
+  /answer:
+    post:
+      description: Add new answers
+      operationId: addNewAnswers
+      tags: ['answer']
+      requestBody:
+        required: true
+        description: add new answers
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answers'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessfulRecord'
+        '400':
+          $ref: '#/components/responses/ErrorBadRequest'
+        '403':
+          $ref: '#/components/responses/ErrorForbidden'          
+        '429':
+          $ref: '#/components/responses/ErrorRateLimit'          
+        '500':
+          $ref: '#/components/responses/ErrorUnexpected'
+
+
+
+components:
+  schemas:
+    ErrorCode:
+      type: integer
+      description: |
+        - 1 - unknown error, read message
+        - 2 - entity not found
+        - 3 - database error
+        - 4 - bad request params
+        - 5 - bad page request params
+        - 6 - bad request body
+
+    Message:
+      type: object
+      description: Common server message object
+      required:
+        - errorCode
+        - message
+      properties:
+        errorCode:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          description: Server message
+          type: string
+
+    User:
+      type: object
+      description: User
+      required:
+        - name
+        - lastName
+        - email
+        - telegram
+        - userGUID
+      properties:
+        name:     
+          type: string
+          description: User name
+        lastName:
+          type: string
+          description: User last name
+        email:
+          type: string
+          description: User email  
+        telegram:
+          type: string
+          description: User telegram
+        timeCreate:
+          type: string
+          format: date-time
+          description: User creation time 
+          readOnly: true
+        userGUID:
+          type: string
+          format: uuid
+          description: User uuid
+          readOnly: true
+
+    Answers:
+      type: object
+      description: User GUID and all responses received
+      required:
+        - userGUID
+        - answers
+      properties:
+        userGUID:
+          type: string
+          format: uuid
+          description: GUID
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+
+    Answer:
+      type: object
+      description: Add new answer
+      required:
+        - question
+        - answer
+      properties:
+        question:     
+          type: integer
+          description: Question number
+        answer:
+          type: integer
+          description: Answer to the question on this number
+
+
+  responses:
+    # responses
+
+    SuccessfulRecord:
+      description: Successful record
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+
+    # user responses
+    UserResponse:
+      description: Created user info
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+
+    # error responses            
+    ErrorUnexpected:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    ErrorConflict:
+      description: Email is busy
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    ErrorBadRequest:
+      description: Error in request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    ErrorNotFound:
+      description: Requested object not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    ErrorForbidden:
+      description: Access denied for this user
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    ErrorRateLimit:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Message'
+    

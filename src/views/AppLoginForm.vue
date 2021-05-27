@@ -1,37 +1,35 @@
 <template lang="pug">
-  div.login-form-wrapper
-    div.title-wrapper
+  .login-form-wrapper
+    .title-wrapper
       span Привет, начнем?
-    div.description-wrapper
+    .description-wrapper
       span.description Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
         | нам оценить ваши знания, а вам проверить свои :)
         | На каждый вопрос у вас будет 2 минуты, удачи!
-    div.login-form
-      form
+    .login-form
+      form(@submit.prevent="onSubmitHandler")
         login-form-input(
           placeholder="Имя*"
           name="name"
-          @get-text="getFormData"
+          @get-text="setUserData"
         )
         login-form-input(
           placeholder="Фамилия*"
-          name="surname"
-          @get-text="getFormData"
+          name="lastName"
+          @get-text="setUserData"
         )
         login-form-input(
           placeholder="Email*"
           name="email"
-          @get-text="getFormData"
+          @get-text="setUserData"
         )
         login-form-input(
-          placeholder="Telegram"
+          placeholder="Telegram*"
           name="telegram"
-          @get-text="getFormData"
+          @get-text="setUserData"
         )
-        app-button(
-          @button-action="showMeData"
-        ) Начать тестирование
-    div.contacts
+        app-button(name-of-button="registration") Начать тестирование
+    .contacts
       span Связаться с нами&nbsp
         span.contacts-email alszhechkova@stc-spb.ru
 </template>
@@ -41,8 +39,14 @@
 import { Component, Vue } from 'vue-property-decorator'
 import AppButton from '../components/AppButton.vue'
 import LoginFormInput from '../components/LoginFormInput.vue'
-import { FormData } from '../types/common'
-import { FormDataItem } from '../types/common'
+import { regExpEmail } from '@/common/regexp/regexp'
+import { User, UsersCreateRequest } from '../../api'
+import { InputName } from '@/types/common'
+import { namespace } from 'vuex-class'
+import { SET_USER } from '@/store/mutation.types'
+import { FETCH_USER } from '@/store/action.types'
+
+const CommonModule = namespace( 'commonModule' )
 
 @Component({
   components: {
@@ -51,15 +55,23 @@ import { FormDataItem } from '../types/common'
 })
 
 export default class AppLoginForm extends Vue {
-  public formData = {} as FormData
 
-  public getFormData( formArr: FormDataItem ){
-    const [ name, value ] = formArr
-    this.formData[name] = value
-  }
+  @CommonModule.Getter( 'user' ) public user!: User
+  @CommonModule.Mutation( SET_USER ) public setUserData!: ( name: InputName, value: string ) => void
+  @CommonModule.Action( FETCH_USER ) public fetchUser!: ( user: UsersCreateRequest ) => any
 
-  public showMeData(){
-    console.log( this.formData )
+  public emailValidate = regExpEmail
+
+  private async onSubmitHandler(){
+    const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
+
+    console.log( this.user )
+    if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail ) {
+      const result = await this.fetchUser({ user: this.user })
+      if( result ) {
+        await this.$router.push( '/questions/1' )
+      }
+    }
   }
 
 }
@@ -69,7 +81,7 @@ export default class AppLoginForm extends Vue {
 <style scoped lang="sass">
 @import '../common/assets/common'
 .login-form-wrapper
-  width: 450px
+  width: 57%
   height: 100%
   display: flex
   flex-direction: column
@@ -99,4 +111,12 @@ export default class AppLoginForm extends Vue {
 
     .contacts-email
       text-decoration: underline
+
+@media screen and (max-width: 1400px)
+  .login-form-wrapper
+    width: 65%
+
+@media screen and (max-width: 1200px)
+  .login-form-wrapper
+    width: 100%
 </style>

@@ -1,7 +1,7 @@
 <template lang="pug">
-  div.page-wrapper
-    div.image-wrapper
-    div.message-wrapper
+  .page-wrapper
+    .image-wrapper
+    .message-wrapper
       span.message-header Ваши ответы записаны ожидайте решения
       span.message-text Теперь можно покинуть страницу, обычно отвечаем за 7 дней
 </template>
@@ -31,9 +31,7 @@ export default class AppFinalPage extends Vue {
   .image-wrapper
     width: 100%
     height: 60%
-    background-image: url("../common/images/baloons.png")
-    background-repeat: no-repeat
-    background-position: center
+    background: url("../common/images/baloons.png") no-repeat center
 
   .message-wrapper
     width: 100%
@@ -56,5 +54,31 @@ export default class AppFinalPage extends Vue {
       font: $main-text-style
       margin-top: 30px
       line-height: 1.5
+
+@media screen and (max-width: 1350px)
+  .page-wrapper
+    width: 60%
+
+@media screen and (max-width: 1150px)
+  .page-wrapper
+    width: 70%
+
+@media screen and (max-width: 970px)
+  .page-wrapper
+    margin: 0
+    width: 100%
+
+@media screen and (max-width: 700px)
+  .page-wrapper
+    .image-wrapper
+      background-size: contain
+      height: 40%
+    .message-wrapper
+      .message-header
+        font-size: 30px
+        width: 90%
+      .message-text
+        font-size: 14px
+        width: 90%
 
 </style>

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.background-image
+  .background-image
 </template>
 
 <script lang="ts">

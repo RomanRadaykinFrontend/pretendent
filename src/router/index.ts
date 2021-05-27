@@ -1,14 +1,26 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import AppLoginForm from '../views/AppLoginForm.vue'
+import AppTask from '@/views/AppTask.vue'
+import AppFinalPage from '@/views/AppFinalPage.vue'
+import AppRegistration from '@/views/AppRegistration.vue'
 
 Vue.use( VueRouter )
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'AppLoginForm',
-    component: AppLoginForm,
+    name: 'AppRegistration',
+    component: AppRegistration,
+  },
+  {
+    path: '/questions/:id',
+    name: 'AppTask',
+    component: AppTask,
+  },
+  {
+    path: '/final',
+    name: 'AppFinalPage',
+    component: AppFinalPage,
   },
 ]
 

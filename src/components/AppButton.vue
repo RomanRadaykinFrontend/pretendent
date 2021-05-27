@@ -2,7 +2,8 @@
   div
     button.button-common(
       :class="isPrimary ? 'is-primary' : 'is-secondary'"
-      @click.prevent="clickOnButton"
+      type="submit"
+      :name="nameOfButton"
     )
       slot
 </template>
@@ -10,22 +11,12 @@
 <script lang="ts">
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { namespace } from 'vuex-class'
-import { SET_PAGE } from '../store/mutation.types'
-
-const CommonModule = namespace( 'commonModule' )
 
 @Component
 
 export default class AppButton extends Vue {
   @Prop({ default: true }) public isPrimary!: boolean
-
-  @CommonModule.Mutation( SET_PAGE ) public setPage!: any
-
-  private clickOnButton(){
-    this.setPage()
-    this.$emit( 'button-action' )
-  }
+  @Prop() public nameOfButton!: string
 }
 
 </script>

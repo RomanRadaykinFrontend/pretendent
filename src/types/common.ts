@@ -1,5 +1,9 @@
-export interface FormData {
-  [index: string]: string
+export type FormDataItem = [ 'name' | 'lastName' | 'email' | 'telegram', string]
+
+export interface QuestionData {
+  [id: number]: {
+    [textQuestion: string]: Array<string>
+  }
 }
 
-export type FormDataItem = [string, string]
+export type InputName = 'name' | 'lastName' | 'email' | 'telegram'

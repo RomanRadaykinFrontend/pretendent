@@ -54,35 +54,36 @@ const vueCliConfig = {
       minimizer: [ new TerserPlugin() ],
     },
     module: {
-      rules: [{
-        test: /\.vue$/,
-        exclude: /node_modules/,
-        loader: 'vue-pug-lint-loader',
-        options: require( './.pug-lintrc.js' ),
-        enforce: 'pre',
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-            },
-          },
-          'postcss-loader',
-        ],
-      },
-      {
-        test: /\.tmp.html$/,
-        loader: 'vue-template-loader',
-        options: {
-          transformToRequire: {
-            img: 'src',
-          },
-        },
-      },
+      rules: [
+      //   {
+      //   test: /\.vue$/,
+      //   exclude: /node_modules/,
+      //   loader: 'vue-pug-lint-loader',
+      //   options: require( './.pug-lintrc.js' ),
+      //   enforce: 'pre',
+      // },
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     'vue-style-loader',
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         importLoaders: 1,
+      //       },
+      //     },
+      //     'postcss-loader',
+      //   ],
+      // },
+      // {
+      //   test: /\.tmp.html$/,
+      //   loader: 'vue-template-loader',
+      //   options: {
+      //     transformToRequire: {
+      //       img: 'src',
+      //     },
+      //   },
+      // },
       ],
     },
     plugins: [
