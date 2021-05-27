@@ -1,4 +1,5 @@
-FROM node:10.16.0-alpine as build-stage
+#FROM node:10.16.0-alpine as build-stage
+FROM node:16.2.0-alpine as build-stage
 
 WORKDIR /app
 
@@ -22,7 +23,8 @@ COPY vue.config.js ./
 RUN yarn build
 
 # production-stage
-FROM nginx:1.17.0-alpine
+#FROM nginx:1.17.0-alpine
+FROM registry.ok.loc/okolesina/nginx:1.17.0-alpine
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/default.conf /etc/nginx/conf.d/default.conf
