@@ -1,2 +1,2 @@
 // dev
-self.API_URL = 'http://192.168.49.102:8080/api/v1/user'
+self.API_URL = 'http://192.168.49.111:8085/api/v1/'
