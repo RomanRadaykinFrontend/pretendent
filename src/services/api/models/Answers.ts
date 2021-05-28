@@ -18,7 +18,7 @@ import {
     AnswerFromJSON,
     AnswerFromJSONTyped,
     AnswerToJSON,
-} from './';
+} from './index';
 
 /**
  * User GUID and all responses received

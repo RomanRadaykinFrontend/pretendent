@@ -2,8 +2,8 @@ import { Module } from 'vuex-smart-module'
 import { CommonMutations } from './mutations'
 import { CommonActions } from './actions'
 import { CommonGetters } from './getters'
-import { User } from 'api/models/User'
-import { Answers } from '../../../../api'
+import { User } from 'src/services/api/models/User'
+import { Answers } from '../../../services/api'
 
 export class CommonState {
   public user = {

@@ -32,7 +32,7 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import LoginFormInput from './LoginFormInput.vue'
 import AppButton from './AppButton.vue'
-import { AddNewAnswersRequest, Answer, Answers, User } from '../../api'
+import { AddNewAnswersRequest, Answer, Answers, User } from '../services/api'
 import { namespace } from 'vuex-class'
 import { SET_ANSWERS } from '@/store/mutation.types'
 import { FETCH_ANSWERS } from '@/store/action.types'

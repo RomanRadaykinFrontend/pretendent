@@ -1,7 +1,7 @@
 import { Mutations } from 'vuex-smart-module'
 import { CommonState } from './index'
 import { InputName } from '@/types/common'
-import { Answer } from 'api'
+import { Answer } from 'src/services/api'
 
 export class CommonMutations extends Mutations<CommonState> {
   public setUser( arrData: [InputName, string]) {

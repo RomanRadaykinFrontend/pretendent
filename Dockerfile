@@ -1,5 +1,4 @@
-#FROM node:10.16.0-alpine as build-stage
-FROM node:16.2.0-alpine as build-stage
+FROM node:16.2.0 as build-stage
 
 WORKDIR /app
 
@@ -23,8 +22,8 @@ COPY vue.config.js ./
 RUN yarn build
 
 # production-stage
-#FROM nginx:1.17.0-alpine
-FROM registry.ok.loc/okolesina/nginx:1.17.0-alpine
+FROM nginx:1.17.0-alpine
+#FROM registry.ok.loc/okolesina/nginx:1.17.0-alpine
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/default.conf /etc/nginx/conf.d/default.conf
@@ -32,6 +31,6 @@ COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 ENV \
-    API_URL=http://192.168.49.111:8085/api/v1/ \
+    API_URL=http://192.168.49.111:8085/api/v1/
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

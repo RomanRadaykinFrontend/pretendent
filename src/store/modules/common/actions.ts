@@ -2,8 +2,8 @@ import { CommonState } from './index.js'
 import { Actions } from 'vuex-smart-module'
 import { CommonMutations } from './mutations'
 import { CommonGetters } from './getters'
-import { USER_API, ANSWER_API, AddNewAnswersRequest, UsersCreateRequest } from '../../../../api'
 import { SET_USERGUID } from '@/store/mutation.types'
+import { UsersCreateRequest, USER_API, AddNewAnswersRequest, ANSWER_API } from '@/services/api'
 
 
 export class CommonActions extends Actions<

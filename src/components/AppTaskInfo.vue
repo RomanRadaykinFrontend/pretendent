@@ -11,7 +11,7 @@
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { namespace } from 'vuex-class'
-import { AddNewAnswersRequest, Answer, Answers } from '../../api'
+import { AddNewAnswersRequest, Answer, Answers } from '../services/api'
 import { FETCH_ANSWERS } from '@/store/action.types'
 import { SET_ANSWERS } from '@/store/mutation.types'
 
