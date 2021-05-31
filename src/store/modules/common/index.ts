@@ -3,11 +3,10 @@ import { CommonMutations } from './mutations'
 import { CommonActions } from './actions'
 import { CommonGetters } from './getters'
 import { User } from 'src/services/api/models/User'
-import { Answers } from '../../../services/api'
+import { Answers } from '@/services/api'
 
 export class CommonState {
-  public user = {
-  } as User
+  public user = {} as User
 
   public answers = {
     answers: [],

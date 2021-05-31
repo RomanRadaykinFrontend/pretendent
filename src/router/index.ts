@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import AppTask from '@/views/AppTask.vue'
-import AppFinalPage from '@/views/AppFinalPage.vue'
-import AppRegistration from '@/views/AppRegistration.vue'
+import RegistrationView from '@/views/RegistrationView.vue'
+import TaskView from '@/views/TaskView.vue'
+import FinalPageView from '@/views/FinalPageView.vue'
+
 
 Vue.use( VueRouter )
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'AppRegistration',
-    component: AppRegistration,
+    name: 'RegistrationView',
+    component: RegistrationView,
   },
   {
     path: '/questions/:id',
-    name: 'AppTask',
-    component: AppTask,
+    name: 'TaskView',
+    component: TaskView,
   },
   {
     path: '/final',
-    name: 'AppFinalPage',
-    component: AppFinalPage,
+    name: 'FinalPageView',
+    component: FinalPageView,
   },
 ]
 

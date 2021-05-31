@@ -1,9 +1,9 @@
 <template lang="pug">
   div
     button.button-common(
-      :class="isPrimary ? 'is-primary' : 'is-secondary'"
-      type="submit"
-      :name="nameOfButton"
+      :class = "isPrimary ? 'is-primary' : 'is-secondary'"
+      type = "submit"
+      :name = "nameOfButton"
     )
       slot
 </template>

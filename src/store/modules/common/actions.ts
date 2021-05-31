@@ -17,15 +17,14 @@ CommonActions> {
       this.commit( SET_USERGUID, result.userGUID )
       return result
     } catch ( error ){
-      debugger
-      console.log ( error.message )
+      return  error.message
     }
   }
   public async fetchAnswers( data: AddNewAnswersRequest ) {
     try {
-      const result = await ANSWER_API.addNewAnswers( data )
+      await ANSWER_API.addNewAnswers( data )
     } catch ( error ) {
-      console.log( 'Этот POST ничего не возвращает' )
+      return  error.message
     }
   }
 

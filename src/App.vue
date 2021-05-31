@@ -5,18 +5,18 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import AppLoginForm from './views/AppLoginForm.vue'
-import BlankBackground from './views/BlankBackground.vue'
-import AppTask from './views/AppTask.vue'
-import AppFinalPage from './views/AppFinalPage.vue'
+import LoginFormVIew from './views/LoginFormVIew.vue'
+import BlankBackgroundView from './views/BlankBackgroundView.vue'
+import TaskView from './views/TaskView.vue'
+import FinalPageView from './views/FinalPageView.vue'
 
 
 @Component({
   components: {
-    AppFinalPage,
-    AppLoginForm,
-    BlankBackground,
-    AppTask,
+    FinalPageView,
+    LoginFormVIew,
+    BlankBackgroundView,
+    TaskView,
   },
 })
 export default class App extends Vue {
