@@ -60,7 +60,7 @@ export default class TaskInfoView extends Vue {
 </script>
 
 <style scoped lang="sass">
-@import '../../common/assets/common'
+@import '../../../common/assets/common'
 .info-wrapper
   position: absolute
   right: -45%

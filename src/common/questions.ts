@@ -1,5 +1,9 @@
+interface Question {
+  question: string
+  answers: Array<string>
+}
 
-export const questions = [
+export const questions: Array<Question> = [
   {
     question: 'Сколько параметров можно передать в деструктор?\n\n',
     answers: [ 'Один', 'Не более 30', 'Ни одного', 'Любое число' ],

@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import AppButton from '../../components/AppButton.vue'
+import AppButton from '../../../components/AppButton.vue'
 import { commonModule } from '@/store'
 
 @Component({
@@ -92,7 +92,7 @@ export default class RadioView extends Vue {
 </script>
 
 <style scoped lang="sass">
-@import '../../common/assets/common'
+@import '../../../common/assets/common'
 .form-radio
   margin: 10px 0
 

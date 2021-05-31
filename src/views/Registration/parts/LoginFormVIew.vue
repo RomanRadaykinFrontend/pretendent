@@ -37,8 +37,8 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
-import AppButton from '../components/AppButton.vue'
-import LoginFormInputView from './parts/LoginFormInputView.vue'
+import AppButton from '../../../components/AppButton.vue'
+import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
 
@@ -72,7 +72,7 @@ export default class LoginFormView extends Vue {
 </script>
 
 <style scoped lang="sass">
-@import '../common/assets/common'
+@import '../../../common/assets/common'
 .login-form-wrapper
   width: 57%
   height: 100%

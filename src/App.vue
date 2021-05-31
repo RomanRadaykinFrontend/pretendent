@@ -5,10 +5,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import LoginFormVIew from './views/LoginFormVIew.vue'
-import BlankBackgroundView from './views/BlankBackgroundView.vue'
-import TaskView from './views/TaskView.vue'
-import FinalPageView from './views/FinalPageView.vue'
+import LoginFormVIew from './views/Registration/parts/LoginFormVIew.vue'
+import BlankBackgroundView from './views/Registration/parts/BlankBackgroundView.vue'
+import TaskView from './views/Task/TaskView.vue'
+import FinalPageView from './views/FinalPage/FinalPageView.vue'
 
 
 @Component({

@@ -63,7 +63,7 @@ export default class LoginFormInputView extends Vue {
 </script>
 
 <style scoped lang="sass">
-@import '../../common/assets/common'
+@import '../../../common/assets/common'
 .login-form-input-wrapper
   display: flex
   flex-direction: column

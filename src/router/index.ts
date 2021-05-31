@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import RegistrationView from '@/views/RegistrationView.vue'
-import TaskView from '@/views/TaskView.vue'
-import FinalPageView from '@/views/FinalPageView.vue'
+import RegistrationView from '@/views/Registration/RegistrationView.vue'
+import TaskView from '@/views/Task/TaskView.vue'
+import FinalPageView from '@/views/FinalPage/FinalPageView.vue'
 
 
 Vue.use( VueRouter )

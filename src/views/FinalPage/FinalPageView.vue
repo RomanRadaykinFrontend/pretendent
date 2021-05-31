@@ -18,7 +18,7 @@ export default class FinalPageView extends Vue {
 </script>
 
 <style scoped lang="sass">
-@import '../common/assets/common'
+@import '../../common/assets/common'
 .page-wrapper
   display: flex
   flex-direction: column
@@ -31,7 +31,7 @@ export default class FinalPageView extends Vue {
   .image-wrapper
     width: 100%
     height: 60%
-    background: url("../common/images/baloons.png") no-repeat center
+    background: url("../../common/images/baloons.png") no-repeat center
 
   .message-wrapper
     width: 100%

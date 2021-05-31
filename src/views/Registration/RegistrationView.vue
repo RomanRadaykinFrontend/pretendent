@@ -9,8 +9,8 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
-import LoginFormView from '@/views/LoginFormVIew.vue'
-import BlankBackgroundView from '@/views/BlankBackgroundView.vue'
+import LoginFormView from '@/views/Registration/parts/LoginFormVIew.vue'
+import BlankBackgroundView from '@/views/Registration/parts/BlankBackgroundView.vue'
 
 @Component({
   components: {

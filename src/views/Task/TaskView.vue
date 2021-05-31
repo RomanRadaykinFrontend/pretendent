@@ -39,7 +39,7 @@ export default class TaskView extends Vue {
 </script>
 
 <style scoped lang="sass">
-@import '../common/assets/common'
+@import '../../common/assets/common'
 .task-wrapper
   width: 30%
   height: auto
