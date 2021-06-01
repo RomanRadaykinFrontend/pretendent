@@ -1,0 +1,11 @@
+stages:
+  - test
+  - build
+
+include:
+  - project: 'pretendent/devops/deploy'
+    ref: 'master'
+    file: 'ts-test-and-lint.yml'
+  - project: 'pretendent/devops/deploy'
+    ref: 'master'
+    file: 'regular-build.yml'

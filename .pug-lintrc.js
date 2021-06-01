@@ -1,0 +1,17 @@
+module.exports = {
+    disallowClassAttributeWithStaticValue: true,
+    disallowAttributeTemplateString: true,
+    disallowClassLiteralsBeforeIdLiterals: true,
+    disallowDuplicateAttributes: true,
+    disallowMultipleLineBreaks: true,
+    requireClassLiteralsBeforeAttributes: true,
+    requireIdLiteralsBeforeAttributes: true,
+    requireLineFeedAtFileEnd: true,
+    requireLowerCaseAttributes: true,
+    // requireSpacesInsideAttributeBrackets: true,
+    validateAttributeQuoteMarks: "\"",
+    validateAttributeSeparator: { "separator": " ", "multiLineSeparator": "\n  ", "allowMultiLine": true  },
+    validateIndentation: 2,
+    disallowTemplateString: true,
+    disallowStringConcatenation: true,
+}
