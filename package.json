@@ -64,6 +64,9 @@
     "vue-pug-lint-loader": "^0.0.2",
     "vue-template-compiler": "^2.6.11"
   },
+  "resolutions": {
+    "typescript": "^3.7.0"
+  },
   "eslintConfig": {
     "root": true,
     "env": {
