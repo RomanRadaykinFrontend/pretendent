@@ -1,9 +1,7 @@
 <template lang="pug">
-  div
     button.button-common(
       :class = "isPrimary ? 'is-primary' : 'is-secondary'"
       type = "submit"
-      :name = "nameOfButton"
     )
       slot
 </template>
@@ -16,7 +14,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 export default class AppButton extends Vue {
   @Prop({ default: true }) public isPrimary!: boolean
-  @Prop() public nameOfButton!: string
 }
 
 </script>
@@ -40,4 +37,5 @@ export default class AppButton extends Vue {
 .is-secondary
   background-color: white
   color: $primary-color
+  border: 1px solid $primary-color
 </style>

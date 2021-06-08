@@ -45,11 +45,16 @@ export default class RegistrationView extends Vue {}
 @media screen and (max-width: 1200px)
   .app-registration-wrapper
     justify-content: center
-
     .blank
       display: none
 
 @media screen and (max-width: 800px)
+  .app-registration-wrapper
+    .login
+      width: 70%
+      justify-content: center
+
+@media screen and (max-width: 600px)
   .app-registration-wrapper
     .login
       width: 100%

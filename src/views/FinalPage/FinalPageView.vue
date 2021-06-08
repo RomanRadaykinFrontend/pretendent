@@ -2,8 +2,8 @@
   .page-wrapper
     .image-wrapper
     .message-wrapper
-      span.message-header Ваши ответы записаны ожидайте решения
-      span.message-text Теперь можно покинуть страницу, обычно отвечаем за 7 дней
+      span.message-header Ответы записаны.
+      span.message-text Наш специалист свяжется с вами в течении недели.
 </template>
 
 <script lang="ts">
@@ -68,8 +68,9 @@ export default class FinalPageView extends Vue {
     margin: 0
     width: 100%
 
-@media screen and (max-width: 700px)
+@media screen and (max-width: 768px)
   .page-wrapper
+    justify-content: flex-start
     .image-wrapper
       background-size: contain
       height: 40%

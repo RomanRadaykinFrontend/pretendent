@@ -3,9 +3,9 @@
     .title-wrapper
       span Привет, начнем?
     .description-wrapper
-      span.description Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
-        | нам оценить ваши знания, а вам проверить свои :)
-        | На каждый вопрос у вас будет 2 минуты, удачи!
+      span.description {{ `Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
+        | нам оценить ваши знания, а вам проверить свои.
+        | \n На вопросы у вас будет 1 час 30 минут, удачи` }}!
     .login-form
       form(@submit.prevent="onSubmitHandler")
         login-form-input-view(
@@ -31,7 +31,7 @@
         app-button(name-of-button = "registration") Начать тестирование
     .contacts
       span Связаться с нами&nbsp
-        span.contacts-email alszhechkova@stc-spb.ru
+        span.contacts-email ekorotkaia@stc-spb.ru
 </template>
 
 <script lang="ts">
@@ -58,12 +58,13 @@ export default class LoginFormView extends Vue {
 
   private async onSubmitHandler(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
-
-    if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail ) {
+    if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail && !!this.user.telegram ) {
       const result = await commonModule.actions.fetchUser({ user: this.user })
       if( result ) {
         await this.$router.push( '/questions/1' )
       }
+    } else {
+      commonModule.mutations.setIsIncorrectFormData( true )
     }
   }
 
@@ -99,7 +100,7 @@ export default class LoginFormView extends Vue {
     margin-top: -50px
     position: absolute
     bottom: 0
-    padding: 10px
+    padding: 10px 0
     font: $main-text-style
 
     .contacts-email
@@ -112,4 +113,11 @@ export default class LoginFormView extends Vue {
 @media screen and (max-width: 1200px)
   .login-form-wrapper
     width: 100%
+    margin-top: 100px
+    height: auto
+    justify-content: flex-start
+    position: relative
+    .contacts
+      bottom: -100px
+      padding: 30px 0
 </style>

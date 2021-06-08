@@ -59,7 +59,7 @@
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "terser-webpack-plugin": "^2.3.5",
-    "typescript": "~3.2.1",
+    "typescript": "3.9.9",
     "vue-cli-plugin-pug": "~1.0.7",
     "vue-pug-lint-loader": "^0.0.2",
     "vue-template-compiler": "^2.6.11"

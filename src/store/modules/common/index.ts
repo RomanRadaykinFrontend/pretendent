@@ -4,14 +4,32 @@ import { CommonActions } from './actions'
 import { CommonGetters } from './getters'
 import { User } from 'src/services/api/models/User'
 import { Answers } from '@/services/api'
+import { DoneTaskList } from '@/types/common'
 
 export class CommonState {
-  public user = {} as User
+  public user = {
+    name: '',
+    lastName: '',
+    email: '',
+    telegram: '',
+  } as User
 
   public answers = {
     answers: [],
     userGUID: '',
   } as Answers
+
+  public currentAnswer = {
+    pickedValue: '',
+    question: 0,
+  }
+
+  public doneTaskList = [] as Array<DoneTaskList>
+
+  public isModalWindowShowed = false
+  public isTestingFinished = false
+
+  public isIncorrectFormData = false
 }
 
 export const commonModule = new Module({

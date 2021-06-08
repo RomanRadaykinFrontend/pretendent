@@ -31,4 +31,12 @@ const router = new VueRouter({
   routes,
 })
 
+router.beforeEach( ( to, from, next ) => {
+  if( from.path === '/final' ){
+    next({ path: '/' })
+  } else {
+    next()
+  }
+})
+
 export default router
