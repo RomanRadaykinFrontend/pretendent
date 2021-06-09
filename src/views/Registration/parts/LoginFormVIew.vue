@@ -50,7 +50,7 @@ import AppButton from '../../../components/AppButton.vue'
 import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
-import InfoLogo from '../../../common/images/info.svg'
+import InfoLogo from './../../../../src/common/images/info.svg'
 
 @Component({
   components: {

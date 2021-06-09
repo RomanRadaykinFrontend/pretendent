@@ -33,9 +33,7 @@ import RadioView from './parts/RadioView.vue'
 import { questions } from '@/common/questions'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
 import { commonModule } from '@/store'
-Component.registerHooks([
-  'beforeDestroy',
-])
+
 @Component({
   components: {
     TaskChanger,
