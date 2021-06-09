@@ -27,4 +27,16 @@ export class CommonGetters extends Getters<CommonState> {
   get isIncorrectFormData(){
     return this.state.isIncorrectFormData
   }
+
+  get isAuthorized(){
+    return this.state.isAuthorized
+  }
+
+  get timeRemain(){
+    return this.state.timeRemain
+  }
+
+  get isAccountExist(){
+    return this.state.isAccountExist
+  }
 }

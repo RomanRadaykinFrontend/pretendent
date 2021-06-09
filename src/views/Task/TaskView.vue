@@ -19,7 +19,8 @@
           span Осталось &nbsp
             span(
               :style = "timeRemain <= 20 && {color: 'red'}"
-            ) {{ minutes }}:{{ /^[0-9]$/.test(seconds) ? '0' + seconds : seconds }}
+            ) {{ hours }}:{{ /^[0-9]$/.test(minutes) ? '0' + minutes : minutes }}:
+          | {{ /^[0-9]$/.test(seconds) ? '0' + seconds : seconds }}
         button.task-info__test-end(
           @click.prevent="showModalWindow"
         ) Закончить тест
@@ -32,7 +33,9 @@ import RadioView from './parts/RadioView.vue'
 import { questions } from '@/common/questions'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
 import { commonModule } from '@/store'
-
+Component.registerHooks([
+  'beforeDestroy',
+])
 @Component({
   components: {
     TaskChanger,
@@ -47,26 +50,30 @@ export default class TaskView extends Vue {
   private actualQuestion = this.actualTask.question
   private actualAnswers = this.actualTask.answers
 
-  private timeRemain = 5400
-  private timerId = setInterval( this.changeTime, 1000 )
-
-
-  // функция-таймер
-  private async changeTime(){
-    this.timeRemain -= 1
-    if( this.timeRemain === 0 ) {
-      clearInterval( this.timerId )
-      await this.$router.push( '/final' )
+  get timeRemain(){
+    if( commonModule.getters.timeRemain === 0 ){
+      this.$router.push( '/final' )
     }
+    return commonModule.getters.timeRemain
   }
 
   get minutes() {
-    return Math.floor( this.timeRemain / 60 ).toString()
+    if( this.timeRemain >= 3600 ){
+      return Math.floor( ( this.timeRemain - 3600 ) / 60 ).toString()
+    } else {
+      return Math.floor( this.timeRemain / 60 ).toString()
+    }
+
   }
 
   get seconds() {
     return Math.floor( this.timeRemain % 60 ).toString()
   }
+
+  get hours() {
+    return Math.floor( this.timeRemain / 3600 ).toString()
+  }
+
 
   private showModalWindow(){
     commonModule.mutations.setIsModalWindowShowed( true )

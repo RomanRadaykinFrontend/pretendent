@@ -67,6 +67,7 @@ export default class LoginFormInputView extends Vue {
   }
 
 
+
   // Когда уходит фокус с инпута, запускается валидация
   @Watch( 'isFocused' )
   public onValueChangedHandler() {

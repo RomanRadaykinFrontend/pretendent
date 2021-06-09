@@ -30,6 +30,12 @@ export class CommonState {
   public isTestingFinished = false
 
   public isIncorrectFormData = false
+
+  public isAuthorized = true
+
+  public timeRemain = 5400
+
+  public isAccountExist = false
 }
 
 export const commonModule = new Module({

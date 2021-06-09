@@ -2,8 +2,8 @@
   .page-wrapper
     .image-wrapper
     .message-wrapper
-      span.message-header Ответы записаны.
-      span.message-text Наш специалист свяжется с вами в течении недели.
+      span.message-header Спасибо за ответы.
+      span.message-text Наш специалист свяжется с вами.
 </template>
 
 <script lang="ts">
@@ -27,11 +27,13 @@ export default class FinalPageView extends Vue {
   width: 50%
   height: 100%
   justify-content: center
+  box-sizing: border-box
 
   .image-wrapper
     width: 100%
     height: 60%
     background: url("../../common/images/baloons.png") no-repeat center
+    background-size: auto
 
   .message-wrapper
     width: 100%
@@ -73,7 +75,7 @@ export default class FinalPageView extends Vue {
     justify-content: flex-start
     .image-wrapper
       background-size: contain
-      height: 40%
+      height: 70%
     .message-wrapper
       .message-header
         font-size: 30px
@@ -81,5 +83,9 @@ export default class FinalPageView extends Vue {
       .message-text
         font-size: 14px
         width: 90%
+@media screen and (max-width: 550px)
+  .page-wrapper
+    .image-wrapper
+      height: 40%
 
 </style>

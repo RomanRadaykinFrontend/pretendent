@@ -5,7 +5,7 @@
     .description-wrapper
       span.description {{ `Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
         | нам оценить ваши знания, а вам проверить свои.
-        | \n На вопросы у вас будет 1 час 30 минут, удачи` }}!
+        | \n На все вопросы у вас будет 1 час 30 минут, удачи` }}!
     .login-form
       form(@submit.prevent="onSubmitHandler")
         login-form-input-view(
@@ -28,10 +28,19 @@
           name = "telegram"
           @get-text = "setUserData"
         )
+        .account-exist(
+          v-if="isAccountExist"
+        )
+          InfoLogo.__logo
+          p.__text Данные email и telegram уже зарегистрированы, введите другие данные
         app-button(name-of-button = "registration") Начать тестирование
     .contacts
       span Связаться с нами&nbsp
-        span.contacts-email ekorotkaia@stc-spb.ru
+        span.contacts-email
+          a.__link(
+
+            @click = "askToSendMail"
+          ) ekorotkaia@stc-spb.ru
 </template>
 
 <script lang="ts">
@@ -41,11 +50,11 @@ import AppButton from '../../../components/AppButton.vue'
 import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
-
+import InfoLogo from '../../../common/images/info.svg'
 
 @Component({
   components: {
-    AppButton, LoginFormInputView,
+    AppButton, LoginFormInputView, InfoLogo,
   },
 })
 
@@ -56,17 +65,36 @@ export default class LoginFormView extends Vue {
 
   private emailValidate = regExpEmail
 
+  get isAccountExist(){
+    return commonModule.getters.isAccountExist
+  }
+
   private async onSubmitHandler(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
     if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail && !!this.user.telegram ) {
       const result = await commonModule.actions.fetchUser({ user: this.user })
       if( result ) {
+        await commonModule.mutations.setIsAuthorized( true )
+        await commonModule.mutations.setIsAccountExist( false )
+        await commonModule.mutations.setTimeRemain()
         await this.$router.push( '/questions/1' )
+      } else {
+        await commonModule.mutations.setIsAccountExist( true )
       }
     } else {
       commonModule.mutations.setIsIncorrectFormData( true )
     }
   }
+
+  private askToSendMail( event: any ){
+    const result = confirm( 'Отправить сообщение на электронный адрес ekorotkaia@stc-spb.ru?' )
+    if( result ) {
+      event.target.href = 'mailto:ekorotkaia@stc-spb.ru'
+    } else {
+      event.target.href = ''
+    }
+  }
+
 
 }
 
@@ -96,15 +124,31 @@ export default class LoginFormView extends Vue {
     font: $main-text-style
     line-height: 1.5
 
+  .account-exist
+    display: flex
+    font-size: 14px
+    font-family: Roboto, serif
+    align-items: center
+    width: 70%
+    justify-content: space-between
+    .__logo
+      width: 16px
+    .__text
+      color: #757575
+      width: 90%
+
   .contacts
-    margin-top: -50px
     position: absolute
     bottom: 0
-    padding: 10px 0
+    padding-bottom: 10px
     font: $main-text-style
 
     .contacts-email
       text-decoration: underline
+      .__link
+        color: black
+        &:visited
+          color: black
 
 @media screen and (max-width: 1400px)
   .login-form-wrapper

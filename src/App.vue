@@ -44,6 +44,7 @@ export default class App extends Vue {
 
 <style lang="sass" scoped>
 #app
-  height: 1000px
+  height: 100%
+  width: 100%
   white-space: pre-line
 </style>

@@ -37,19 +37,20 @@ export default class AppModalWindow extends Vue {
   align-items: center
 
   .text-message
-    width: 738px
+    width: auto
     left: 591px
     top: 410px
     border-radius: 8px
-    padding: 25px
+    padding: 45px
     background: white
 
     .__text
       font-family: Jost, serif
       color: black
-      font-weight: bold
+      font-weight: 500
       font-size: 36px
-      text-align: center
+      text-align: end
+      align-self: self-start
 
     .__buttons
       display: flex

@@ -56,6 +56,21 @@ export class CommonMutations extends Mutations<CommonState> {
     this.state.isIncorrectFormData = value
   }
 
+  public setIsAuthorized( value: boolean ){
+    this.state.isAuthorized = value
+  }
+
+  public setTimeRemain(){
+    const timer = setInterval( () => {
+      this.state.timeRemain -= 1
+      if( this.state.timeRemain === 0 ){
+        clearInterval( timer )
+      }
+    }, 1000 )
+  }
 
 
+  public setIsAccountExist( value: boolean ){
+    this.state.isAccountExist = value
+  }
 }
