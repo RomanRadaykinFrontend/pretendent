@@ -9,24 +9,10 @@
     .login-form
       form(@submit.prevent="onSubmitHandler")
         login-form-input-view(
-          placeholder = "Имя*"
-          name = "name"
-          @get-text = "setUserData"
-        )
-        login-form-input-view(
-          placeholder = "Фамилия*"
-          name = "lastName"
-          @get-text = "setUserData"
-        )
-        login-form-input-view(
-          placeholder = "Email*"
-          name = "email"
-          @get-text = "setUserData"
-        )
-        login-form-input-view(
-          placeholder = "Telegram*"
-          name = "telegram"
-          @get-text = "setUserData"
+          v-for = "(item, index) in objNames"
+          :key= "item.index"
+          :name = "item.name"
+          :placeholder = "item.placeholder"
         )
         .account-exist(
           v-if="isAccountExist"
@@ -48,7 +34,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import AppButton from '../../../components/AppButton.vue'
 import LoginFormInputView from './LoginFormInputView.vue'
-import { regExpEmail } from '@/common/regexp/regexp'
+import { regExpEmail, regExpTelegram } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
 import InfoLogo from './../../../../src/common/images/info.svg'
 
@@ -60,10 +46,16 @@ import InfoLogo from './../../../../src/common/images/info.svg'
 
 export default class LoginFormView extends Vue {
 
+  private objNames = [
+    { name: 'name', placeholder: 'Имя*' }, { name: 'lastName', placeholder: 'Фамилия*' },
+    { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram*' }
+  ]
+
   private user = commonModule.getters.user
-  private setUserData = commonModule.mutations.setUser
+
 
   private emailValidate = regExpEmail
+  private telegramValidate = regExpTelegram
 
   get isAccountExist(){
     return commonModule.getters.isAccountExist
@@ -71,7 +63,9 @@ export default class LoginFormView extends Vue {
 
   private async onSubmitHandler(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
-    if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail && !!this.user.telegram ) {
+    const isCorrectTelegram = this.user.telegram ? this.telegramValidate.test( this.user.telegram ) : false
+    if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail
+      && isCorrectTelegram && !!this.user.telegram ) {
       const result = await commonModule.actions.fetchUser({ user: this.user })
       if( result ) {
         await commonModule.mutations.setIsAuthorized( true )

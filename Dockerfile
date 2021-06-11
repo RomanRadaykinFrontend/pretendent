@@ -16,6 +16,7 @@ COPY public ./public
 COPY src ./src
 COPY tests ./tests
 COPY tsconfig.json ./
+COPY .env ./
 COPY vue.config.js ./
 
 RUN yarn build
