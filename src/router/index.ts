@@ -57,8 +57,6 @@ const routes: Array<RouteConfig> = [
     name: 'FinalPageView',
     component: FinalPageView,
     beforeEnter: ( to, from, next ) => {
-      debugger
-
       if( isStub === 'false' ){
         if( !commonModule.getters.isAuthorized ){
           next({ path: '/login' })
