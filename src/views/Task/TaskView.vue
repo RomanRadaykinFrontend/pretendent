@@ -53,6 +53,7 @@ export default class TaskView extends Vue {
 
   get timeRemain(){
     if( commonModule.getters.timeRemain === 0 ){
+      commonModule.mutations.setIsTestingFinished( true )
       this.$router.push( '/final' )
     }
     return commonModule.getters.timeRemain

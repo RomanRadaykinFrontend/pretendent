@@ -34,7 +34,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import AppButton from '../../../components/AppButton.vue'
 import LoginFormInputView from './LoginFormInputView.vue'
-import { regExpEmail, regExpTelegram } from '@/common/regexp/regexp'
+import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
 import InfoLogo from './../../../../src/common/images/info.svg'
 
@@ -56,6 +56,7 @@ export default class LoginFormView extends Vue {
 
   private emailValidate = regExpEmail
   private telegramValidate = regExpTelegram
+  private nameValidate = regExpName
 
   get isAccountExist(){
     return commonModule.getters.isAccountExist
@@ -64,8 +65,11 @@ export default class LoginFormView extends Vue {
   private async onSubmitHandler(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
     const isCorrectTelegram = this.user.telegram ? this.telegramValidate.test( this.user.telegram ) : false
+    const isCorrectLastName = this.user.name ? this.nameValidate.test( this.user.lastName ) : false
+    const isCorrectName = this.user.lastName ? this.nameValidate.test( this.user.name ) : false
+
     if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail
-      && isCorrectTelegram && !!this.user.telegram ) {
+      && isCorrectTelegram && isCorrectLastName && isCorrectName && !!this.user.telegram ) {
       const result = await commonModule.actions.fetchUser({ user: this.user })
       if( result ) {
         await commonModule.mutations.setIsAuthorized( true )

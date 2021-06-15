@@ -38,7 +38,7 @@ export default class LoginFormInputView extends Vue {
 
   @Prop() private name!: InputName
   @Prop({ required: false }) private placeholder!: string
-  @Watch( 'value' )
+
 
   private isFocused = 'default'
   private focusCount = 0
@@ -133,7 +133,7 @@ export default class LoginFormInputView extends Vue {
   }
 
   // валидация  и изменение цвета бордера
-
+  @Watch( 'value' )
   private onValueChangedHandler() {
     commonModule.mutations.setIsIncorrectFormData( false )
     this.borderColorStyle['border-color'] =  this.value === ''  ? 'blue' : 'red'
