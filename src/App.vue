@@ -37,6 +37,7 @@ export default class App extends Vue {
   }
   private goToFinalPage(){
     commonModule.mutations.setIsModalWindowShowed( false )
+    commonModule.mutations.setIsTestingFinished( true )
     this.$router.push( '/final' )
   }
 }

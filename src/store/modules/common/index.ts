@@ -31,7 +31,7 @@ export class CommonState {
 
   public isIncorrectFormData = false
 
-  public isAuthorized = true
+  public isAuthorized = false
 
   public timeRemain = 5400
 

@@ -48,7 +48,7 @@ export default class LoginFormView extends Vue {
 
   private objNames = [
     { name: 'name', placeholder: 'Имя*' }, { name: 'lastName', placeholder: 'Фамилия*' },
-    { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram*' }
+    { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram*' },
   ]
 
   private user = commonModule.getters.user

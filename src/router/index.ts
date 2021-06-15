@@ -16,11 +16,18 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     beforeEnter: ( to, from, next ) => {
-      if( isStub === 'true' ){
-        next({ path: '/welcome' })
+      if( isStub === 'false' ){
+        if( commonModule.getters.isTestingFinished ){
+          next({ path: '/final' })
+        } else if( !commonModule.getters.isAuthorized ){
+          next({ path: '/login' })
+        } else {
+          next({ path: `/questions/${localStorage.task}` })
+        }
       } else {
-        next({ path: '/login' })
+        next({ path: '/welcome' })
       }
+
     },
   },
   {
@@ -33,11 +40,16 @@ const routes: Array<RouteConfig> = [
     name: 'RegistrationView',
     component: RegistrationView,
     beforeEnter: ( to, from, next ) => {
-      if( isStub === 'true' ){
-        next({ path: '/welcome' })
+      if( isStub === 'false' ) {
+        if( commonModule.getters.isTestingFinished ){
+          next({ path: '/final' })
+        } else {
+          next()
+        }
       } else {
-        next()
+        next({ path: '/welcome' })
       }
+
     },
   },
   {
@@ -45,8 +57,8 @@ const routes: Array<RouteConfig> = [
     name: 'TaskView',
     component: TaskView,
     beforeEnter: ( to, from, next ) => {
-      if( isStub === 'true' ){
-        next({ path: '/welcome' })
+      if( commonModule.getters.isTestingFinished ){
+        next({ path: '/final' })
       } else {
         next()
       }
@@ -60,7 +72,7 @@ const routes: Array<RouteConfig> = [
       if( isStub === 'false' ){
         if( !commonModule.getters.isAuthorized ){
           next({ path: '/login' })
-        } else {
+        }  else {
           next()
         }
       } else {
@@ -74,14 +86,6 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-})
-
-router.beforeEach( ( to, from, next ) => {
-  if( from.path === '/final' ){
-    next({ path: '/login' })
-  } else {
-    next()
-  }
 })
 
 

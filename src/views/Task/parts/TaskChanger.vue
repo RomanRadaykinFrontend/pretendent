@@ -28,6 +28,7 @@ export default class TaskChanger extends Vue{
   private changeTask( nextTask: number, previousTask: number ){
     if( nextTask !== previousTask ){
       sendAnswers( this.arrayOfValues )
+      localStorage.task = nextTask
       this.$router.push({
         name: 'TaskView', params: {
           id: ( nextTask ).toString(),

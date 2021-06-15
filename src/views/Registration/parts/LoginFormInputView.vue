@@ -6,26 +6,29 @@
       :placeholder = "placeholder"
       :name = "name"
       v-model = "value"
-      @input = "changeUserInfo([name, value])"
-      @focus = "isFocused = 'focus'; focusCount +=1"
+      @focus = "isFocused = 'focused'; focusCount +=1"
       @blur = "isFocused = 'blur'"
+      @input = "changeUserInfo([ name, value ])"
       :style = "borderColorStyle"
       :key="name"
     )
     .login-form-error(
-      v-if = " doValidate === 'empty' "
+      v-show = "doValidate === 'incorrectName'"
+    ) Только буквы русского алфавита
+    .login-form-error(
+      v-show = "doValidate === 'empty'"
       ) Это поле обязательно
     .login-form-error(
-      v-if = "doValidate === 'incorrectMail' "
+      v-show = "doValidate === 'incorrectMail'"
       ) Почта указана неверно
     .login-form-error(
-      v-if = "doValidate === 'incorrectTelegram'"
+      v-show = "doValidate === 'incorrectTelegram'"
       ) Формат: "@***"
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { regExpEmail, regExpTelegram } from '@/common/regexp/regexp'
+import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
 import { InputName } from '@/types/common'
 
@@ -33,12 +36,16 @@ import { InputName } from '@/types/common'
 
 export default class LoginFormInputView extends Vue {
 
+  @Prop() private name!: InputName
+  @Prop({ required: false }) private placeholder!: string
+  @Watch( 'value' )
 
-  public borderColorStyle = { 'border-color': 'rgb( 225, 225, 225 )' }
-
-  private value = ''
   private isFocused = 'default'
   private focusCount = 0
+
+  private borderColorStyle = { 'border-color': 'rgb( 225, 225, 225 )' }
+
+  private value = ''
 
   private changeUserInfo( data: [InputName, string]){
     commonModule.mutations.setUser( data )
@@ -47,34 +54,38 @@ export default class LoginFormInputView extends Vue {
     return commonModule.getters.isIncorrectFormData
   }
 
-
-  @Prop() private name!: InputName
-  @Prop({ required: false }) private placeholder!: string
-
+  // валидация и регулирование тултипа
   get doValidate() {
     if ( this.isIncorrectFormData ) {
       switch ( this.name ) {
       case 'name':
-        if( this.value === '' ){
+        if ( this.value === '' ) {
           return 'empty'
+        } else if( !regExpName.test( this.value ) ){
+          return 'incorrectName'
         } else {
           return false
         }
       case 'lastName':
-        if( this.value === '' ){
+        if ( this.value === '' ) {
           return 'empty'
+        } else if( !regExpName.test( this.value ) ){
+          return 'incorrectName'
         } else {
           return false
         }
       case 'email':
-        if( !regExpEmail.test( this.value ) ){
+        if ( this.value === '' ) {
+          return 'empty'
+        } else if( !regExpEmail.test( this.value ) ){
           return 'incorrectMail'
         } else {
           return false
         }
-
       case 'telegram':
-        if( !regExpTelegram.test( this.value ) ){
+        if ( this.value === '' ) {
+          return 'empty'
+        } else if( !regExpTelegram.test( this.value ) ){
           return 'incorrectTelegram'
         } else {
           return false
@@ -82,29 +93,36 @@ export default class LoginFormInputView extends Vue {
       }
       commonModule.mutations.setIsIncorrectFormData( false )
     }
-    if( this.isFocused === 'focus' && this.focusCount > 1 ){
+    if( this.focusCount >= 1 ){
       switch ( this.name ) {
       case 'name':
-        if( this.value === '' ){
+        if ( this.value === '' ) {
           return 'empty'
+        } else if( !regExpName.test( this.value ) ){
+          return 'incorrectName'
         } else {
           return false
         }
       case 'lastName':
-        if( this.value === '' ){
+        if ( this.value === '' ) {
           return 'empty'
+        } else if( !regExpName.test( this.value ) ){
+          return 'incorrectName'
         } else {
           return false
         }
       case 'email':
-        if( !regExpEmail.test( this.value ) ){
+        if ( this.value === '' ) {
+          return 'empty'
+        } else if( !regExpEmail.test( this.value ) ){
           return 'incorrectMail'
         } else {
           return false
         }
-
       case 'telegram':
-        if( !regExpTelegram.test( this.value ) ){
+        if ( this.value === '' ) {
+          return 'empty'
+        } else if( !regExpTelegram.test( this.value ) ){
           return 'incorrectTelegram'
         } else {
           return false
@@ -114,21 +132,20 @@ export default class LoginFormInputView extends Vue {
     return false
   }
 
+  // валидация  и изменение цвета бордера
 
-  // Когда уходит фокус с инпута, запускается валидация
-  @Watch( 'isFocused' )
-  public onValueChangedHandler() {
+  private onValueChangedHandler() {
     commonModule.mutations.setIsIncorrectFormData( false )
-    this.borderColorStyle['border-color'] = this.value === '' ? 'red' : 'blue'
+    this.borderColorStyle['border-color'] =  this.value === ''  ? 'blue' : 'red'
     switch ( this.name ) {
     case 'email':
-      this.borderColorStyle['border-color'] = !( this.value === '' ) ? 'red' : 'blue'
       this.borderColorStyle['border-color'] = regExpEmail.test( this.value ) ? 'blue' : 'red'
       break
     case 'telegram':
-      this.borderColorStyle['border-color'] = !( this.value === '' ) ? 'red' : 'blue'
       this.borderColorStyle['border-color'] = regExpTelegram.test( this.value ) ? 'blue' : 'red'
       break
+    default:
+      this.borderColorStyle['border-color'] = regExpName.test( this.value ) ? 'blue' : 'red'
     }
   }
 }
@@ -162,8 +179,10 @@ export default class LoginFormInputView extends Vue {
     border: 1px solid $secondary-color
     border-radius: 5px
     position: absolute
-    right: -180px
-    padding: 15px
+    left: 110%
+    width: 140px
+    padding: 10px 15px
+    bottom: 5px
 
     &:before
       content: ''
@@ -175,6 +194,7 @@ export default class LoginFormInputView extends Vue {
       background: #FFF
       transform: rotate( -45deg )
       left: -7px
+      top: 35%
 
 @media screen and (max-width: 1700px)
   .login-form-input-wrapper
@@ -182,8 +202,10 @@ export default class LoginFormInputView extends Vue {
       color: red
       padding: 0
       border: none
-      right: 0
       bottom: -15px
+      width: 100%
+      text-align: end
+      left: 0
       &:before
         display: none
 </style>

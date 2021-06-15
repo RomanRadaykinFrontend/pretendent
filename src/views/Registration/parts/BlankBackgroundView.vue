@@ -4,14 +4,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { commonModule } from '@/store'
 
 @Component
-export default class BlankBackgroundView extends Vue {
-  get isAuthorized(){
-    return commonModule.getters.isAuthorized
-  }
-}
+export default class BlankBackgroundView extends Vue {}
 
 </script>
 

@@ -3,6 +3,7 @@
     .task-container
       .task-question
         .task-title {{ actualQuestion }}
+
       .task-answers
         radio-view(
           ordinalNumber = "taskNumber"
@@ -33,6 +34,8 @@ import RadioView from './parts/RadioView.vue'
 import { questions } from '@/common/questions'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
 import { commonModule } from '@/store'
+import { Base64 } from 'js-base64'
+
 
 @Component({
   components: {
@@ -45,7 +48,7 @@ export default class TaskView extends Vue {
   private taskNumber = +this.$route.params.id
   private countQuestions = this.questions.length
   private actualTask = this.questions[this.taskNumber - 1]
-  private actualQuestion = this.actualTask.question
+  private actualQuestion = Base64.decode( this.actualTask.question )
   private actualAnswers = this.actualTask.answers
 
   get timeRemain(){
@@ -61,7 +64,6 @@ export default class TaskView extends Vue {
     } else {
       return Math.floor( this.timeRemain / 60 ).toString()
     }
-
   }
 
   get seconds() {
@@ -71,7 +73,6 @@ export default class TaskView extends Vue {
   get hours() {
     return Math.floor( this.timeRemain / 3600 ).toString()
   }
-
 
   private showModalWindow(){
     commonModule.mutations.setIsModalWindowShowed( true )

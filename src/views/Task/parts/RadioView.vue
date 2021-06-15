@@ -71,8 +71,9 @@ export default class RadioView extends Vue {
   // хелпер по переключению страниц
   private changePageHandler() {
     if ( this.totalCount === +this.$route.params.id ) {
-      this.$router.push( '/final' )
+      commonModule.mutations.setIsModalWindowShowed( true )
     } else {
+      localStorage.task = 1 + this.questionNumber
       this.$router.push({
         name: 'TaskView', params: {
           id: ( 1 + this.questionNumber ).toString(),
