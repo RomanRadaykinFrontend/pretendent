@@ -9,10 +9,18 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
+import { commonModule } from '@/store'
 
 @Component
 export default class FinalPageView extends Vue {
-
+  private mounted(){
+    localStorage.setItem( 'answers', '' )
+    localStorage.setItem( 'timeStart', '' )
+    localStorage.setItem( 'doneTaskList', '' )
+    localStorage.setItem( 'userGUID', '' )
+    commonModule.mutations.setDoneTaskListLocalStorage([])
+    commonModule.mutations.setIsModalWindowShowed( false )
+  }
 }
 
 </script>

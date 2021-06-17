@@ -17,9 +17,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     beforeEnter: ( to, from, next ) => {
       if( isStub === 'false' ){
-        if( commonModule.getters.isTestingFinished ){
-          next({ path: '/final' })
-        } else if( !commonModule.getters.isAuthorized ){
+        if( localStorage.getItem( 'isAuthorized' ) === 'true' ){
           next({ path: '/login' })
         } else {
           next({ path: `/questions/${localStorage.task}` })
@@ -41,11 +39,11 @@ const routes: Array<RouteConfig> = [
     component: RegistrationView,
     beforeEnter: ( to, from, next ) => {
       if( isStub === 'false' ) {
-        if( commonModule.getters.isTestingFinished ){
-          next({ path: '/final' })
-        } else {
+        if( localStorage.getItem( 'isAuthorized' ) === 'true' ){
+          commonModule.mutations.setIsModalWindowShowed( true )
           next()
         }
+        next()
       } else {
         next({ path: '/welcome' })
       }
@@ -57,10 +55,14 @@ const routes: Array<RouteConfig> = [
     name: 'TaskView',
     component: TaskView,
     beforeEnter: ( to, from, next ) => {
-      if( commonModule.getters.isTestingFinished ){
-        next({ path: '/final' })
+      if( isStub === 'false' ){
+        if ( localStorage.getItem( 'isAuthorized' ) === 'false' ){
+          next( '/login' )
+        } else {
+          next()
+        }
       } else {
-        next()
+        next({ path: '/welcome' })
       }
     },
   },
@@ -73,6 +75,8 @@ const routes: Array<RouteConfig> = [
         if( !commonModule.getters.isAuthorized ){
           next({ path: '/login' })
         }  else {
+          localStorage.setItem( 'isAuthorized', 'false' )
+          localStorage.removeItem( 'timeRemain' )
           next()
         }
       } else {

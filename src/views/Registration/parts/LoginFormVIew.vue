@@ -72,9 +72,12 @@ export default class LoginFormView extends Vue {
       && isCorrectTelegram && isCorrectLastName && isCorrectName && !!this.user.telegram ) {
       const result = await commonModule.actions.fetchUser({ user: this.user })
       if( result ) {
+        await commonModule.mutations.setTimeRemainLocalStorage( 5400 )
+        localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
         await commonModule.mutations.setIsAuthorized( true )
         await commonModule.mutations.setIsAccountExist( false )
         await commonModule.mutations.setTimeRemain()
+        await commonModule.mutations.setIsIncorrectFormData( true )
         await this.$router.push( '/questions/1' )
       } else {
         await commonModule.mutations.setIsAccountExist( true )
@@ -82,6 +85,7 @@ export default class LoginFormView extends Vue {
     } else {
       commonModule.mutations.setIsIncorrectFormData( true )
     }
+    localStorage.userGUID = commonModule.getters.answers.userGUID
   }
 
   private askToSendMail( event: any ){

@@ -2,6 +2,11 @@ import { Getters } from 'vuex-smart-module'
 import { CommonState } from './index'
 
 export class CommonGetters extends Getters<CommonState> {
+
+  get commonState(){
+    return this.state
+  }
+
   get user() {
     return this.state.user
   }
@@ -17,9 +22,6 @@ export class CommonGetters extends Getters<CommonState> {
     return this.state.doneTaskList
   }
 
-  get isTestingFinished(){
-    return this.state.isTestingFinished
-  }
   get isModalWindowShowed(){
     return this.state.isModalWindowShowed
   }
@@ -39,4 +41,5 @@ export class CommonGetters extends Getters<CommonState> {
   get isAccountExist(){
     return this.state.isAccountExist
   }
+
 }

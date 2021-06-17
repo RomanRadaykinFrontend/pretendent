@@ -107,6 +107,8 @@ export default class RadioView extends Vue {
 
   .buttons-block
     display: flex
+    .button
+      cursor: pointer
 
 @media screen and (max-width: 320px)
       .button

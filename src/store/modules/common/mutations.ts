@@ -25,6 +25,11 @@ export class CommonMutations extends Mutations<CommonState> {
     } else {
       this.state.answers.answers = [ ...this.state.answers.answers, { question, answer }]
     }
+    localStorage.setItem( 'answers', JSON.stringify( this.state.answers.answers ) )
+  }
+
+  public setAnswersFromStorage( data: Array<Answer> ){
+    this.state.answers.answers = [ ...data ]
   }
 
   public setCurrentAnswer( value: CurrentAnswer ){
@@ -32,6 +37,7 @@ export class CommonMutations extends Mutations<CommonState> {
   }
 
   public setDoneTaskList( object: DoneTaskList ){
+
     const { taskNumber, value } = object
     const needElemIndex = this.state.doneTaskList.findIndex( item => {
       if( item.taskNumber === taskNumber ){
@@ -40,16 +46,19 @@ export class CommonMutations extends Mutations<CommonState> {
     })
     if( needElemIndex !== -1 ){
       this.state.doneTaskList[needElemIndex].value = value
+      this.state.doneTaskList = [ ...this.state.doneTaskList ]
     } else {
       this.state.doneTaskList = [ ...this.state.doneTaskList, { taskNumber, value }]
     }
+    localStorage.setItem( 'doneTaskList', JSON.stringify( this.state.doneTaskList ) )
+  }
+
+  public setDoneTaskListLocalStorage( data: Array<DoneTaskList> ){
+    this.state.doneTaskList = [ ...data ]
   }
 
   public setIsModalWindowShowed( value: boolean ){
     this.state.isModalWindowShowed = value
-  }
-  public setIsTestingFinished( value: boolean ){
-    this.state.isTestingFinished = value
   }
 
   public setIsIncorrectFormData( value: boolean ){
@@ -58,19 +67,24 @@ export class CommonMutations extends Mutations<CommonState> {
 
   public setIsAuthorized( value: boolean ){
     this.state.isAuthorized = value
+    localStorage.isAuthorized = value
   }
 
   public setTimeRemain(){
     const timer = setInterval( () => {
       this.state.timeRemain -= 1
-      if( this.state.timeRemain === 0 ){
-        clearInterval( timer )
-      }
     }, 1000 )
   }
-
+  public setTimeRemainLocalStorage( value: number ){
+    this.state.timeRemain = value
+  }
 
   public setIsAccountExist( value: boolean ){
     this.state.isAccountExist = value
   }
+
+  public setTimeStart( value: number ){
+    this.state.timeStart = value
+  }
+
 }

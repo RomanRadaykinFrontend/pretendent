@@ -1,87 +1,52 @@
 <template lang="pug">
   .task-wrapper
-    .task-container
-      .task-question
-        .task-title {{ actualQuestion }}
-
-      .task-answers
-        radio-view(
-          ordinalNumber = "taskNumber"
-          :array-of-values = "actualAnswers"
-          :questionNumber = "taskNumber"
-          :totalCount = "countQuestions"
-        )
-    .task-info
-      task-changer(
-        :array-of-values = "actualAnswers"
-      )
-      .task-info__control-panel
-        .task-ingo__time-remain
-          span Осталось &nbsp
-            span(
-              :style = "timeRemain <= 20 && {color: 'red'}"
-            ) {{ hours }}:{{ /^[0-9]$/.test(minutes) ? '0' + minutes : minutes }}:
-          | {{ /^[0-9]$/.test(seconds) ? '0' + seconds : seconds }}
-        button.task-info__test-end(
-          @click.prevent="showModalWindow"
-        ) Закончить тест
+    task-body
+    task-info
 </template>
 
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
 import RadioView from './parts/RadioView.vue'
-import { questions } from '@/common/questions'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
-import { commonModule } from '@/store'
-import { Base64 } from 'js-base64'
-
+import TaskCode from '@/views/Task/parts/TaskCode.vue'
+import TaskInfo from '@/views/Task/parts/TaskInfo.vue'
+import TaskBody from '@/views/Task/parts/TaskBody.vue'
 
 @Component({
   components: {
     TaskChanger,
     RadioView,
+    TaskCode,
+    TaskInfo,
+    TaskBody,
   },
 })
-export default class TaskView extends Vue {
-  private questions = questions
-  private taskNumber = +this.$route.params.id
-  private countQuestions = this.questions.length
-  private actualTask = this.questions[this.taskNumber - 1]
-  private actualQuestion = Base64.decode( this.actualTask.question )
-  private actualAnswers = this.actualTask.answers
-
-  get timeRemain(){
-    if( commonModule.getters.timeRemain === 0 ){
-      commonModule.mutations.setIsTestingFinished( true )
-      this.$router.push( '/final' )
-    }
-    return commonModule.getters.timeRemain
-  }
-
-  get minutes() {
-    if( this.timeRemain >= 3600 ){
-      return Math.floor( ( this.timeRemain - 3600 ) / 60 ).toString()
-    } else {
-      return Math.floor( this.timeRemain / 60 ).toString()
-    }
-  }
-
-  get seconds() {
-    return Math.floor( this.timeRemain % 60 ).toString()
-  }
-
-  get hours() {
-    return Math.floor( this.timeRemain / 3600 ).toString()
-  }
-
-  private showModalWindow(){
-    commonModule.mutations.setIsModalWindowShowed( true )
-  }
-
-}
+export default class TaskView extends Vue {}
 
 </script>
 
-<style scoped lang="sass" src="./TaskView.sass">
+<style scoped lang="sass">
+@import '../../common/assets/common'
+.task-wrapper
+  width: 100%
+  height: 100%
+  background: url("./../../common/images/task-background.png")
+  box-sizing: border-box
+  padding: 20px
+  position: relative
+  display: flex
+  justify-content: center
+  flex-direction: column
+  align-items: center
+  font-family: Roboto, serif
+
+@media screen and (max-width: 768px)
+  .task-wrapper
+    width: 730px
+    height: auto
+    padding: 0 10px
+@media screen and (max-width: 320px)
+  .task-wrapper
+    width: 300px
 </style>

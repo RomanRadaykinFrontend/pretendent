@@ -27,13 +27,14 @@ export class CommonState {
   public doneTaskList = [] as Array<DoneTaskList>
 
   public isModalWindowShowed = false
-  public isTestingFinished = false
 
   public isIncorrectFormData = false
 
   public isAuthorized = false
 
-  public timeRemain = 5400
+  public timeRemain = 0
+
+  public timeStart = 0
 
   public isAccountExist = false
 }

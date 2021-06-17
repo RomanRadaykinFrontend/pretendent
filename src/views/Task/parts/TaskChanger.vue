@@ -24,9 +24,7 @@ export default class TaskChanger extends Vue{
 
   private questions = questions
 
-
   private changeTask( nextTask: number, previousTask: number ){
-    debugger
     if( nextTask !== previousTask ){
       sendAnswers( this.arrayOfValues )
       localStorage.task = nextTask

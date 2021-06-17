@@ -12,8 +12,9 @@
  * Do not edit the class manually.
  */
 
-
-export const BASE_PATH = window.API_URL.replace(/\/+$/, "");
+//
+//export const BASE_PATH = window.API_URL.replace(/\/+$/, "");
+export const BASE_PATH = 'http://192.168.49.111:8080/api/v1/'.replace(/\/+$/, "");
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 
