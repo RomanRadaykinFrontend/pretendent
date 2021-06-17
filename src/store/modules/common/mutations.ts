@@ -74,6 +74,7 @@ export class CommonMutations extends Mutations<CommonState> {
     const timer = setInterval( () => {
       this.state.timeRemain -= 1
     }, 1000 )
+    this.state.timer = timer
   }
   public setTimeRemainLocalStorage( value: number ){
     this.state.timeRemain = value
@@ -87,4 +88,7 @@ export class CommonMutations extends Mutations<CommonState> {
     this.state.timeStart = value
   }
 
+  public setTimer( value: number ){
+    clearInterval( value )
+  }
 }

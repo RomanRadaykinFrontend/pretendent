@@ -14,12 +14,13 @@ import { commonModule } from '@/store'
 @Component
 export default class FinalPageView extends Vue {
   private mounted(){
-    localStorage.setItem( 'answers', '' )
+    localStorage.setItem( 'answers', JSON.stringify([]) )
     localStorage.setItem( 'timeStart', '' )
-    localStorage.setItem( 'doneTaskList', '' )
+    localStorage.setItem( 'doneTaskList', JSON.stringify([]) )
     localStorage.setItem( 'userGUID', '' )
+    localStorage.setItem( 'isAuthorized', 'false' )
     commonModule.mutations.setDoneTaskListLocalStorage([])
-    commonModule.mutations.setIsModalWindowShowed( false )
+    commonModule.mutations.setTimer( commonModule.getters.timer )
   }
 }
 

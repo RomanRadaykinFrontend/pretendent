@@ -37,6 +37,9 @@ export class CommonState {
   public timeStart = 0
 
   public isAccountExist = false
+
+  public timer = 0
+
 }
 
 export const commonModule = new Module({

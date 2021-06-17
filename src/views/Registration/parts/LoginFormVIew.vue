@@ -76,9 +76,9 @@ export default class LoginFormView extends Vue {
         localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
         await commonModule.mutations.setIsAuthorized( true )
         await commonModule.mutations.setIsAccountExist( false )
-        await commonModule.mutations.setTimeRemain()
         await commonModule.mutations.setIsIncorrectFormData( true )
         await this.$router.push( '/questions/1' )
+        await commonModule.mutations.setTimeRemain()
       } else {
         await commonModule.mutations.setIsAccountExist( true )
       }
@@ -149,6 +149,7 @@ export default class LoginFormView extends Vue {
       text-decoration: underline
       .__link
         color: black
+        cursor: pointer
         &:visited
           color: black
 

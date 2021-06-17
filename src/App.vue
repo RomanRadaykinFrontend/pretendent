@@ -1,5 +1,7 @@
 <template lang="pug">
-  #app
+  #app(
+    :key = "uniqueId"
+  )
     router-view(:key="$route.path")
     modal-window(
       v-if="isShowed"
@@ -15,6 +17,7 @@ import BlankBackgroundView from './views/Registration/parts/BlankBackgroundView.
 import TaskView from './views/Task/TaskView.vue'
 import FinalPageView from './views/FinalPage/FinalPageView.vue'
 import ModalWindow from '@/components/AppModalWindow.vue'
+import { v4 as uuidv4 } from 'uuid'
 import { commonModule } from '@/store'
 
 @Component({
@@ -30,18 +33,23 @@ import { commonModule } from '@/store'
 
 export default class App extends Vue {
   // вызов модального окна
+
+  get uniqueId(){
+    return uuidv4()
+  }
+
   get isShowed(){
     return commonModule.getters.isModalWindowShowed
   }
 
   private created(){
     if( localStorage.getItem( 'doneTaskList' ) ) {
-      const value = JSON.parse( localStorage.getItem( 'doneTaskList' ) || '' )
+      const value = JSON.parse( localStorage?.getItem( 'doneTaskList' ) || '' )
       commonModule.mutations.setDoneTaskListLocalStorage( value )
     }
-
     if( localStorage.getItem( 'isAuthorized' ) ){
-      const answers = JSON.parse( localStorage.getItem( 'answers' ) || '' )
+      const answerFromStorage = localStorage?.getItem( 'answers' )
+      const answers = answerFromStorage ? JSON.parse( answerFromStorage ) : []
       commonModule.mutations.setAnswersFromStorage( answers )
       commonModule.mutations.setUserGUID( localStorage.getItem( 'userGUID' ) || '' )
 
