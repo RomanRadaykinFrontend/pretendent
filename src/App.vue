@@ -47,7 +47,7 @@ export default class App extends Vue {
       const value = JSON.parse( localStorage?.getItem( 'doneTaskList' ) || '' )
       commonModule.mutations.setDoneTaskListLocalStorage( value )
     }
-    if( localStorage.getItem( 'isAuthorized' ) ){
+    if( localStorage.getItem( 'isAuthorized' ) === 'true' ){
       const answerFromStorage = localStorage?.getItem( 'answers' )
       const answers = answerFromStorage ? JSON.parse( answerFromStorage ) : []
       commonModule.mutations.setAnswersFromStorage( answers )

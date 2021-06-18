@@ -18,7 +18,7 @@
           v-if="isAccountExist"
         )
           InfoLogo.__logo
-          p.__text Данные email и telegram уже зарегистрированы, введите другие данные
+          p.__text Данные email или telegram уже зарегистрированы, введите другие данные
         app-button(name-of-button = "registration") Начать тестирование
     .contacts
       span Связаться с нами&nbsp

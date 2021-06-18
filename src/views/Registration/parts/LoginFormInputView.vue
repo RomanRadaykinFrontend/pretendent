@@ -14,7 +14,7 @@
     )
     .login-form-error(
       v-show = "doValidate === 'incorrectName'"
-    ) Только буквы русского алфавита
+    ) Только буквы русского алфавита, минимум 2 символа
     .login-form-error(
       v-show = "doValidate === 'empty'"
       ) Это поле обязательно
@@ -23,7 +23,7 @@
       ) Почта указана неверно
     .login-form-error(
       v-show = "doValidate === 'incorrectTelegram'"
-      ) Формат: "@***"
+      ) Формат: "@***", только латинские буквы
 </template>
 
 <script lang="ts">
@@ -46,12 +46,12 @@ export default class LoginFormInputView extends Vue {
   private value = ''
 
   private changeUserInfo( data: [InputName, string]){
-    if( this.name === 'telegram' ){
-      const lastLetter = this.value[this.value.length - 1]
-      this.value = regExpTelegramOnChange.test( lastLetter ) ?
-        this.value :
-        this.value.split( '' ).splice( 0, this.value.length - 1 ).join( '' )
-    }
+    // if( this.name === 'telegram' ){
+    //   const lastLetter = this.value[this.value.length - 1]
+    //   this.value = regExpTelegramOnChange.test( lastLetter ) ?
+    //     this.value :
+    //     this.value.split( '' ).splice( 0, this.value.length - 1 ).join( '' )
+    // }
     commonModule.mutations.setUser( data )
   }
 
@@ -141,11 +141,13 @@ export default class LoginFormInputView extends Vue {
   @Watch( 'value' )
   private onValueChangedHandler() {
     commonModule.mutations.setIsIncorrectFormData( false )
-    this.borderColorStyle['border-color'] =  this.value === ''  ? 'blue' : 'red'
+    // this.borderColorStyle['border-color'] =  this.value === ''  ? 'blue' : 'red'
     switch ( this.name ) {
-    case 'email':
-      this.borderColorStyle['border-color'] = regExpEmail.test( this.value ) ? 'blue' : 'red'
+    case 'email': {
+      const val = regExpEmail.test( this.value )
+      this.borderColorStyle['border-color'] = val ? 'blue' : 'red'
       break
+    }
     case 'telegram':
       this.borderColorStyle['border-color'] = regExpTelegram.test( this.value ) ? 'blue' : 'red'
       break

@@ -51,6 +51,7 @@ export default class TaskBody extends Vue {
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08)
   border-radius: 8px
   display: flex
+  overflow: hidden
 
   .task-question
     width: 50%

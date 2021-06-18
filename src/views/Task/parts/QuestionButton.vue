@@ -1,7 +1,7 @@
 <template lang="pug">
     button.app-question-button(
     @click.prevent = "$emit('change-question', $route.params.id)"
-    :class = "styleDoneIsApplied ? 'done' : ''"
+    :style = " doneClass "
     ) {{ questionNumber }}
 </template>
 
@@ -15,6 +15,23 @@ export default class QuestionButton extends Vue{
   private doneTaskList = commonModule.getters.doneTaskList
   private doneTasks = this.doneTaskList.map( item => item.taskNumber )
   private styleDoneIsApplied = this.doneTasks.includes( this.questionNumber )
+
+  get doneClass(){
+    if( this.styleDoneIsApplied && +this.$route.params.id === this.questionNumber ){
+      return {
+        border: '3px solid black',
+        background: '#1A8BDB',
+        color: 'white',
+      }
+    } else if( this.styleDoneIsApplied ) {
+      return {
+        background: '#1A8BDB',
+        color: 'white',
+      }
+    } else {
+      return {}
+    }
+  }
 
 }
 </script>
@@ -32,9 +49,6 @@ export default class QuestionButton extends Vue{
   &:hover
     cursor: pointer
     background: #D2D2D2
-  &.done
-    background: #1A8BDB
-    color: white
 @media screen and (max-width: 320px)
   .app-question-button
     width: 47px

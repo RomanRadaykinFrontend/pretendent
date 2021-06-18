@@ -3,7 +3,7 @@
     app-question-button(
       v-for = "(q,index) in questions.length"
       :key = "index"
-      :style = "+$route.params.id === q ? {border: '3px solid #1A8BDB'} : ''"
+      :class = "+$route.params.id === q ? 'task-focus' : ''"
       @change-question = "changeTask(q, $event)"
       :question-number = "q"
     ) {{ q }}
@@ -44,6 +44,9 @@ export default class TaskChanger extends Vue{
   height: 72px
   display: flex
   flex-wrap: wrap
+
+  .task-focus
+    border: 3px solid #1A8BDB
 
 @media screen and (max-width: 768px)
   .task-changer__wrapper
