@@ -4,7 +4,7 @@
       v-for = "(value, index) in arrayOfValues"
       :key = "value"
     )
-      div
+      .radio-button-wrapper
         input.radio-button(
           type = "radio"
           :id = "index + 1"
@@ -111,8 +111,10 @@ export default class RadioView extends Vue {
       cursor: pointer
 
 @media screen and (max-width: 320px)
-      .button
-        width: 100%
-        button
-          width: 100%
+  .radio-button-wrapper
+    padding-left: 5px
+  .button
+    width: 100%
+    button
+      width: 100%
 </style>

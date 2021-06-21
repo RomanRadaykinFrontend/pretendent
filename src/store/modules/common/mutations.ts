@@ -71,10 +71,9 @@ export class CommonMutations extends Mutations<CommonState> {
   }
 
   public setTimeRemain(){
-    const timer = setInterval( () => {
+    this.state.timer = setInterval( () => {
       this.state.timeRemain -= 1
     }, 1000 )
-    this.state.timer = timer
   }
   public setTimeRemainLocalStorage( value: number ){
     this.state.timeRemain = value

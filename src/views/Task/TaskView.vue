@@ -48,5 +48,5 @@ export default class TaskView extends Vue {}
     padding: 0 10px
 @media screen and (max-width: 320px)
   .task-wrapper
-    width: 300px
+    width: 320px
 </style>

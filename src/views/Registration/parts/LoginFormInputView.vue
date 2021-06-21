@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { regExpEmail, regExpTelegram, regExpName, regExpTelegramOnChange } from '@/common/regexp/regexp'
+import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
 import { InputName } from '@/types/common'
 
@@ -46,12 +46,6 @@ export default class LoginFormInputView extends Vue {
   private value = ''
 
   private changeUserInfo( data: [InputName, string]){
-    // if( this.name === 'telegram' ){
-    //   const lastLetter = this.value[this.value.length - 1]
-    //   this.value = regExpTelegramOnChange.test( lastLetter ) ?
-    //     this.value :
-    //     this.value.split( '' ).splice( 0, this.value.length - 1 ).join( '' )
-    // }
     commonModule.mutations.setUser( data )
   }
 
