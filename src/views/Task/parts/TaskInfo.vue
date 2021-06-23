@@ -1,10 +1,10 @@
 <template lang="pug">
   .task-info
-    task-changer(
+    TaskChanger(
       :array-of-values = "actualAnswers"
     )
     .task-info__control-panel
-      .task-ingo__time-remain
+      .task-info__time-remain
         span Осталось &nbsp
           span(
             :style = "timeRemain <= 20 && {color: 'red'}"
@@ -69,34 +69,34 @@ export default class TaskInfo extends Vue{
   width: 1100px
   padding: 20px 20px
   box-sizing: border-box
-  .task-info__control-panel
+  &__control-panel
     font-size: 16px
     display: flex
     flex-direction: column
     align-items: flex-end
-    .task-ingo__time-remain
-      margin-top: 13px
-    .task-info__test-end
-      margin-top: 18px
-      background: none
-      color: $primary-color
-      border: none
-      outline: none
-      font-size: 16px
-      padding: 0
-      cursor: pointer
+  &__time-remain
+    margin-top: 13px
+  &__test-end
+    margin-top: 18px
+    background: none
+    color: $primary-color
+    border: none
+    outline: none
+    font-size: 16px
+    padding: 0
+    cursor: pointer
 
 @media screen and (max-width: 768px)
-    .task-info
-      flex-direction: column-reverse
-      width: 730px
-      height: auto
-      margin-top: 30px
-      padding: 0
-      .task-info__control-panel
-        flex-direction: row
-        justify-content: space-evenly
+  .task-info
+    flex-direction: column-reverse
+    width: 730px
+    height: auto
+    margin-top: 30px
+    padding: 0
+    &__control-panel
+      flex-direction: row
+      justify-content: space-evenly
 @media screen and (max-width: 320px)
-    .task-info
-      width: 300px
+  .task-info
+    width: 300px
 </style>

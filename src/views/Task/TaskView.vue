@@ -1,23 +1,17 @@
 <template lang="pug">
   .task-wrapper
-    task-body
-    task-info
+    TaskBody
+    TaskInfo
 </template>
 
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
-import RadioView from './parts/RadioView.vue'
-import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
-import TaskCode from '@/views/Task/parts/TaskCode.vue'
 import TaskInfo from '@/views/Task/parts/TaskInfo.vue'
 import TaskBody from '@/views/Task/parts/TaskBody.vue'
 
 @Component({
   components: {
-    TaskChanger,
-    RadioView,
-    TaskCode,
     TaskInfo,
     TaskBody,
   },

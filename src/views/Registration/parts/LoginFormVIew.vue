@@ -1,31 +1,30 @@
 <template lang="pug">
-  .login-form-wrapper
-    .title-wrapper
+  .login-form-view
+    .login-form-view__title
       span Привет, начнем?
-    .description-wrapper
-      span.description {{ `Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
+    .login-form-view__description-wrapper
+      span.login-form-view__description {{ `Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
         | нам оценить ваши знания, а вам проверить свои.
         | \n На все вопросы у вас будет 1 час 30 минут, удачи` }}!
-    .login-form
-      form(@submit.prevent="onSubmitHandler")
-        login-form-input-view(
-          v-for = "(item, index) in objNames"
-          :key= "item.index"
-          :name = "item.name"
-          :placeholder = "item.placeholder"
-        )
-        .account-exist( v-show = "isAccountExist" )
-          InfoLogo.__logo
-          p.text Данные email или telegram уже зарегистрированы, введите другие данные
-        .account-exist( v-show = "isFetchedError" )
-          InfoLogo.__logo
-          p.text Что-то пошло не так, повторите попытку позже.
-        app-button(name-of-button = "registration") Начать тестирование
-    .contacts
-      span Связаться с нами&nbsp
-        span.contacts-email
-          a.link(
 
+    form.login-form-view__login-form(@submit.prevent="onSubmitHandler")
+      LoginFormInputView(
+        v-for = "( item ) in objNames"
+        :key= "item.index"
+        :name = "item.name"
+        :placeholder = "item.placeholder"
+      )
+      .login-form-view__account-exist( v-show = "isAccountExist" )
+        InfoLogo.login-form-view__logo
+        p.login-form-view__text Данные email или telegram уже зарегистрированы, введите другие данные
+      .login-form-view__account-exist( v-show = "isFetchedError" )
+        InfoLogo.login-form-view__logo
+        p.login-form-view__text Что-то пошло не так, повторите попытку позже.
+      AppButton( name-of-button = "registration" ) Начать тестирование
+    .login-form-view__contacts
+      span Связаться с нами&nbsp
+        span.login-form-view__contacts-email
+          a.login-form-view__link(
             @click = "askToSendMail"
           ) ekorotkaia@stc-spb.ru
 </template>
@@ -125,67 +124,67 @@ export default class LoginFormView extends Vue {
 
 <style scoped lang="sass">
 @import '../../../common/assets/common'
-.login-form-wrapper
+.login-form-view
   width: 57%
   height: 100%
   display: flex
   flex-direction: column
   justify-content: center
 
-  .login-form
-    form
-      display: flex
-      flex-direction: column
-      align-items: flex-start
+  &__login-form
+    display: flex
+    flex-direction: column
+    align-items: flex-start
 
-  .title-wrapper
+  &__title
     font: $header-text-style
     padding: 14px 0
 
-  .description-wrapper
+  &__description-wrapper
     padding-right: 30px
     font: $main-text-style
     line-height: 1.5
 
-  .account-exist
+  &__account-exist
     display: flex
     font-size: 14px
     font-family: Roboto, serif
     align-items: center
     width: 70%
     justify-content: space-between
-    .logo
-      width: 16px
-    .text
-      color: #757575
-      width: 90%
+  &__logo
+    width: 16px
 
-  .contacts
+  &__text
+    color: #757575
+    width: 90%
+
+  &__contacts
     position: absolute
     bottom: 0
     padding-bottom: 10px
     font: $main-text-style
 
-    .contacts-email
-      text-decoration: underline
-      .link
-        color: black
-        cursor: pointer
-        &:visited
-          color: black
+  &__contacts-email
+    text-decoration: underline
+  &__link
+    color: black
+    cursor: pointer
+    &:visited
+      color: black
 
 @media screen and (max-width: 1400px)
-  .login-form-wrapper
+  .login-form-view
     width: 65%
 
 @media screen and (max-width: 1200px)
-  .login-form-wrapper
+  .login-form-view
     width: 100%
     margin-top: 100px
     height: auto
     justify-content: flex-start
     position: relative
-    .contacts
+    &__contacts
       bottom: -100px
       padding: 30px 0
 </style>

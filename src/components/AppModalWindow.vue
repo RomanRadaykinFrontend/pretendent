@@ -1,14 +1,14 @@
 <template lang="pug">
   .modal-window
-    .text-message
-      .text
+    .modal-window__text-message
+      .modal-window__text
         span Закончить тест и отправить результаты?
-      .buttons
-        button.button.secondary(
+      .modal-window__buttons
+        button.modal-window__button.modal-window__secondary(
           :is-primary = "false"
           @click.prevent="$emit('close-modal')"
         ) Отмена
-        button.button.primary(
+        button.modal-window__button.modal-window__primary(
           @click.prevent="$emit('end-test')"
         ) Закончить
 </template>
@@ -36,7 +36,7 @@ export default class AppModalWindow extends Vue {
   justify-content: center
   align-items: center
 
-  .text-message
+  &__text-message
     width: auto
     left: 591px
     top: 410px
@@ -44,35 +44,35 @@ export default class AppModalWindow extends Vue {
     padding: 45px
     background: white
 
-    .text
-      font-family: Jost, serif
-      color: black
-      font-weight: 500
-      font-size: 36px
-      text-align: end
-      align-self: self-start
+  &__text
+    font-family: Jost, serif
+    color: black
+    font-weight: 500
+    font-size: 36px
+    text-align: end
+    align-self: self-start
 
-    .buttons
-      display: flex
-      justify-content: flex-end
+  &__buttons
+    display: flex
+    justify-content: flex-end
 
-      .button
-        border: none
-        height: 40px
-        padding: 3px 20px
-        margin-top: 30px
-        border-radius: 5px
-        font-size: 16px
-        cursor: pointer
-        font: $main-text-style
+  &__button
+    border: none
+    height: 40px
+    padding: 3px 20px
+    margin-top: 30px
+    border-radius: 5px
+    font-size: 16px
+    cursor: pointer
+    font: $main-text-style
 
-      .secondary
-        margin-right: 10px
-        background-color: white
-        color: $primary-color
-        border: 1px solid $primary-color
+  &__secondary
+    margin-right: 10px
+    background-color: white
+    color: $primary-color
+    border: 1px solid $primary-color
 
-      .primary
-        background-color: $primary-color
-        color: white
+  &__primary
+    background-color: $primary-color
+    color: white
 </style>

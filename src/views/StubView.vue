@@ -1,10 +1,10 @@
 <template lang="pug">
-  .welcome-page__wrapper
-    .__text-container
-      .__content
-        .__title
+  .stub-view
+    .stub-view__text-container
+      .stub-view__content
+        .stub-view__title
           span Бесплатная школа по обучению языку программирования С++
-        .__description
+        .stub-view__description
           p Компания Специальный Технологический Центр открывает набор на обучение программированию на С++.
           p Сейчас у тебя есть возможность записаться на курс и пройти отборочное тестирование одним из первых!
           p Курс начнется в сентябре и продлится 2 месяца, после окончания курса ты получишь сертификат.
@@ -15,7 +15,7 @@
         //    type = "text"
         //  )
         //  app-button.__button Оставить заявку
-    .__image-container
+    .stub-view__image-container
 </template>
 
 <script lang="ts">
@@ -32,11 +32,11 @@ export default class StubView extends Vue{}
 
 <style scoped lang="sass">
 @import '../common/assets/common'
-.welcome-page__wrapper
+.stub-view
   width: 100%
   height: 100%
   display: flex
-  .__text-container
+  &__text-container
     width: 45%
     height: 100%
     display: flex
@@ -44,26 +44,26 @@ export default class StubView extends Vue{}
     align-items: flex-end
     justify-content: center
     padding-right: 100px
-    .__content
-      width: 53%
-      .__title
-        font: $header-text-style
-      .__description
-        font: $main-text-style
-        line-height: 1.5
-      .__form
-        display: flex
-        flex-direction: column
-        input
-          @include main-input
-          width: 240px
-          margin-top: 30px
-          padding-bottom: 7px
-        .__button
-          width: 170px
-          margin-top: 30px
+  &__content
+    width: 53%
+  &__title
+    font: $header-text-style
+  &__description
+    font: $main-text-style
+    line-height: 1.5
+  &__form
+    display: flex
+    flex-direction: column
+    input
+      @include main-input
+      width: 240px
+      margin-top: 30px
+      padding-bottom: 7px
+  &__button
+      width: 170px
+      margin-top: 30px
 
-  .__image-container
+  &__image-container
     width: 55%
     height: 100%
     background: #FAFAFB url("../../src/common/images/final-image.png") no-repeat center
@@ -73,30 +73,28 @@ export default class StubView extends Vue{}
     box-shadow: 0 4px 4px rgba(34, 36, 38, 0.08)
 
 @media screen and (max-width: 1200px)
-  .welcome-page__wrapper
+  .stub-view
     justify-content: center
     flex-direction: column
-    .__text-container
+    &__text-container
       width: 100%
       justify-content: center
       padding: 0
       align-items: center
-      .__content
+    &__content
         justify-content: center
         width: 80%
-    .__image-container
+    &__image-container
       width: 100%
       background-size: 70%
 
 @media screen and (max-width: 1200px)
-.welcome-page__wrapper
-  .__image-container
-    background-size: 90%
+  .stub-view
+    &__image-container
+      background-size: 90%
 @media screen and (max-width: 380px)
-  .welcome-page__wrapper
-    .__text-container
-      .__content
-        .__title
-          font-size: 30px
+  .stub-view
+    &__title
+      font-size: 30px
 
 </style>

@@ -1,21 +1,21 @@
 <template lang="pug">
-  form.form-radio(@submit.prevent = "onSubmitHandler")
-    .radio-answer(
+  form.radio-view(@submit.prevent = "onSubmitHandler")
+    .radio-view__answer(
       v-for = "(value, index) in arrayOfValues"
       :key = "value"
     )
-      .radio-button-wrapper
-        input.radio-button(
+      .radio-view__button-wrapper
+        input.radio-view__radio-button(
           type = "radio"
           :id = "index + 1"
           :value = "value"
           v-model = "picked"
         )
-        label.radio-label(
+        label.radio-view__label(
           :for = "index + 1"
         ) {{ value }}
-    .buttons-block
-      app-button.button(
+    .radio-view__buttons-block
+      AppButton.radio-view__button(
         :is-primary = "true"
       ) Далее
 </template>
@@ -88,33 +88,30 @@ export default class RadioView extends Vue {
 
 <style scoped lang="sass">
 @import '../../../common/assets/common'
-.form-radio
+.radio-view
 
-  .radio-button
+  &__radio-button
     transform: scale(1.4)
     margin: 10px 10px 10px 0
 
-  .radio-answer, .radio-label
+  &__answer, &__label
     font: $answer-text-style
 
-  .radio-answer
+  &__answer
     display: flex
     align-items: center
 
-    .another-answer
-      margin-left: 15px
-      @include main-input
-
-  .buttons-block
+  &__buttons-block
     display: flex
     .button
       cursor: pointer
 
 @media screen and (max-width: 320px)
-  .radio-button-wrapper
-    padding-left: 5px
-  .button
-    width: 100%
-    button
+  .radio-view
+    &__button-wrapper
+      padding-left: 5px
+    &__button
       width: 100%
+      button
+        width: 100%
 </style>

@@ -3,7 +3,7 @@
     :key = "uniqueId"
   )
     router-view(:key="$route.path")
-    modal-window(
+    ModalWindow(
       v-if="isShowed"
       @close-modal="hideModalWindow"
       @end-test="goToFinalPage"

@@ -1,14 +1,14 @@
 <template lang="pug">
-  .task-container
-    .task-question
-      .task-title {{ actualQuestion }}
-      task-code(
+  .task-body
+    .task-body__task-question
+      .task-body__task-title {{ actualQuestion }}
+      TaskCode(
         v-show = "actualTask.hasOwnProperty('code')"
         :code = "actualTask.code"
       )
 
-    .task-answers
-      radio-view(
+    .task-body__task-answers
+      RadioView(
         ordinalNumber = "taskNumber"
         :array-of-values = "actualAnswers"
         :questionNumber = "taskNumber"
@@ -42,7 +42,7 @@ export default class TaskBody extends Vue {
 
 <style scoped lang="sass">
 @import '../../../common/assets/common'
-.task-container
+.task-body
   width: 1100px
   height: 730px
   border: 1px solid #97979D
@@ -53,34 +53,34 @@ export default class TaskBody extends Vue {
   display: flex
   overflow: hidden
 
-  .task-question
+  &__task-question
     width: 50%
     font: $main-text-style
     padding: 20px
     line-height: 2
     overflow-x: scroll
     @include custom-scroll-bar
-    .task-title
-      font-weight: bold
-  .task-answers
+  &__task-title
+    font-weight: bold
+  &__task-answers
     width: 50%
     background: #FAFAFA
     padding: 20px
 
 @media screen and (max-width: 768px)
-  .task-container
+  .task-body
     width: 730px
     height: auto
 @media screen and (max-width: 320px)
-    .task-container
-      width: 300px
-      height: auto
-      flex-direction: column
-      border: none
-      box-shadow: none
-      .task-answers, .task-question
-        width: 100%
-        padding: 0
-        background: white
+  .task-body
+    width: 300px
+    height: auto
+    flex-direction: column
+    border: none
+    box-shadow: none
+    &__task-answers, &__task-question
+      width: 100%
+      padding: 0
+      background: white
 
 </style>

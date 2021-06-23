@@ -1,7 +1,7 @@
 <template lang="pug">
-  .login-form-input-wrapper
-    label.login-form-label(v-if = "value !== ''") {{ placeholder }}
-    input.login-form-input(
+  .login-form-input-view
+    label.login-form-input-view__label(v-if = "value !== ''") {{ placeholder }}
+    input.login-form-input-view__input(
       type="text"
       :placeholder = "placeholder"
       :name = "name"
@@ -12,16 +12,16 @@
       :style = "borderColorStyle"
       :key="name"
     )
-    .login-form-error(
+    .login-form-input-view__error(
       v-show = "doValidate === 'incorrectName'"
     ) Буквы русского алфавита, от 2 символов
-    .login-form-error(
+    .login-form-input-view__error(
       v-show = "doValidate === 'empty'"
       ) Это поле обязательно
-    .login-form-error(
+    .login-form-input-view__error(
       v-show = "doValidate === 'incorrectMail'"
       ) Почта указана неверно
-    .login-form-error(
+    .login-form-input-view__error(
       v-show = "doValidate === 'incorrectTelegram'"
       ) Формат: "@***", только латинские буквы
 </template>
@@ -154,19 +154,19 @@ export default class LoginFormInputView extends Vue {
 
 <style scoped lang="sass">
 @import '../../../common/assets/common'
-.login-form-input-wrapper
+.login-form-input-view
   display: flex
   flex-direction: column
   margin-top: 30px
   position: relative
 
-  .login-form-label
+  &__label
     color: rgb(128, 128, 128)
     font: normal 10px Roboto, serif
     position: absolute
     top: -7px
 
-  .login-form-input
+  &__input
     width: 240px
     height: 40px
     border: none
@@ -175,7 +175,7 @@ export default class LoginFormInputView extends Vue {
     outline: none
     font: $main-text-style
 
-  .login-form-error
+  &__error
     font: normal 12px Roboto, serif
     border: 1px solid $secondary-color
     border-radius: 5px
@@ -198,8 +198,8 @@ export default class LoginFormInputView extends Vue {
       top: 35%
 
 @media screen and (max-width: 1700px)
-  .login-form-input-wrapper
-    .login-form-error
+  .login-form-input-view
+    &__error
       color: red
       padding: 0
       border: none

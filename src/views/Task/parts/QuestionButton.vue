@@ -1,5 +1,5 @@
 <template lang="pug">
-    button.app-question-button(
+    button.question-button(
     @click.prevent = "$emit('change-question', $route.params.id)"
     :style = " doneClass "
     ) {{ questionNumber }}
@@ -37,7 +37,7 @@ export default class QuestionButton extends Vue{
 </script>
 
 <style scoped lang="sass">
-.app-question-button
+.question-button
   width: 32px
   height: 32px
   background: #E1E1E1
@@ -50,7 +50,7 @@ export default class QuestionButton extends Vue{
     cursor: pointer
     background: #D2D2D2
 @media screen and (max-width: 320px)
-  .app-question-button
+  .question-button
     width: 47px
     height: 47px
 
