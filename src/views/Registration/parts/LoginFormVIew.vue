@@ -16,15 +16,15 @@
         )
         .account-exist( v-show = "isAccountExist" )
           InfoLogo.__logo
-          p.__text Данные email или telegram уже зарегистрированы, введите другие данные
+          p.text Данные email или telegram уже зарегистрированы, введите другие данные
         .account-exist( v-show = "isFetchedError" )
           InfoLogo.__logo
-          p.__text Что-то пошло не так, повторите попытку позже.
+          p.text Что-то пошло не так, повторите попытку позже.
         app-button(name-of-button = "registration") Начать тестирование
     .contacts
       span Связаться с нами&nbsp
         span.contacts-email
-          a.__link(
+          a.link(
 
             @click = "askToSendMail"
           ) ekorotkaia@stc-spb.ru
@@ -154,9 +154,9 @@ export default class LoginFormView extends Vue {
     align-items: center
     width: 70%
     justify-content: space-between
-    .__logo
+    .logo
       width: 16px
-    .__text
+    .text
       color: #757575
       width: 90%
 
@@ -168,7 +168,7 @@ export default class LoginFormView extends Vue {
 
     .contacts-email
       text-decoration: underline
-      .__link
+      .link
         color: black
         cursor: pointer
         &:visited

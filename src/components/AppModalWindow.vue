@@ -1,14 +1,14 @@
 <template lang="pug">
   .modal-window
     .text-message
-      .__text
+      .text
         span Закончить тест и отправить результаты?
-      .__buttons
-        button.__button.__secondary(
+      .buttons
+        button.button.secondary(
           :is-primary = "false"
           @click.prevent="$emit('close-modal')"
         ) Отмена
-        button.__button.__primary(
+        button.button.primary(
           @click.prevent="$emit('end-test')"
         ) Закончить
 </template>
@@ -44,7 +44,7 @@ export default class AppModalWindow extends Vue {
     padding: 45px
     background: white
 
-    .__text
+    .text
       font-family: Jost, serif
       color: black
       font-weight: 500
@@ -52,11 +52,11 @@ export default class AppModalWindow extends Vue {
       text-align: end
       align-self: self-start
 
-    .__buttons
+    .buttons
       display: flex
       justify-content: flex-end
 
-      .__button
+      .button
         border: none
         height: 40px
         padding: 3px 20px
@@ -66,13 +66,13 @@ export default class AppModalWindow extends Vue {
         cursor: pointer
         font: $main-text-style
 
-      .__secondary
+      .secondary
         margin-right: 10px
         background-color: white
         color: $primary-color
         border: 1px solid $primary-color
 
-      .__primary
+      .primary
         background-color: $primary-color
         color: white
 </style>
