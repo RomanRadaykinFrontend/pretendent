@@ -14,11 +14,12 @@
           :name = "item.name"
           :placeholder = "item.placeholder"
         )
-        .account-exist(
-          v-if="isAccountExist"
-        )
+        .account-exist( v-show = "isAccountExist" )
           InfoLogo.__logo
           p.__text Данные email или telegram уже зарегистрированы, введите другие данные
+        .account-exist( v-show = "isFetchedError" )
+          InfoLogo.__logo
+          p.__text Что-то пошло не так, повторите попытку позже.
         app-button(name-of-button = "registration") Начать тестирование
     .contacts
       span Связаться с нами&nbsp
@@ -62,28 +63,48 @@ export default class LoginFormView extends Vue {
     return commonModule.getters.isAccountExist
   }
 
-  private async onSubmitHandler(){
+  get errorLogin(){
+    return commonModule.getters.errorLogin
+  }
+
+  get isFetchedError(){
+    return commonModule.getters.isShowFetchedError
+  }
+
+  get isLoginDataCorrect(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
     const isCorrectTelegram = this.user.telegram ? this.telegramValidate.test( this.user.telegram ) : false
     const isCorrectLastName = this.user.name ? this.nameValidate.test( this.user.lastName ) : false
     const isCorrectName = this.user.lastName ? this.nameValidate.test( this.user.name ) : false
 
-    if ( !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail
-      && isCorrectTelegram && isCorrectLastName && isCorrectName && !!this.user.telegram ) {
+    return !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail
+      && isCorrectTelegram && isCorrectLastName && isCorrectName && !!this.user.telegram
+  }
+
+  private async onSubmitHandler(){
+    if ( this.isLoginDataCorrect ) {
       const result = await commonModule.actions.fetchUser({ user: this.user })
-      if( result ) {
-        await commonModule.mutations.setTimeRemainLocalStorage( 5400 )
-        localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
-        await commonModule.mutations.setIsAuthorized( true )
-        await commonModule.mutations.setIsAccountExist( false )
-        await commonModule.mutations.setIsIncorrectFormData( true )
-        await this.$router.push( '/questions/1' )
-        await commonModule.mutations.setTimeRemain()
+      if ( !this.errorLogin ) {
+
+        if( result ){
+          await commonModule.mutations.setTimeRemainLocalStorage( 5400 )
+          localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
+          await commonModule.mutations.setIsAuthorized( true )
+          await commonModule.mutations.setIsAccountExist( false )
+          await commonModule.mutations.setIsIncorrectFormData( true )
+          await this.$router.push( '/questions/1' )
+          await commonModule.mutations.setTimeRemain()
+
+        } else {
+          await commonModule.mutations.setIsAccountExist( true )
+        }
       } else {
-        await commonModule.mutations.setIsAccountExist( true )
+        await commonModule.mutations.setIsShowFetchedError( true )
       }
+
+
     } else {
-      commonModule.mutations.setIsIncorrectFormData( true )
+      await commonModule.mutations.setIsIncorrectFormData( true )
     }
     localStorage.userGUID = commonModule.getters.answers.userGUID
   }

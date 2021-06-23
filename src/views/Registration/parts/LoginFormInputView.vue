@@ -14,7 +14,7 @@
     )
     .login-form-error(
       v-show = "doValidate === 'incorrectName'"
-    ) Только буквы русского алфавита, минимум 2 символа
+    ) Буквы русского алфавита, от 2 символов
     .login-form-error(
       v-show = "doValidate === 'empty'"
       ) Это поле обязательно

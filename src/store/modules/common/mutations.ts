@@ -90,4 +90,12 @@ export class CommonMutations extends Mutations<CommonState> {
   public setTimer( value: number ){
     clearInterval( value )
   }
+
+  public setIsErrorLogin( value: boolean ) {
+    this.state.errorLogin = value
+  }
+
+  public setIsShowFetchedError( value: boolean ) {
+    this.state.isShowFetchedError = value
+  }
 }

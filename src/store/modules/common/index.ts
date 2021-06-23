@@ -40,6 +40,10 @@ export class CommonState {
 
   public timer = 0
 
+  public errorLogin = false
+
+  public isShowFetchedError = false
+
 }
 
 export const commonModule = new Module({

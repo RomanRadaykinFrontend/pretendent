@@ -45,4 +45,12 @@ export class CommonGetters extends Getters<CommonState> {
   get timer(){
     return this.state.timer
   }
+
+  get errorLogin(){
+    return this.state.errorLogin
+  }
+
+  get isShowFetchedError(){
+    return this.state.isShowFetchedError
+  }
 }
