@@ -1,5 +1,5 @@
-const emailPart1 =  '^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9]'
-const emailPart2 = '(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+[a-zA-Z0-9]'
-const emailPart3 = '(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'
+export const regExpEmail = /^[a-zA-Z0-9-.]+@+[a-zA-Z0-9]+.+(?:[a-zA-Z]{2,3})$/
+export const regExpTelegram = /^@([A-Za-z0-9_]{5,32})$/
+export const regExpTelegramOnChange = /[A-Za-z0-9_@]/
+export const regExpName = /^([А-Яа-яё]{2,100})$/
 
-export const regExpEmail = new RegExp( `${emailPart1}${emailPart2}${emailPart3}` )

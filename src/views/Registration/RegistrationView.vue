@@ -1,9 +1,9 @@
 <template lang="pug">
-  .app-registration-wrapper
-    .login
-      login-form-view
-    .blank
-      blank-background-view
+  .registration-view
+    .registration-view__login
+      LoginFormView
+    .registration-view__blank
+      BlankBackgroundView
 </template>
 
 <script lang="ts">
@@ -23,7 +23,7 @@ export default class RegistrationView extends Vue {}
 </script>
 
 <style scoped lang="sass">
-.app-registration-wrapper
+.registration-view
   width: 100%
   height: 100%
   display: flex
@@ -31,27 +31,32 @@ export default class RegistrationView extends Vue {}
   align-items: flex-start
   position: relative
 
-  .login
+  &__login
     width: 45%
     height: 100%
     display: flex
     justify-content: flex-end
     align-items: flex-start
 
-  .blank
+  &__blank
     width: 55%
     height: 100%
 
 @media screen and (max-width: 1200px)
-  .app-registration-wrapper
+  .registration-view
     justify-content: center
-
-    .blank
+    &__blank
       display: none
 
 @media screen and (max-width: 800px)
-  .app-registration-wrapper
-    .login
-      width: 100%
+  .registration-view
+    &__login
+      width: 70%
+      justify-content: center
+
+@media screen and (max-width: 600px)
+  .registration-view
+    &__login
+      width: 90%
       justify-content: center
 </style>

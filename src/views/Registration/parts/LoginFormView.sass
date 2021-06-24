@@ -1,0 +1,84 @@
+@import '../../../common/assets/common'
+.login-form-view
+  width: 57%
+  height: 100%
+  display: flex
+  flex-direction: column
+  justify-content: center
+
+  &__login-form
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+
+  &__logo-items
+    display: none
+
+  &__title
+    font: $header-text-style
+    padding: 14px 0
+
+  &__description-wrapper
+    padding-right: 30px
+    font: $main-text-style
+    line-height: 1.5
+
+  &__account-exist
+    display: flex
+    font-size: 14px
+    font-family: Roboto, serif
+    align-items: center
+    width: 70%
+    justify-content: space-between
+  &__logo
+    width: 16px
+
+  &__text
+    color: #757575
+    width: 90%
+
+  &__contacts
+    position: absolute
+    bottom: 0
+    padding-bottom: 10px
+    font: $main-text-style
+
+  &__contacts-email
+    text-decoration: underline
+  &__link
+    color: black
+    cursor: pointer
+    &:visited
+      color: black
+
+@media screen and (max-width: 1400px)
+  .login-form-view
+    width: 65%
+
+@media screen and (max-width: 1200px)
+  .login-form-view
+    width: 100%
+    margin-top: 30px
+    height: auto
+    justify-content: flex-start
+    position: relative
+    &__contacts
+      bottom: -100px
+      padding: 30px 0
+    &__logo-items
+      display: flex
+      justify-content: space-between
+      height: 110px
+    &__logo-test
+      height: 100%
+      width: 70%
+      background-size: contain
+      background: url('./../../../common/images/logo-test.png') no-repeat center left
+
+    &__logo-stc
+      height: 100%
+      background: url('./../../../common/images/logo-stc.png') no-repeat center right
+      width: 30%
+      background-size: contain
+
+

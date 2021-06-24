@@ -13,3 +13,22 @@ $header-text-style: normal bold 36px Jost, serif
   border-bottom: solid 1px $secondary-color
   outline: none
   font: $main-text-style
+
+@mixin custom-scroll-bar()
+  &::-webkit-scrollbar
+    width: 6px
+
+  &::-webkit-scrollbar-track
+    width: 6px
+
+  &::-webkit-scrollbar-thumb
+    background-color: #E1E1E1
+    border-radius: 8px
+
+html
+  height: 100%
+  width: 100%
+  body
+    height: 100%
+    width: 100%
+    margin: 0

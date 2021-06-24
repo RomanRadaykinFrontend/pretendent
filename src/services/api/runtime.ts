@@ -12,8 +12,9 @@
  * Do not edit the class manually.
  */
 
-
+//
 export const BASE_PATH = window.API_URL.replace(/\/+$/, "");
+
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 

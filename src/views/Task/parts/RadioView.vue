@@ -1,37 +1,30 @@
 <template lang="pug">
-  div
-    form.form-radio(@submit.prevent = "onSubmitHandler")
-      .radio-answer(
-        v-for = "(value, index) in arrayOfValues"
-        :key = "value"
-      )
-        div
-          input.radio-button(
-            type = "radio"
-            :id = "index + 1"
-            :value = "value"
-            v-model = "picked"
-          )
-          label.radio-label(
-            :for = "index + 1"
-          ) {{ value }}
-      .radio-warning(v-if = "isWarningShow===true")
-        label Выберите ответ или пропустите вопрос
-      .buttons-block
-        app-button(
-          :is-primary = "true"
-          name-of-button = "know"
-          ) Далее
-        app-button(
-          :is-primary = "false"
-          name-of-button = "unknown"
-          ) Не знаю
+  form.radio-view(@submit.prevent = "onSubmitHandler")
+    .radio-view__answer(
+      v-for = "(value, index) in arrayOfValues"
+      :key = "value"
+    )
+      .radio-view__button-wrapper
+        input.radio-view__radio-button(
+          type = "radio"
+          :id = "index + 1"
+          :value = "value"
+          v-model = "picked"
+        )
+        label.radio-view__label(
+          :for = "index + 1"
+        ) {{ value }}
+    .radio-view__buttons-block
+      AppButton.radio-view__button(
+        :is-primary = "true"
+      ) Далее
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import AppButton from '../../../components/AppButton.vue'
 import { commonModule } from '@/store'
+import { sendAnswers } from '@/helpers/functions'
 
 @Component({
   components: {
@@ -41,88 +34,84 @@ import { commonModule } from '@/store'
 
 export default class RadioView extends Vue {
 
-  private answers = commonModule.getters.answers
-
 
   @Prop() private totalCount!: number
   @Prop() private arrayOfValues!: Array<string>
   @Prop() private questionNumber!: number
 
-  private isWarningShow = false
-  private picked = ''
+  private taskNumber = +this.$route.params.id
+
+  // пушим в стейт выбранный вариант ответа и достаем по необходимости
+  set picked( value: string ){
+    commonModule.mutations.setCurrentAnswer({
+      question: this.taskNumber,
+      pickedValue: value,
+    })
+    commonModule.mutations.setDoneTaskList({
+      taskNumber: this.taskNumber,
+      value,
+    })
+  }
+  get picked(){
+    const currentValue = commonModule.getters.doneTaskList
+      .find( item => item.taskNumber === this.taskNumber )
+    if( currentValue ){
+      return currentValue.value
+    } else{
+      return ''
+    }
+  }
 
   // хэндлер формы
-  private async onSubmitHandler( event: any ){
-
-    if( event.submitter.name === 'unknown' ) {
-      commonModule.mutations.setAnswers({ question: this.questionNumber,  answer: 0 })
-      await this.changePageHandler()
-    } else {
-      if( this.picked !== '' ){
-        const answer = this.arrayOfValues.indexOf( this.picked ) + 1
-        commonModule.mutations.setAnswers({ question: this.questionNumber, answer })
-        await this.changePageHandler()
-      }
-      this.isWarningShow = true
-    }
-    await commonModule.actions.fetchAnswers({
-      answers:  this.answers,
-    })
+  private onSubmitHandler() {
+    sendAnswers( this.arrayOfValues )
+    this.changePageHandler()
   }
 
   // хелпер по переключению страниц
-  private changePageHandler(){
-    if( this.totalCount === +this.$route.params.id ) {
-      this.$router.push( '/final' )
+  private changePageHandler() {
+    if ( this.totalCount === +this.$route.params.id ) {
+      commonModule.mutations.setIsModalWindowShowed( true )
     } else {
-      this.$router.push({ name: 'TaskView', params: {
-        id: ( 1 + this.questionNumber ).toString(),
-      }})
+      localStorage.task = 1 + this.questionNumber
+      this.$router.push({
+        name: 'TaskView', params: {
+          id: ( 1 + this.questionNumber ).toString(),
+        },
+      })
     }
   }
 
-  @Watch( 'picked' )
-  private hideWarningInput(){
-    if( this.picked !== '' ){
-      this.isWarningShow = false
-    }
-  }
 }
 
 </script>
 
 <style scoped lang="sass">
 @import '../../../common/assets/common'
-.form-radio
-  margin: 10px 0
+.radio-view
 
-  .radio-button
+  &__radio-button
     transform: scale(1.4)
     margin: 10px 10px 10px 0
 
-  .radio-answer, .radio-label
+  &__answer, &__label
     font: $answer-text-style
 
-  .radio-answer
+  &__answer
     display: flex
     align-items: center
 
-    .another-answer
-      margin-left: 15px
-      @include main-input
-
-
-  .radio-warning
-    font: $main-text-style
-    color: rgb(216, 44, 13)
-    padding-top: 30px
-
-
-  .buttons-block
+  &__buttons-block
     display: flex
+    .button
+      cursor: pointer
 
-@media screen and (max-width: 400px)
-  .radio-answer.another-input-with-input
-    flex-direction: column
-    align-items: start
+@media screen and (max-width: 479px)
+  .radio-view
+    &__button-wrapper
+      padding-left: 5px
+    &__button
+      width: 100%
+      button
+        width: 100%
 </style>

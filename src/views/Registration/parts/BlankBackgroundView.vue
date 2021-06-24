@@ -1,19 +1,18 @@
 <template lang="pug">
-  .background-image
+  .blank-background-view
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class BlankBackgroundView extends Vue {
-}
+export default class BlankBackgroundView extends Vue {}
 
 </script>
 
 <style scoped lang="sass">
 @import '../../../common/assets/common'
-.background-image
+.blank-background-view
   background-color: rgb(250, 250, 251)
   background-image: url("../../../common/images/blank.png")
   background-repeat: no-repeat

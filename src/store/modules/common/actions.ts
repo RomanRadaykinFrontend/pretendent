@@ -15,9 +15,12 @@ CommonActions> {
     try {
       const result = await USER_API.usersCreate( data )
       this.commit( SET_USERGUID, result.userGUID )
+      this.commit( 'setIsErrorLogin', false )
+      this.commit( 'setIsShowFetchedError', false )
       return result
     } catch ( error ){
-      return  error.message
+      this.commit( 'setIsErrorLogin', true )
+      return error.message
     }
   }
   public async fetchAnswers( data: AddNewAnswersRequest ) {
