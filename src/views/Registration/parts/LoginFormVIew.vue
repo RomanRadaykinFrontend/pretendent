@@ -1,5 +1,8 @@
 <template lang="pug">
   .login-form-view
+    .login-form-view__logo-items
+      .login-form-view__logo-test
+      .login-form-view__logo-stc
     .login-form-view__title
       span Привет, начнем?
     .login-form-view__description-wrapper
@@ -36,7 +39,7 @@ import AppButton from '../../../components/AppButton.vue'
 import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
-import InfoLogo from './../../../../src/common/images/info.svg'
+import InfoLogo from '@/common/images/info.svg'
 
 @Component({
   components: {
@@ -116,75 +119,9 @@ export default class LoginFormView extends Vue {
       event.target.href = ''
     }
   }
-
-
 }
 
 </script>
 
-<style scoped lang="sass">
-@import '../../../common/assets/common'
-.login-form-view
-  width: 57%
-  height: 100%
-  display: flex
-  flex-direction: column
-  justify-content: center
-
-  &__login-form
-    display: flex
-    flex-direction: column
-    align-items: flex-start
-
-  &__title
-    font: $header-text-style
-    padding: 14px 0
-
-  &__description-wrapper
-    padding-right: 30px
-    font: $main-text-style
-    line-height: 1.5
-
-  &__account-exist
-    display: flex
-    font-size: 14px
-    font-family: Roboto, serif
-    align-items: center
-    width: 70%
-    justify-content: space-between
-  &__logo
-    width: 16px
-
-  &__text
-    color: #757575
-    width: 90%
-
-  &__contacts
-    position: absolute
-    bottom: 0
-    padding-bottom: 10px
-    font: $main-text-style
-
-  &__contacts-email
-    text-decoration: underline
-  &__link
-    color: black
-    cursor: pointer
-    &:visited
-      color: black
-
-@media screen and (max-width: 1400px)
-  .login-form-view
-    width: 65%
-
-@media screen and (max-width: 1200px)
-  .login-form-view
-    width: 100%
-    margin-top: 100px
-    height: auto
-    justify-content: flex-start
-    position: relative
-    &__contacts
-      bottom: -100px
-      padding: 30px 0
+<style scoped lang="sass" src="./LoginFormView.sass">
 </style>

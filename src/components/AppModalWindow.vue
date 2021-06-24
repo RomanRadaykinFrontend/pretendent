@@ -49,7 +49,6 @@ export default class AppModalWindow extends Vue {
     color: black
     font-weight: 500
     font-size: 36px
-    text-align: end
     align-self: self-start
 
   &__buttons
@@ -75,4 +74,24 @@ export default class AppModalWindow extends Vue {
   &__primary
     background-color: $primary-color
     color: white
+
+@media screen and (max-width: 767px)
+  .modal-window
+    &__text-message
+      width: 80%
+      box-sizing: border-box
+      padding: 20px
+@media screen and (max-width: 520px)
+  .modal-window
+    &__text
+      font-size: 25px
+    &__button
+      padding: 3px 15px
+      margin-top: 20px
+      border-radius: 5px
+      font-size: 12px
+@media screen and (max-width: 520px)
+  .modal-window
+    &__text
+      font-size: 20px
 </style>

@@ -23,7 +23,7 @@
       ) Почта указана неверно
     .login-form-input-view__error(
       v-show = "doValidate === 'incorrectTelegram'"
-      ) Формат: "@***", только латинские буквы
+      ) Латинские буквы, 5-32 символа, @*****
 </template>
 
 <script lang="ts">

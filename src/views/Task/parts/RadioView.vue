@@ -106,7 +106,7 @@ export default class RadioView extends Vue {
     .button
       cursor: pointer
 
-@media screen and (max-width: 320px)
+@media screen and (max-width: 479px)
   .radio-view
     &__button-wrapper
       padding-left: 5px

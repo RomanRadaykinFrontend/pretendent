@@ -81,4 +81,8 @@ export default class App extends Vue {
   height: 100%
   width: 100%
   white-space: pre-line
+@media screen and (max-width: 1024px)
+  #app
+    height: auto
+    position: relative
 </style>

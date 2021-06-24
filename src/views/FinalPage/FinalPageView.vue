@@ -33,8 +33,8 @@ export default class FinalPageView extends Vue {
   flex-direction: column
   padding: 6px 0
   margin: 0 auto
-  width: 50%
-  height: 100%
+  width: 100%
+  height: 100vh
   justify-content: center
   box-sizing: border-box
 
@@ -66,34 +66,21 @@ export default class FinalPageView extends Vue {
     margin-top: 30px
     line-height: 1.5
 
-@media screen and (max-width: 1350px)
-  .final-page-view
-    width: 60%
-
-@media screen and (max-width: 1150px)
-  .final-page-view
-    width: 70%
-
-@media screen and (max-width: 970px)
-  .final-page-view
-    margin: 0
-    width: 100%
-
 @media screen and (max-width: 768px)
   .final-page-view
     justify-content: flex-start
     &__image-wrapper
       background-size: contain
-      height: 70%
+
+@media screen and (max-width: 560px)
+  .final-page-view
     &__message-header
       font-size: 30px
       width: 90%
+      margin-top: 5px
     &__message-text
-      font-size: 14px
+      font-size: 15px
       width: 90%
-@media screen and (max-width: 550px)
-  .final-page-view
-    &__image-wrapper
-      height: 40%
+      margin-top: 10px
 
 </style>

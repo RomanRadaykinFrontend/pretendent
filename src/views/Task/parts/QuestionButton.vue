@@ -49,9 +49,9 @@ export default class QuestionButton extends Vue{
   &:hover
     cursor: pointer
     background: #D2D2D2
-@media screen and (max-width: 320px)
+@media screen and (max-width: 1024px)
   .question-button
-    width: 47px
-    height: 47px
+    width: 40px
+    height: 40px
 
 </style>

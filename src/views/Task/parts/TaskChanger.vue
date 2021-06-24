@@ -48,13 +48,11 @@ export default class TaskChanger extends Vue{
   &__task-focus
     border: 3px solid #1A8BDB
 
-@media screen and (max-width: 768px)
+@media screen and (max-width: 1024px)
   .task-changer
-    width: 730px
+    width: 100%
     justify-content: center
     height: auto
     margin-top: 30px
-@media screen and (max-width: 320px)
-  .task-changer
-    width: 300px
+
 </style>

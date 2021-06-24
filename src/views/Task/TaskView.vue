@@ -1,5 +1,5 @@
 <template lang="pug">
-  .task-wrapper
+  .task-view
     TaskBody
     TaskInfo
 </template>
@@ -22,7 +22,7 @@ export default class TaskView extends Vue {}
 
 <style scoped lang="sass">
 @import '../../common/assets/common'
-.task-wrapper
+.task-view
   width: 100%
   height: 100%
   background: url("./../../common/images/task-background.png")
@@ -35,12 +35,9 @@ export default class TaskView extends Vue {}
   align-items: center
   font-family: Roboto, serif
 
-@media screen and (max-width: 768px)
-  .task-wrapper
-    width: 730px
-    height: auto
-    padding: 0 10px
-@media screen and (max-width: 320px)
-  .task-wrapper
-    width: 320px
+@media screen and (max-width: 1024px)
+  .task-view
+    width: 100%
+    height: 100%
+    padding: 15px 15px
 </style>

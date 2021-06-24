@@ -67,13 +67,12 @@ export default class TaskBody extends Vue {
     background: #FAFAFA
     padding: 20px
 
-@media screen and (max-width: 768px)
+@media screen and (max-width: 1024px)
   .task-body
-    width: 730px
+    width: 100%
     height: auto
-@media screen and (max-width: 320px)
+@media screen and (max-width: 479px)
   .task-body
-    width: 300px
     height: auto
     flex-direction: column
     border: none
