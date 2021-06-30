@@ -167,7 +167,7 @@ export const questions: Array<Question> = [
     question: '0JTQu9GPINGH0LXQs9C+INC90YPQttC10L0g0LLQuNGA0YLRg9Cw0LvRjNC90YvQuSDQtNC10YHRgtGA0YPQutGC0L7RgD8=',
     answers: [ 'Чтобы избежать утечки памяти',
       'Чтобы использовать пользовательские аллокаторы',
-      'Конструктор не бывает виртуальным',
+      'Деструктор не бывает виртуальным',
       'Для создания фабричных методов' ],
   },
   {
