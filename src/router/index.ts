@@ -72,7 +72,7 @@ const routes: Array<RouteConfig> = [
     component: FinalPageView,
     beforeEnter: ( to, from, next ) => {
       if( isStub === 'false' ){
-        if( localStorage.getItem( 'isAuthorized' ) === 'false' ){
+        if( localStorage.getItem( 'isAuthorized' ) === 'false' || !localStorage.getItem( 'isAuthorized' ) ){
           next({ path: '/login' })
         }  else {
           localStorage.setItem( 'isAuthorized', 'false' )
