@@ -7,7 +7,7 @@
       span Привет, начнем?
     .login-form-view__description-wrapper
       span.login-form-view__description {{ `Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
-        | нам оценить ваши знания, а вам проверить свои.
+        | нам оценить ваши знания, а вам - проверить свои.
         | \n На все вопросы у вас будет 1 час 30 минут, удачи` }}!
 
     form.login-form-view__login-form(@submit.prevent="onSubmitHandler")
