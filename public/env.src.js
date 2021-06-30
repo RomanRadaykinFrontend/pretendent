@@ -1,1 +1,2 @@
 window.API_URL = '$API_URL'
+window.VUE_APP_SHOW_STUB = '$VUE_APP_SHOW_STUB'

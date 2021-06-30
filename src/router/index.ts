@@ -9,7 +9,7 @@ import StubView from '@/views/StubView.vue'
 
 Vue.use( VueRouter )
 
-const isStub = process.env.VUE_APP_SHOW_STUB
+const isStub = window.VUE_APP_SHOW_STUB
 
 
 const routes: Array<RouteConfig> = [

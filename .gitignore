@@ -30,6 +30,7 @@ pnpm-debug.log*
 # other
 ../frontend/public/env.js
 scripts/openapi-generator/openapi-generator-cli-*
+public/env.js
 
 #cache
 .eslintcache
