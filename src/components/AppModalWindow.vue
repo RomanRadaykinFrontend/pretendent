@@ -32,7 +32,6 @@ export default class AppModalWindow extends Vue {
   private marginStyle = {}
 
   private mounted(){
-    console.log( this.$refs.textMessage.clientHeight )
     this.marginStyle = {
       marginTop: `${ window.pageYOffset + this.$refs.textMessage.clientHeight }px`,
     }
