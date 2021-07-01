@@ -1,8 +1,8 @@
 <template lang="pug">
   .login-form-view
     .login-form-view__logo-items
-      .login-form-view__logo-test
-      .login-form-view__logo-stc
+      TestLogo
+      STCLogo
     .login-form-view__title
       span Привет, начнем?
     .login-form-view__description-wrapper
@@ -40,10 +40,13 @@ import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
 import InfoLogo from '@/common/images/info.svg'
+import STCLogo from '@/common/images/logo-stc.svg'
+import TestLogo from '@/common/images/logo-test.svg'
 
 @Component({
   components: {
-    AppButton, LoginFormInputView, InfoLogo,
+    AppButton, LoginFormInputView,
+    InfoLogo, STCLogo, TestLogo
   },
 })
 
