@@ -36,11 +36,9 @@ export class CommonState {
 
   public timeStart = 0
 
-  public isAccountExist = false
-
   public timer = 0
 
-  public errorLogin = false
+  public errorLogin = ''
 
   public isShowFetchedError = false
 

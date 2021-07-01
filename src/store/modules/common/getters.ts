@@ -38,10 +38,6 @@ export class CommonGetters extends Getters<CommonState> {
     return this.state.timeRemain
   }
 
-  get isAccountExist(){
-    return this.state.isAccountExist
-  }
-
   get timer(){
     return this.state.timer
   }
