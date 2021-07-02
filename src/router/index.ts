@@ -6,6 +6,7 @@ import FinalPageView from '@/views/FinalPage/FinalPageView.vue'
 import { commonModule } from '@/store'
 import StubView from '@/views/StubView.vue'
 import AdminPanelView from '@/views/AdminPanelView/AdminPanelView.vue'
+import AnsViewerView from '@/views/AnswersViewerView/AnsViewerView.vue'
 
 
 Vue.use( VueRouter )
@@ -88,6 +89,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/adminpanel',
     component: AdminPanelView,
+  },
+  {
+    path: '/answersviewer/:id',
+    component: AnsViewerView,
   },
 ]
 

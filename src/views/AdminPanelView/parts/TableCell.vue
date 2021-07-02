@@ -3,9 +3,9 @@
   span.table-cell__span(
     v-if = " typeof value === 'string' "
   ) {{ value }}
-  a.table-cell__ref(
-    href="#"
+  RouterLink.table-cell__ref(
     v-else
+    to = "/answersviewer/:id"
   ) {{ value.count }}
 
 </template>
