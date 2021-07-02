@@ -1,16 +1,19 @@
 <template lang="pug">
   .modal-window
-    .modal-window__text-message
-      .modal-window__text
-        span Закончить тест и отправить результаты?
-      .modal-window__buttons
-        button.modal-window__button.modal-window__secondary(
-          :is-primary = "false"
-          @click.prevent="$emit('close-modal')"
-        ) Отмена
-        button.modal-window__button.modal-window__primary(
-          @click.prevent="$emit('end-test')"
-        ) Закончить
+      .modal-window__text-message(
+        ref = "textMessage"
+        :style = "marginStyle"
+      )
+        .modal-window__text
+          span Закончить тест и отправить результаты?
+        .modal-window__buttons
+          button.modal-window__button.modal-window__secondary(
+            :is-primary = "false"
+            @click.prevent="$emit('close-modal')"
+          ) Отмена
+          button.modal-window__button.modal-window__primary(
+            @click.prevent="$emit('end-test')"
+          ) Закончить
 </template>
 
 <script lang="ts">
@@ -21,6 +24,19 @@ import AppButton from '@/components/AppButton.vue'
   components: { AppButton },
 })
 export default class AppModalWindow extends Vue {
+
+  $refs!: {
+    textMessage: HTMLDivElement
+  }
+
+  private marginStyle = {}
+
+  private mounted(){
+    this.marginStyle = {
+      marginTop: `${ window.pageYOffset + this.$refs.textMessage.clientHeight }px`,
+    }
+  }
+
 }
 </script>
 
@@ -33,16 +49,15 @@ export default class AppModalWindow extends Vue {
   top: 0
   background: rgba(0, 0, 0, 0.5)
   display: flex
-  justify-content: center
+  flex-direction: column
   align-items: center
 
   &__text-message
-    width: auto
-    left: 591px
-    top: 410px
-    border-radius: 8px
+    height: auto
     padding: 45px
+    border-radius: 8px
     background: white
+
 
   &__text
     font-family: Jost, serif
