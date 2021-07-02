@@ -8,6 +8,7 @@ import '@/common/assets/common.sass'
 
 Vue.config.productionTip = false
 
+
 new Vue({
   router,
   store,
