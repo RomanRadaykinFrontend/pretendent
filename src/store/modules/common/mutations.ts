@@ -79,10 +79,6 @@ export class CommonMutations extends Mutations<CommonState> {
     this.state.timeRemain = value
   }
 
-  public setIsAccountExist( value: boolean ){
-    this.state.isAccountExist = value
-  }
-
   public setTimeStart( value: number ){
     this.state.timeStart = value
   }
@@ -91,7 +87,7 @@ export class CommonMutations extends Mutations<CommonState> {
     clearInterval( value )
   }
 
-  public setIsErrorLogin( value: boolean ) {
+  public setIsErrorLogin( value: string ) {
     this.state.errorLogin = value
   }
 

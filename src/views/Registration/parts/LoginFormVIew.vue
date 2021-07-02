@@ -1,13 +1,13 @@
 <template lang="pug">
   .login-form-view
     .login-form-view__logo-items
-      .login-form-view__logo-test
-      .login-form-view__logo-stc
+      TestLogo
+      STCLogo
     .login-form-view__title
       span Привет, начнем?
     .login-form-view__description-wrapper
       span.login-form-view__description {{ `Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
-        | нам оценить ваши знания, а вам проверить свои.
+        | нам оценить ваши знания, а вам - проверить свои.
         | \n На все вопросы у вас будет 1 час 30 минут, удачи` }}!
 
     form.login-form-view__login-form(@submit.prevent="onSubmitHandler")
@@ -17,12 +17,9 @@
         :name = "item.name"
         :placeholder = "item.placeholder"
       )
-      .login-form-view__account-exist( v-show = "isAccountExist" )
+      .login-form-view__account-exist( v-show = " errorLogin !== '' " )
         InfoLogo.login-form-view__logo
-        p.login-form-view__text Данные email или telegram уже зарегистрированы, введите другие данные
-      .login-form-view__account-exist( v-show = "isFetchedError" )
-        InfoLogo.login-form-view__logo
-        p.login-form-view__text Что-то пошло не так, повторите попытку позже.
+        p.login-form-view__text {{ errorLogin }}
       AppButton( name-of-button = "registration" ) Начать тестирование
     .login-form-view__contacts
       span Связаться с нами&nbsp
@@ -40,10 +37,13 @@ import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
 import { commonModule } from '@/store'
 import InfoLogo from '@/common/images/info.svg'
+import STCLogo from '@/common/images/logo-stc.svg'
+import TestLogo from '@/common/images/logo-test.svg'
 
 @Component({
   components: {
-    AppButton, LoginFormInputView, InfoLogo,
+    AppButton, LoginFormInputView,
+    InfoLogo, STCLogo, TestLogo
   },
 })
 
@@ -51,7 +51,7 @@ export default class LoginFormView extends Vue {
 
   private objNames = [
     { name: 'name', placeholder: 'Имя*' }, { name: 'lastName', placeholder: 'Фамилия*' },
-    { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram*' },
+    { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram' },
   ]
 
   private user = commonModule.getters.user
@@ -60,10 +60,6 @@ export default class LoginFormView extends Vue {
   private emailValidate = regExpEmail
   private telegramValidate = regExpTelegram
   private nameValidate = regExpName
-
-  get isAccountExist(){
-    return commonModule.getters.isAccountExist
-  }
 
   get errorLogin(){
     return commonModule.getters.errorLogin
@@ -75,12 +71,12 @@ export default class LoginFormView extends Vue {
 
   get isLoginDataCorrect(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
-    const isCorrectTelegram = this.user.telegram ? this.telegramValidate.test( this.user.telegram ) : false
+    const isCorrectTelegram = this.user.telegram !== '' ? this.telegramValidate.test( this.user.telegram ) : true
     const isCorrectLastName = this.user.name ? this.nameValidate.test( this.user.lastName ) : false
     const isCorrectName = this.user.lastName ? this.nameValidate.test( this.user.name ) : false
 
     return !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail
-      && isCorrectTelegram && isCorrectLastName && isCorrectName && !!this.user.telegram
+      && isCorrectTelegram && isCorrectLastName && isCorrectName
   }
 
   private async onSubmitHandler(){
@@ -92,14 +88,11 @@ export default class LoginFormView extends Vue {
           await commonModule.mutations.setTimeRemainLocalStorage( 5400 )
           localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
           await commonModule.mutations.setIsAuthorized( true )
-          await commonModule.mutations.setIsAccountExist( false )
           await commonModule.mutations.setIsIncorrectFormData( true )
           await this.$router.push( '/questions/1' )
           await commonModule.mutations.setTimeRemain()
-
-        } else {
-          await commonModule.mutations.setIsAccountExist( true )
         }
+
       } else {
         await commonModule.mutations.setIsShowFetchedError( true )
       }
