@@ -5,6 +5,7 @@ import TaskView from '@/views/Task/TaskView.vue'
 import FinalPageView from '@/views/FinalPage/FinalPageView.vue'
 import { commonModule } from '@/store'
 import StubView from '@/views/StubView.vue'
+import AdminPanelView from '@/views/AdminPanelView/AdminPanelView.vue'
 
 
 Vue.use( VueRouter )
@@ -83,6 +84,10 @@ const routes: Array<RouteConfig> = [
         next({ path: '/welcome' })
       }
     },
+  },
+  {
+    path: '/adminpanel',
+    component: AdminPanelView,
   },
 ]
 
