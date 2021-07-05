@@ -38,7 +38,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import AppButton from '../../../components/AppButton.vue'
 import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 import InfoLogo from '@/common/images/info.svg'
 
 @Component({
@@ -54,7 +54,7 @@ export default class LoginFormView extends Vue {
     { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram*' },
   ]
 
-  private user = commonModule.getters.user
+  private user = testingModule.getters.user
 
 
   private emailValidate = regExpEmail
@@ -62,15 +62,15 @@ export default class LoginFormView extends Vue {
   private nameValidate = regExpName
 
   get isAccountExist(){
-    return commonModule.getters.isAccountExist
+    return testingModule.getters.isAccountExist
   }
 
   get errorLogin(){
-    return commonModule.getters.errorLogin
+    return testingModule.getters.errorLogin
   }
 
   get isFetchedError(){
-    return commonModule.getters.isShowFetchedError
+    return testingModule.getters.isShowFetchedError
   }
 
   get isLoginDataCorrect(){
@@ -85,30 +85,30 @@ export default class LoginFormView extends Vue {
 
   private async onSubmitHandler(){
     if ( this.isLoginDataCorrect ) {
-      const result = await commonModule.actions.fetchUser({ user: this.user })
+      const result = await testingModule.actions.fetchUser({ user: this.user })
       if ( !this.errorLogin ) {
 
         if( result ){
-          await commonModule.mutations.setTimeRemainLocalStorage( 5400 )
+          await testingModule.mutations.setTimeRemainLocalStorage( 5400 )
           localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
-          await commonModule.mutations.setIsAuthorized( true )
-          await commonModule.mutations.setIsAccountExist( false )
-          await commonModule.mutations.setIsIncorrectFormData( true )
+          await testingModule.mutations.setIsAuthorized( true )
+          await testingModule.mutations.setIsAccountExist( false )
+          await testingModule.mutations.setIsIncorrectFormData( true )
           await this.$router.push( '/questions/1' )
-          await commonModule.mutations.setTimeRemain()
+          await testingModule.mutations.setTimeRemain()
 
         } else {
-          await commonModule.mutations.setIsAccountExist( true )
+          await testingModule.mutations.setIsAccountExist( true )
         }
       } else {
-        await commonModule.mutations.setIsShowFetchedError( true )
+        await testingModule.mutations.setIsShowFetchedError( true )
       }
 
 
     } else {
-      await commonModule.mutations.setIsIncorrectFormData( true )
+      await testingModule.mutations.setIsIncorrectFormData( true )
     }
-    localStorage.userGUID = commonModule.getters.answers.userGUID
+    localStorage.userGUID = testingModule.getters.answers.userGUID
   }
 
   private askToSendMail( event: any ){

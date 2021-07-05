@@ -1,15 +1,15 @@
 <template lang="pug">
-.table-row( :class = "rowClass" )
-  TableCellAnsw(
+.table-row-answ( :class = "rowClass" )
+  TableCellAnsw.number(
     :value = "questNumber"
     type = "number"
   )
-  TableCellAnsw(
+  TableCellAnsw.question(
     :value = "question"
     :code = "code"
     type = "task"
   )
-  TableCellAnsw(
+  TableCellAnsw.answers(
     :value = "answers"
     type = "answersArr"
   )
@@ -56,16 +56,19 @@ export default class TableRowAnsw extends Vue{
 </script>
 
 <style scoped lang="sass">
-.table-row
+.table-row-answ
   display: table-row
   font-family: Roboto, serif
   font-style: normal
   font-weight: normal
   font-size: 16px
   color: black
-  &.header-row
-    background: rgba(240, 242, 244, 0.5)
-    color: #7B8395
-    font-weight: 500
-    font-size: 12px
+
+  .number
+    width: 20%
+  .question
+    width: 20%
+  .answers
+    width: 60%
+
 </style>

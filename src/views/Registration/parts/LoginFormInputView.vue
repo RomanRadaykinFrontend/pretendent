@@ -29,7 +29,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 import { InputName } from '@/types/common'
 
 @Component
@@ -46,11 +46,11 @@ export default class LoginFormInputView extends Vue {
   private value = ''
 
   private changeUserInfo( data: [InputName, string]){
-    commonModule.mutations.setUser( data )
+    testingModule.mutations.setUser( data )
   }
 
   get isIncorrectFormData(){
-    return commonModule.getters.isIncorrectFormData
+    return testingModule.getters.isIncorrectFormData
   }
 
   // валидация и регулирование тултипа
@@ -90,7 +90,7 @@ export default class LoginFormInputView extends Vue {
           return false
         }
       }
-      commonModule.mutations.setIsIncorrectFormData( false )
+      testingModule.mutations.setIsIncorrectFormData( false )
     }
     if( this.focusCount >= 1 ){
       switch ( this.name ) {
@@ -134,7 +134,7 @@ export default class LoginFormInputView extends Vue {
   // валидация  и изменение цвета бордера
   @Watch( 'value' )
   private onValueChangedHandler() {
-    commonModule.mutations.setIsIncorrectFormData( false )
+    testingModule.mutations.setIsIncorrectFormData( false )
     // this.borderColorStyle['border-color'] =  this.value === ''  ? 'blue' : 'red'
     switch ( this.name ) {
     case 'email': {

@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 import { questions } from '@/common/questions'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
 
@@ -32,10 +32,10 @@ export default class TaskInfo extends Vue{
   private actualAnswers = this.actualTask.answers
 
   get timeRemain(){
-    if( commonModule.getters.timeRemain <= 0 ){
+    if( testingModule.getters.timeRemain <= 0 ){
       this.$router.push( '/final' )
     }
-    return commonModule.getters.timeRemain
+    return testingModule.getters.timeRemain
   }
 
   get minutes() {
@@ -54,7 +54,7 @@ export default class TaskInfo extends Vue{
     return Math.floor( this.timeRemain / 3600 ).toString()
   }
   private showModalWindow(){
-    commonModule.mutations.setIsModalWindowShowed( true )
+    testingModule.mutations.setIsModalWindowShowed( true )
   }
 }
 </script>

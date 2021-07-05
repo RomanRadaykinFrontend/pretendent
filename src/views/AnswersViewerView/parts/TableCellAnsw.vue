@@ -1,19 +1,20 @@
 <template lang="pug">
-.table-cell
-  .table-cell__task-number( v-show = " type === 'number' " )
+.table-cell-answ
+  .table-cell-answ__task-number( v-show = " type === 'number' " )
     span {{ cellValue }}
-  .table-cell__text-code( v-show = " type === 'task' " )
+  .table-cell-answ__text-code( v-show = " type === 'task' " )
     span {{ cellValue }}
     Highlight( v-show = " showCode " ) {{ codeValue }}
-  .table-cell__radio(
+  .table-cell-answ__radio(
     v-show = " type === 'answersArr' "
     v-for = "(answer, index) in cellValue"
   )
-    input(
-      type = "radio" :id = "index"
-      v-model = "picked"
+    .radio-div.is-done-true(
+      :key = "'answer' + index"
     )
-    label( for = "index" ) {{ answer }}
+    label(
+      :key = "'textAnswer' + index"
+    ) {{ answer }}
 </template>
 
 <script lang="ts">
@@ -36,7 +37,6 @@ export default class TableCellAnsw extends Vue{
   @Prop() private type!: 'number' | 'task' | 'answersArr'
   @Prop({ required: false }) private code!: string
 
-  private picked = ''
   get cellValue(){
     return this.value
   }
@@ -54,7 +54,8 @@ export default class TableCellAnsw extends Vue{
 </script>
 
 <style scoped lang="sass">
-.table-cell
+@import "src/common/assets/common"
+.table-cell-answ
   padding: 0 15px
   box-sizing: border-box
   display: table-cell
@@ -62,6 +63,45 @@ export default class TableCellAnsw extends Vue{
 
   &__radio
     margin: 10px 0
-    line-height: 1.5
+    display: flex
+    justify-content: space-between
+    align-items: center
+    label
+      line-height: 1.5
+      width: 95%
+    .radio-div
+      border: 2px solid #8C9196
+      width: 13px
+      height: 13px
+      border-radius: 50%
+      display: flex
+      justify-content: center
+      align-items: center
+    .is-done-false
+      border-color: red
+      &:before
+        content: ''
+        width: 7px
+        height: 7px
+        border-radius: 50%
+        background: red
+    .is-done-true
+      border-color: green
+      &:before
+        content: ''
+        width: 7px
+        height: 7px
+        border-radius: 50%
+        background: green
+    .is-true
+      border-color: green
+    .is-false
+      border-color: red
+
+
+
+
+
+
 
 </style>

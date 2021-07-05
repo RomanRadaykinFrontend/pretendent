@@ -17,7 +17,7 @@
 
   .ans-viewer-view__table
     .ans-viewer-view__table-body
-    TableRow(
+    AppHeaderTableRow(
       :is-header-row = "true"
       :table-value = "headerRow"
     )
@@ -26,18 +26,17 @@
       :table-value = "question"
       :quest-number = "index + 1"
     )
-
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import TableRowAnsw from '@/views/AnswersViewerView/parts/TableRowAnsw.vue'
-import TableRow from '@/views/AdminPanelView/parts/TableRow.vue'
+import AppHeaderTableRow from '@/components/AppHeaderTableRow.vue'
 import { questions } from '@/common/questions'
 
 @Component({
   components: {
-    TableRowAnsw, TableRow
+    TableRowAnsw, AppHeaderTableRow,
   },
 })
 export default class AnsViewerView extends Vue{
@@ -51,7 +50,12 @@ export default class AnsViewerView extends Vue{
     { title: 'Время прохождения', data: '59:22' },
   ]
 
-  private headerRow = [ 'Номер вопроса', 'Вопрос', 'Ответ' ]
+  private headerRow = [
+    { name: 'Номер вопроса', needSort: true },
+    { name: 'Вопрос', needSort: false },
+    { name: 'Ответ', needSort: false }]
+
+  private picked = ''
 
 }
 </script>

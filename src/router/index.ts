@@ -3,7 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import RegistrationView from '@/views/Registration/RegistrationView.vue'
 import TaskView from '@/views/Task/TaskView.vue'
 import FinalPageView from '@/views/FinalPage/FinalPageView.vue'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 import StubView from '@/views/StubView.vue'
 import AdminPanelView from '@/views/AdminPanelView/AdminPanelView.vue'
 import AnsViewerView from '@/views/AnswersViewerView/AnsViewerView.vue'
@@ -42,7 +42,7 @@ const routes: Array<RouteConfig> = [
     beforeEnter: ( to, from, next ) => {
       if( isStub === 'false' ) {
         if( localStorage.getItem( 'isAuthorized' ) === 'true' ){
-          commonModule.mutations.setIsModalWindowShowed( true )
+          testingModule.mutations.setIsModalWindowShowed( true )
           next()
         }
         next()

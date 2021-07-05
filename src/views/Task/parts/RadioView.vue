@@ -23,7 +23,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import AppButton from '../../../components/AppButton.vue'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 import { sendAnswers } from '@/helpers/functions'
 
 @Component({
@@ -43,17 +43,17 @@ export default class RadioView extends Vue {
 
   // пушим в стейт выбранный вариант ответа и достаем по необходимости
   set picked( value: string ){
-    commonModule.mutations.setCurrentAnswer({
+    testingModule.mutations.setCurrentAnswer({
       question: this.taskNumber,
       pickedValue: value,
     })
-    commonModule.mutations.setDoneTaskList({
+    testingModule.mutations.setDoneTaskList({
       taskNumber: this.taskNumber,
       value,
     })
   }
   get picked(){
-    const currentValue = commonModule.getters.doneTaskList
+    const currentValue = testingModule.getters.doneTaskList
       .find( item => item.taskNumber === this.taskNumber )
     if( currentValue ){
       return currentValue.value
@@ -71,7 +71,7 @@ export default class RadioView extends Vue {
   // хелпер по переключению страниц
   private changePageHandler() {
     if ( this.totalCount === +this.$route.params.id ) {
-      commonModule.mutations.setIsModalWindowShowed( true )
+      testingModule.mutations.setIsModalWindowShowed( true )
     } else {
       localStorage.task = 1 + this.questionNumber
       this.$router.push({

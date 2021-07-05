@@ -3,17 +3,17 @@
   h1.admin-panel-view__title Администрирование
   .admin-panel-view__table
     .admin-panel-view__table-body
-      TableRow(
+      AppHeaderTableRow(
         :is-header-row = "true"
         :table-value = "headerRow"
       )
-      TableRow(
+      TableRowAdmin(
         :table-value = "dataRow"
       )
-      TableRow(
+      TableRowAdmin(
         :table-value = "dataRow"
       )
-      TableRow(
+      TableRowAdmin(
         :table-value = "dataRow"
       )
   ControlPanel
@@ -22,19 +22,28 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import TableRow from '@/views/AdminPanelView/parts/TableRow.vue'
+import AppHeaderTableRow from '@/components/AppHeaderTableRow.vue'
 import ControlPanel from '@/views/AdminPanelView/parts/ControlPanel.vue'
+import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
 
 @Component({
   components: {
     ControlPanel,
-    TableRow,
+    AppHeaderTableRow,
+    TableRowAdmin
   },
 })
 export default class AdminPanelView extends Vue{
 
-  private headerRow = [ '#', 'Имя', 'Фамилия', 'Правильных ответов',
-    'Email', 'Telegram', 'Дата прохождения', 'Время прохождения' ]
+  private headerRow = [
+    { name: '#', needSort: false },
+    { name: 'Имя', needSort: false },
+    { name: 'Фамилия', needSort: false },
+    { name: 'Правильных ответов', needSort: true },
+    { name: 'Email', needSort: false },
+    { name: 'Telegram', needSort: false },
+    { name: 'Дата прохождения', needSort: true },
+    { name: 'Время прохождения', needSort: true }]
 
   private dataRow = [ '1', 'Иван', 'Иванов', { count: 28, needRef: true }, 'ivan@mail.ru', '@ivan313', '15.07.2021', '59:31' ]
 
@@ -58,6 +67,7 @@ export default class AdminPanelView extends Vue{
     display: table
     width: 100%
     margin: 40px 0
+    table-layout: fixed
   &__table-body
     display: table-row-group
 

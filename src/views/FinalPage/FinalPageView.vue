@@ -9,7 +9,7 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 
 @Component
 export default class FinalPageView extends Vue {
@@ -19,8 +19,8 @@ export default class FinalPageView extends Vue {
     localStorage.setItem( 'doneTaskList', JSON.stringify([]) )
     localStorage.setItem( 'userGUID', '' )
     localStorage.setItem( 'isAuthorized', 'false' )
-    commonModule.mutations.setDoneTaskListLocalStorage([])
-    commonModule.mutations.setTimer( commonModule.getters.timer )
+    testingModule.mutations.setDoneTaskListLocalStorage([])
+    testingModule.mutations.setTimer( testingModule.getters.timer )
   }
 }
 
