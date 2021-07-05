@@ -1,7 +1,7 @@
 <template lang="pug">
 .ans-viewer-view
   .ans-viewer-view__control-panel
-    button.ans-viewer-view__back-button Назад
+    button( @click = " () => $router.push('/adminpanel')" ).ans-viewer-view__back-button Назад
     h1.ans-viewer-view__title Просмотр ответов
     select.ans-viewer-view__select
       option Все вопросы
@@ -34,7 +34,6 @@ import { Component, Vue } from 'vue-property-decorator'
 import TableRowAnsw from '@/views/AnswersViewerView/parts/TableRowAnsw.vue'
 import TableRow from '@/views/AdminPanelView/parts/TableRow.vue'
 import { questions } from '@/common/questions'
-import { Base64 } from 'js-base64'
 
 @Component({
   components: {
@@ -53,6 +52,7 @@ export default class AnsViewerView extends Vue{
   ]
 
   private headerRow = [ 'Номер вопроса', 'Вопрос', 'Ответ' ]
+
 }
 </script>
 
