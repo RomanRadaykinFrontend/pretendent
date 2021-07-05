@@ -30,7 +30,7 @@ import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
   components: {
     ControlPanel,
     AppHeaderTableRow,
-    TableRowAdmin
+    TableRowAdmin,
   },
 })
 export default class AdminPanelView extends Vue{
@@ -45,7 +45,8 @@ export default class AdminPanelView extends Vue{
     { name: 'Дата прохождения', needSort: true },
     { name: 'Время прохождения', needSort: true }]
 
-  private dataRow = [ '1', 'Иван', 'Иванов', { count: 28, needRef: true }, 'ivan@mail.ru', '@ivan313', '15.07.2021', '59:31' ]
+  private dataRow = [ '1', 'Иван', 'Иванов', { count: 28, needRef: true },
+    'ivan@mail.ru', '@ivan313', '15.07.2021', '59:31' ]
 
 }
 </script>

@@ -87,7 +87,7 @@ const routes: Array<RouteConfig> = [
     },
   },
   {
-    path: '/adminpanel',
+    path: '/admin',
     component: AdminPanelView,
   },
   {

@@ -18,8 +18,8 @@ import SortArrowLogo from '@/common/images/sort-arrow.svg'
 
 @Component({
   components: {
-    SortArrowLogo
-  }
+    SortArrowLogo,
+  },
 })
 export default class AppHeaderTableCell extends Vue{
   @Prop() private value!: any

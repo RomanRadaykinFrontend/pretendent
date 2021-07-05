@@ -1,7 +1,7 @@
 <template lang="pug">
 .ans-viewer-view
   .ans-viewer-view__control-panel
-    button( @click = " () => $router.push('/adminpanel')" ).ans-viewer-view__back-button Назад
+    button( @click = " () => $router.push('/admin')" ).ans-viewer-view__back-button Назад
     h1.ans-viewer-view__title Просмотр ответов
     select.ans-viewer-view__select
       option Все вопросы
@@ -23,6 +23,7 @@
     )
     TableRowAnsw(
       v-for = "(question, index) in questions"
+      :key = "question"
       :table-value = "question"
       :quest-number = "index + 1"
     )

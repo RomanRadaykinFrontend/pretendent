@@ -40,13 +40,9 @@ export default class TableCellAnsw extends Vue{
   get cellValue(){
     return this.value
   }
-  get isObjFlag(){
-    return this.isObj
-  }
   get codeValue(){
     return this.code
   }
-
   get showCode(){
     return this.codeValue !== ''
   }
