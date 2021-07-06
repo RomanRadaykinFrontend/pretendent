@@ -13,6 +13,7 @@ import { commonModule } from '@/store'
 
 @Component
 export default class FinalPageView extends Vue {
+  // убиваем данные в локале
   private mounted(){
     localStorage.setItem( 'answers', JSON.stringify([]) )
     localStorage.setItem( 'timeStart', '' )

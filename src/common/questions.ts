@@ -23,8 +23,8 @@ export const questions: Array<Question> = [
   {
     question: '0JPQtNC1INC/0YDQsNCy0LjQu9GM0L3QviDQv9GA0LjQstC10LTQtdC90LAg' +
       '0LjQvdC40YbQuNCw0LvQuNC30LDRhtC40Y8g0L/QtdGA0LXQvNC10L3QvdC+0Lk/',
-    answers: [ 'var str = "Hi";', 'int num = "1";',
-      'done = true;', 'char sym = \'a\';' ],
+    answers: [ 'var str = "Hi"', 'int num = "1"',
+      'done = true', 'char sym = \'a\'' ],
   },
   {
     question: '0JrQsNC6INC/0L7QtNC60LvRjtGH0LjRgtGMINGB0YLQsNC90LTQs' +
@@ -73,12 +73,12 @@ export const questions: Array<Question> = [
     question: '0KfRgtC+INGC0LDQutC+0LUg0LLRi9GA0LDQstC90LjQstCw0L3QuNC1INC/0L7Qu9C' +
       '10Lkg0YHRgtGA0YPQutGC0YPRgCDQuCDQutC70LDRgdGB0L7Qsj8=',
     answers: [ 'Это размещение полей по смещениям, кратным n байтам',
-      'Это замена значений полей структуры, выходящих за некий максимум, этим максимальным значением. ' ],
+      'Это замена значений полей структуры, выходящих за некий максимум, этим максимальным значением ' ],
   },
   {
     question: '0KfRgtC+INGC0LDQutC+0LUg0LDQsdGB0YLRgNCw0LrRgtC90YvQuSDQutC70LDRgdGBPw==',
     answers: [ 'Это класс с ключевым словом abstract',
-      'Это класс с одной или несколькими абстрактными функциями.',
+      'Это класс с одной или несколькими абстрактными функциями',
       'Это класс с недоопределёнными функциями' ],
   },
   {
@@ -126,7 +126,7 @@ export const questions: Array<Question> = [
       'YUgKNGB0L7Qs9C70LDRgdC90L4g0YHRgtCw0L3QtNCw0YDRgtGDIEMrKykg0YHQv9C+0YHQvtCx0L7QsiDQvtGB0LLQvtCx0L7' +
       'QtNC40YLRjCDQv9Cw0LzRj9GC0YwsINCy0YvQtNC10LvQtdC90L3Rg9GOINC60L7QvNCw0L3QtNC+0LkgTX' +
       'lDbGFzcyAqIHB0ciA9IDo6bmV3IE15Q2xhc3NbNTBdOw==',
-    answers: [ 'Без ограничений. delete ptr, free( ptr ), delete[] ptr',
+    answers: [ 'Без ограничений: delete ptr, free( ptr ), delete[] ptr',
       'Только delete[] ptr',
       'delete[] ptr или можно для каждого элемента массива вызвать деструктор, ' +
       'а потом можно использовать delete ptr' ],
@@ -173,12 +173,12 @@ export const questions: Array<Question> = [
   {
     question: '0JrQsNC6INC/0YDQsNCy0LjQu9GM0L3QviDQsdGA0L7RgdCw0YLRjCDQuNGB0LrQu9G' +
       'O0YfQtdC90LjRjyDQsiDQutC+0L3RgdGC0YDRg9C60YLQvtGA0LU/',
-    answers: [ 'Лучше не бросать, но если бросил, следить, чтобы не было повторных исключений.',
+    answers: [ 'Лучше не бросать, но если бросил, следить, чтобы не было повторных исключений',
       'Исключения в конструкторе - это стандартная хорошая практика, ' +
-      'гарантирующая, что не будет утечек памяти. Главное, перехватить исключение через catch  и обработать его.',
-      'Нельзя бросать исключения в конструкторе, это ведёт к ошибке времени исполнения с вероятностью 100%.',
+      'гарантирующая, что не будет утечек памяти. Главное, перехватить исключение через catch  и обработать его',
+      'Нельзя бросать исключения в конструкторе, это ведёт к ошибке времени исполнения с вероятностью 100%',
       'Исключения в конструкторе - часть парадигмы RAII, их можно и нужно бросать всегда без каких-либо ' +
-      'ограничений.' ],
+      'ограничений' ],
   },
   {
     question: '0JIg0LrQsNC60L7QvCDQutC70LDRgdGB0LUg0LHRg9C00LXRgiDQsdCw0LfQvtCy0YvQuSDQv9GA0Lgg0YDQvtC80LHQv' +
@@ -189,7 +189,7 @@ export const questions: Array<Question> = [
       ' В обоих, т.е. у D будет 2 базовых класса A',
       'Ни в каком',
       'Компилятор имеет право на оптимизацию, поэтому он уберёт один лишний класс A, ' +
-      'а нелишний разместит случайным образом, скорее всего в первом.' ],
+      'а нелишний разместит случайным образом, скорее всего в первом' ],
   },
   {
     question: '0KfQtdC80YMg0YDQsNCy0LXQvSBzaXplb2Yg0L7RgiDQv9GD0YHRgtC+0Lkg0YHRgtGA0YPQutGC0YPRgNGLPw==',
@@ -213,12 +213,12 @@ export const questions: Array<Question> = [
       'и при использовании барьеров, запрещающих переупорядочение команд',
     'По стандарту C++ volatile потокобезопасен и может использоваться в простых операциях и при ' +
       'использовании барьеров, запрещающих переупорядочение команд',
-    'По стандарту C++ volatile потокобезопасен и может использоваться без ограничений.' ],
+    'По стандарту C++ volatile потокобезопасен и может использоваться без ограничений' ],
   },
   {
     question: '0KfRgtC+INGC0LDQutC+0LUg0YTQsNCx0YDQuNC60LAg0Lgg0LfQsNGH0LXQvCDQvtC90LAg0L3Rg9C20L3QsD8=',
     answers: [ 'Фабрика - это шаблон проектирования, позволяющий создать одномоментно сразу несколько объектов из ' +
-    'одного семейства, для того, чтобы оптимизировать время создания однотипных объектов.',
+    'одного семейства, для того, чтобы оптимизировать время создания однотипных объектов',
     'Фабрика - это шаблон проектирования, который используется либо для того, чтобы принимать ' +
       'решение о типе создаваемого объекта в процессе исполнения программы, либо ограничить условия ' +
       'создания объектов (например, запретить создавать объекты на стеке)',
@@ -233,7 +233,7 @@ export const questions: Array<Question> = [
       '0YHQvdGL0LwgKHRocmVhZCBzYWZlKT8g0JLQvtC30LzQvtC20L3QvtGB0YLRjCDQv9C10YDQtdGD0L/QvtGA0Y/QtNC+0' +
       'YfQuNCy0LDQvdC40Y8g0L7Qv9C10YDQsNGG0LjQuSDQsiDRgNCw0YHRh9GR0YIg0L3QtSDQv9GA0LjQvdC40LzQsNGC0Ywu',
     answers: [ 'Потокобезопасной является только контрольная часть указателя, поэтому использование ' +
-    'shared_ptr потокобезопасно, если речь идёт о самом указателе, а не о значении, на которое он указывает.',
+    'shared_ptr потокобезопасно, если речь идёт о самом указателе, а не о значении, на которое он указывает',
     'Потокобезопасной является только контрольная часть указателя, но она не всегда ' +
       'гарантирует потокобезопасное копирование и удаление указателя, поэтому shared_ptr ' +
       'потокобезопасен только на чтение адреса значения или или изменение хранимого адреса',
@@ -265,13 +265,13 @@ export const questions: Array<Question> = [
       'dHJ1Y3Q8Qj4oIHN0YXRpY19jYXN0PEImPiggYS5hcnJheVtpXSApLCAKICAgICAgIChyYW5kKCkvMTAwMCkqMTAwM' +
       'CApOwogIH0KICBmb3IgKCBpbnQgaSA9IDA7IGkgPCAxNTsgKytpICkgewogICAgcHJpbnRmKCIlZCAiLCBhLmFyc' +
       'mF5W2ldLkdldFkoKSApOwogIH0KICByZXR1cm4gMDsKfQ==',
-    answers: [ 'Ошибок нет.',
+    answers: [ 'Ошибок нет',
       'В программе присутствует UB(неопределённое поведение)',
-      'В программе выход за границы массива.',
-      'Программа может "упасть" - ошибка времени выполнения.',
-      ' программе присутствует UB(неопределённое поведение) и выход за границы массива.',
+      'В программе выход за границы массива',
+      'Программа может "упасть" - ошибка времени выполнения',
+      ' программе присутствует UB(неопределённое поведение) и выход за границы массива',
       'В программе присутствует UB(неопределённое поведение), выход за границы массива, ' +
-      'и возможно "падение" - ошибка времени выполнения.' ],
+      'и возможно "падение" - ошибка времени выполнения' ],
   },
   {
     question: '0KfRgtC+INC90LDQv9C10YfQsNGC0LDQtdGCINGB0LvQtdC00YPRjtGJ0LjQuSDQu' +
@@ -404,7 +404,7 @@ export const questions: Array<Question> = [
     answers: [ '1',
       '3',
       'выведет ошибку',
-      'неопределено по стандарту С++.',
+      'неопределено по стандарту С++',
     ],
   },
 ]

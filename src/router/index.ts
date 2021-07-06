@@ -18,9 +18,9 @@ const routes: Array<RouteConfig> = [
     beforeEnter: ( to, from, next ) => {
       if( isStub === 'false' ){
         if( localStorage.getItem( 'isAuthorized' ) === 'true' ){
-          next({ path: '/login' })
-        } else {
           next({ path: `/questions/${localStorage.task}` })
+        } else {
+          next({ path: '/login' })
         }
       } else {
         next({ path: '/welcome' })
