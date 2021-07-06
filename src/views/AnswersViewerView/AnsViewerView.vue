@@ -9,7 +9,7 @@
       option Неотвеченные вопросы
     .ans-viewer-view__about(
       v-for = " data in pretendData "
-      :key = "data.title"
+      :key = " data.title "
     )
       span.subtitle {{ data.title }}
       span.data {{ data.data }}
@@ -23,7 +23,7 @@
     )
     TableRowAnsw(
       v-for = "(question, index) in questions"
-      :key = "question"
+      :key = "index"
       :table-value = "question"
       :quest-number = "index + 1"
     )

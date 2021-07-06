@@ -1,13 +1,13 @@
 <template lang="pug">
 .control-panel
   .control-panel__page-changer
-    ChangeArrow.back
+    ChangeArrow( @click = "incrementPage" ).back
     span.control-panel__page-number 1
     span.control-panel__page-number 2
     span.control-panel__page-number 3
     span.control-panel__page-number 4
     span.control-panel__page-number 5
-    ChangeArrow.forward
+    ChangeArrow( @click = "decrementPage" ).forward
   .control-panel__count-changer
     p.control-panel__count-text На странице
     select.control-panel__select-count
@@ -25,7 +25,18 @@ import ChangeArrow from '@/common/images/changeArrow.svg'
     ChangeArrow,
   },
 })
-export default class ControlPanel extends Vue{}
+export default class ControlPanel extends Vue{
+
+  private currentPage = 1
+
+  private incrementPage(){
+    this.currentPage !== 5 ?this.currentPage += 1 : 5
+  }
+  private decrementPage(){
+    this.currentPage !== 0 ? this.currentPage -= 1 : 5
+  }
+
+}
 </script>
 
 <style scoped lang="sass">
