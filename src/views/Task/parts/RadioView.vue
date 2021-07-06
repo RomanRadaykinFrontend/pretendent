@@ -71,9 +71,9 @@ export default class RadioView extends Vue {
 
   // если мы на 44 вовпросе - модалка "закончить тест", если нет - следующая таска
   private changePageHandler() {
-    if ( this.$route.params.id === '44' && this.totalCount !== this.doneTasksCount ) {
+    if ( +this.$route.params.id === this.totalCount && this.totalCount !== this.doneTasksCount ) {
       commonModule.mutations.setIsModalWindowShowed( true )
-    } else if( this.$route.params.id === '44' && this.totalCount === this.doneTasksCount ){
+    } else if( +this.$route.params.id === this.totalCount && this.totalCount === this.doneTasksCount ){
       this.$router.push( '/final' )
     } else {
       localStorage.task = 1 + this.questionNumber
