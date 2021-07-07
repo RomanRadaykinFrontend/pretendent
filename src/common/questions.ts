@@ -58,8 +58,8 @@ export const questions: Array<Question> = [
       'Способ создания класса' ],
   },
   {
-    question: '0KHQutC+0LvRjNC60L4g0YDQsNC3INCy0YvQv9C+0LvQvdC40YLRgdGPINGG0LjQ' +
-      'utC7IGZvciAoaW50IGk9MDsgaTwzOyBpKyspID8=',
+    question: '0KHQutC+0LvRjNC60L4g0YDQsNC3INCy0YvQv9C+0LvQvdC40YLRgdGPINGG0LjQutC7Pw==',
+    code: 'Zm9yIChpbnQgaT0wOyBpPDM7IGkrKyk=',
     answers: [ '0', '1', '2', '3', '4' ],
   },
   {
@@ -122,10 +122,8 @@ export const questions: Array<Question> = [
       'конце конструктора означает запрет на неявное преобразование типа' ],
   },
   {
-    question: '0KPQutCw0LbQuNGC0LUg0LzQsNC60YHQuNC80LDQu9GM0L3QvtC1INGH0LjRgdC70L4g0L/RgNCw0LLQuNC70YzQvdGL0' +
-      'YUgKNGB0L7Qs9C70LDRgdC90L4g0YHRgtCw0L3QtNCw0YDRgtGDIEMrKykg0YHQv9C+0YHQvtCx0L7QsiDQvtGB0LLQvtCx0L7' +
-      'QtNC40YLRjCDQv9Cw0LzRj9GC0YwsINCy0YvQtNC10LvQtdC90L3Rg9GOINC60L7QvNCw0L3QtNC+0LkgTX' +
-      'lDbGFzcyAqIHB0ciA9IDo6bmV3IE15Q2xhc3NbNTBdOw==',
+    question: '0KPQutCw0LbQuNGC0LUg0LzQsNC60YHQuNC80LDQu9GM0L3QvtC1INGH0LjRgdC70L4g0L/RgNCw0LLQuNC70YzQvdGL0YUgKNGB0L7Qs9C70LDRgdC90L4g0YHRgtCw0L3QtNCw0YDRgtGDIEMrKykg0YHQv9C+0YHQvtCx0L7QsiDQvtGB0LLQvtCx0L7QtNC40YLRjCDQv9Cw0LzRj9GC0YwsINCy0YvQtNC10LvQtdC90L3Rg9GOINC60L7QvNCw0L3QtNC+0Lk=',
+    code: 'TXlDbGFzcyAqIHB0ciA9IDo6bmV3IE15Q2xhc3NbNTBdOw==',
     answers: [ 'Без ограничений: delete ptr, free( ptr ), delete[] ptr',
       'Только delete[] ptr',
       'delete[] ptr или можно для каждого элемента массива вызвать деструктор, ' +
@@ -236,7 +234,7 @@ export const questions: Array<Question> = [
     'shared_ptr потокобезопасно, если речь идёт о самом указателе, а не о значении, на которое он указывает',
     'Потокобезопасной является только контрольная часть указателя, но она не всегда ' +
       'гарантирует потокобезопасное копирование и удаление указателя, поэтому shared_ptr ' +
-      'потокобезопасен только на чтение адреса значения или или изменение хранимого адреса',
+      'потокобезопасен только на чтение адреса значения или изменение хранимого адреса',
     'shared_ptr потокобезопасен без ограничений, но эта гарантия не распространяется на объект, ' +
       'на который указывает shared_ptr',
     'shared_ptr категорически нельзя использовать в многопоточном коде без мьютексов ' +
@@ -345,8 +343,7 @@ export const questions: Array<Question> = [
     ],
   },
   {
-    question: '0KfQtdC80YMg0YDQsNCy0LXQvSBzaXplb2YoImFCY0RlRiIpINC90LAg0L7QsdG' +
-      'J0LXRg9C/0L7RgtGA0LXQsdC40YLQtdC70YzQvdGL0YUgMzLRhSDQsdC40YLQvdGL0YUg0L/Qu9Cw0YLRhNC+0YDQvNCw0YU/',
+    question: '0KfQtdC80YMg0YDQsNCy0LXQvSBzaXplb2YoIjB4QWJDZCIpINC90LAg0L7QsdGJ0LXRg9C/0L7RgtGA0LXQsdC40YLQtdC70YzQvdGL0YUgMzLRhSDQsdC40YLQvdGL0YUg0L/Qu9Cw0YLRhNC+0YDQvNCw0YU/',
     answers: [ '4',
       '6',
       '7',
@@ -400,7 +397,7 @@ export const questions: Array<Question> = [
       'MgKNC60YDQvtC80LUg0LrQu9GO0YfQtdC5INC80LDQutGB0LjQvNCw0LvRjNC90L7QuSDQvtC/0YLQuNC80Lj' +
       'Qt9Cw0YbQuNC4KT8g0KPQutCw0LbQuNGC0LUg0L3QsNC40LHQvtC70LXQtSDQstC10YDQvtGP0YLQvdGL0Lkg0L' +
       'gg0YLQuNC/0LjRh9C90YvQuSDRgNC10LfRg9C70YzRgtCw0YIu',
-    code: 'aW50IGEgPSAwOwppbnQgYiA9IDE7CiooJmEgKyAxKSAgPSAzOwpNeUZ1bihiKTs=',
+    code: 'I2luY2x1ZGUgPGlvc3RyZWFtPgp1c2luZyBuYW1lc3BhY2Ugc3RkOwoKdm9pZCBNeUZ1bihpbnQgeCkgewpjb3V0PDwgeCA8PGVuZGw7Cn0KCmludCBtYWluKCkgewppbnQgYSA9IDA7CmludCBiID0gMTsKKigmYSArIDEpICA9IDM7Ck15RnVuKGIpOwpyZXR1cm4gMDsKfQ==',
     answers: [ '1',
       '3',
       'выведет ошибку',
