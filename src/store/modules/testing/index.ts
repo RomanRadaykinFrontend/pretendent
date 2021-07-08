@@ -1,6 +1,6 @@
 import { Module } from 'vuex-smart-module'
 import { User } from 'src/services/api/models/User'
-import { Answers } from '@/services/api'
+import { Answers, Questions } from '@/services/api'
 import { DoneTaskList } from '@/types/common'
 import { TestingGetters } from '@/store/modules/testing/getters'
 import { TestingMutations } from '@/store/modules/testing/mutations'
@@ -43,6 +43,10 @@ export class TestingState {
   public errorLogin = false
 
   public isShowFetchedError = false
+
+  public currentQuestion = {} as Questions
+
+  public questionTotalCount = 0
 
 }
 

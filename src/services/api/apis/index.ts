@@ -1,2 +1,5 @@
 export * from './AnswerApi'
+export * from './CorrectApi'
+export * from './QuestionsApi'
+export * from './ResultsApi'
 export * from './UserApi'

@@ -4,7 +4,11 @@
     span.table-cell-admin__span(
       v-show = " value.name "
     ) {{ value.name }}
-    SortArrowLogo.logo( v-show = " value.needSort " )
+    SortArrowLogo.logo(
+      :class = "sortArrowClass"
+      v-show = " value.needSort "
+      @click = "startSort"
+    )
   RouterLink.table-cell-admin__ref(
     v-show = " value.count "
     to = "/answersviewer/:id"
@@ -23,6 +27,23 @@ import SortArrowLogo from '@/common/images/sort-arrow.svg'
 })
 export default class AppHeaderTableCell extends Vue{
   @Prop() private value!: any
+
+  private sortDirection = true
+
+  private startSort(){
+    this.sortDirection = !this.sortDirection
+    if( this.value.sortType === 'byPercent' ){
+      this.$emit( 'sort-by-percent', this.sortDirection )
+    } else if( this.value.sortType === 'byDate' ){
+      this.$emit( 'sort-by-date', this.sortDirection )
+    } else {
+      this.$emit( 'sort-by-id', this.sortDirection )
+    }
+  }
+
+  get sortArrowClass(){
+    return this.sortDirection ? 'desc' : 'asc'
+  }
 }
 </script>
 
@@ -40,6 +61,10 @@ export default class AppHeaderTableCell extends Vue{
     align-items: center
     .logo
       cursor: pointer
+    .desc
+      transform: rotate(0deg)
+    .asc
+      transform: rotate(180deg)
   &__ref
     color: #1A8BDB
     text-decoration: none

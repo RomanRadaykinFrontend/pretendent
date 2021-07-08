@@ -13,42 +13,49 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    UserRes,
+    UserResFromJSON,
+    UserResFromJSONTyped,
+    UserResToJSON,
+} from './';
+
 /**
- * The object describes the user response
+ * Results list
  * @export
- * @interface Answer
+ * @interface Results
  */
-export interface Answer {
+export interface Results {
     /**
-     * Question number
-     * @type {number}
-     * @memberof Answer
+     * 
+     * @type {Array<UserRes>}
+     * @memberof Results
      */
-    question: number;
+    users: Array<UserRes>;
     /**
-     * Answer to the question on this number
+     * Total count of users
      * @type {number}
-     * @memberof Answer
+     * @memberof Results
      */
-    answer: number;
+    readonly count: number;
 }
 
-export function AnswerFromJSON(json: any): Answer {
-    return AnswerFromJSONTyped(json, false);
+export function ResultsFromJSON(json: any): Results {
+    return ResultsFromJSONTyped(json, false);
 }
 
-export function AnswerFromJSONTyped(json: any, ignoreDiscriminator: boolean): Answer {
+export function ResultsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Results {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'question': json['question'],
-        'answer': json['answer'],
+        'users': ((json['users'] as Array<any>).map(UserResFromJSON)),
+        'count': json['count'],
     };
 }
 
-export function AnswerToJSON(value?: Answer | null): any {
+export function ResultsToJSON(value?: Results | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -57,8 +64,7 @@ export function AnswerToJSON(value?: Answer | null): any {
     }
     return {
         
-        'question': value.question,
-        'answer': value.answer,
+        'users': ((value.users as Array<any>).map(UserResToJSON)),
     };
 }
 

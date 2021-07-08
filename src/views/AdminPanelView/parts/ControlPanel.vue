@@ -3,22 +3,27 @@
   .control-panel__page-changer
     ChangeArrow( @click = "decrementPage" ).back
     span.control-panel__page-number(
-      v-for = " (page, index) in pageArr "
+      v-for = " (page, index) in actualCountPages "
       :key = " page "
       :class = "getSpanClass( page )"
+      @click = " goToCurrentPage( page ) "
     ) {{ page }}
     ChangeArrow( @click = "incrementPage" ).forward
   .control-panel__count-changer
     p.control-panel__count-text На странице
-    select.control-panel__select-count
-      option 10
-      option 20
-      option 30
+    select(
+      v-model = "pickedCount"
+      @change = "$emit('change-count-result', pickedCount)"
+    ).control-panel__select-count
+      option( value="10" selected ) 10
+      option( value="20" ) 20
+      option( value="30" ) 30
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import ChangeArrow from '@/common/images/changeArrow.svg'
+
 
 @Component({
   components: {
@@ -26,17 +31,31 @@ import ChangeArrow from '@/common/images/changeArrow.svg'
   },
 })
 export default class ControlPanel extends Vue{
+  @Prop() private resultsCount!: number
+  @Prop() private totalCount!: number
+
+  private pickedCount = this.resultsCount
 
   private currentPage = 1
 
-  private pageArr = [ 1, 2, 3, 4, 5 ]
+  get actualCountPages(){
+    return Math.ceil( this.totalCount / +this.pickedCount )
+  }
 
   private incrementPage(){
-    debugger
-    return this.currentPage < 5 ? this.currentPage += 1 : 5
+    const newPage = this.currentPage < this.actualCountPages ? this.currentPage += 1 : this.actualCountPages
+    this.$emit( 'to-next-page', newPage )
+    return newPage
   }
   private decrementPage(){
-    return this.currentPage > 1 ? this.currentPage -= 1 : 1
+    const newPage = this.currentPage > 1 ? this.currentPage -= 1 : 1
+    this.$emit( 'to-previous-page', newPage )
+    return newPage
+  }
+
+  private goToCurrentPage( page: number ){
+    this.currentPage = page
+    this.$emit( 'to-current-page', page )
   }
 
   private getSpanClass( page: number ){

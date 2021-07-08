@@ -4,6 +4,9 @@
     v-for = "(cell,index) in tableValue"
     :key = "index"
     :value = "cell"
+    @sort-by-percent = "$emit( 'sort-by-percent', $event )"
+    @sort-by-date = "$emit( 'sort-by-date', $event )"
+    @sort-by-id = "$emit( 'sort-by-id', $event )"
   )
 
 </template>

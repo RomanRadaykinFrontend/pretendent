@@ -15,3 +15,6 @@ export interface DoneTaskList {
   taskNumber: number,
   value: string,
 }
+
+export type PropAnswer = { question: number, answer: number } | undefined
+

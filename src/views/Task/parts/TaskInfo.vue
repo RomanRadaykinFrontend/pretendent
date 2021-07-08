@@ -1,11 +1,14 @@
 <template lang="pug">
   .task-info
-    TaskChanger( :array-of-values = "actualAnswers" )
+    TaskChanger(
+      :array-of-values = "currentQuestion.answers"
+      :question-total-count = "questionTotalCount"
+      )
     .task-info__control-panel
       .task-info__time-remain
         span Осталось &nbsp
           span(
-            :style = "timeRemain <= 20 && {color: 'red'}"
+            :style = " timeRemain <= 20 && {color: 'red'} "
           ) {{ hours }}:{{ /^[0-9]$/.test(minutes) ? '0' + minutes : minutes }}:
         | {{ /^[0-9]$/.test(seconds) ? '0' + seconds : seconds }}
       button.task-info__test-end(
@@ -14,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { testingModule } from '@/store'
-import { questions } from '@/common/questions'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
+import { Questions } from '@/services/api'
 
 @Component({
   components: {
@@ -26,10 +29,8 @@ import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
 })
 export default class TaskInfo extends Vue{
 
-  private questions = questions
-  private taskNumber = +this.$route.params.id
-  private actualTask = this.questions[this.taskNumber - 1]
-  private actualAnswers = this.actualTask.answers
+  @Prop() private currentQuestion!: Questions
+  @Prop() private questionTotalCount!: number
 
   get timeRemain(){
     if( testingModule.getters.timeRemain <= 0 ){

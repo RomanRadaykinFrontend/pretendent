@@ -3,7 +3,7 @@ import { Actions } from 'vuex-smart-module'
 import { TestingMutations } from './mutations'
 import { TestingGetters } from './getters'
 import { SET_USERGUID } from '@/store/mutation.types'
-import { UsersCreateRequest, USER_API, AddNewAnswersRequest, ANSWER_API } from '@/services/api'
+import { UsersCreateRequest, USER_API, AddNewAnswersRequest, ANSWER_API, QUESTIONS_API } from '@/services/api'
 
 
 export class TestingActions extends Actions<
@@ -28,6 +28,18 @@ TestingActions> {
       await ANSWER_API.addNewAnswers( data )
     } catch ( error ) {
       return  error.message
+    }
+  }
+
+  public async getQuestions( numOfQuest: number ){
+    try{
+      const result = await QUESTIONS_API.questions()
+      const currentQuestion = result.questions ? result.questions[numOfQuest - 1] : {}
+      this.commit( 'setCurrentQuestion', currentQuestion )
+      this.commit( 'setQuestionTotalCount', result.questions ? result.questions.length : 0 )
+      return currentQuestion
+    } catch( error ){
+      return error
     }
   }
 

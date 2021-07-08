@@ -1,6 +1,6 @@
 import { Mutations } from 'vuex-smart-module'
 import { CurrentAnswer, DoneTaskList, InputName } from '@/types/common'
-import { Answer } from 'src/services/api'
+import { Answer, Questions } from 'src/services/api'
 import { TestingState } from '@/store/modules/testing/index'
 
 export class TestingMutations extends Mutations<TestingState> {
@@ -97,5 +97,13 @@ export class TestingMutations extends Mutations<TestingState> {
 
   public setIsShowFetchedError( value: boolean ) {
     this.state.isShowFetchedError = value
+  }
+
+  public setCurrentQuestion( value: Questions ){
+    this.state.currentQuestion = value
+  }
+
+  public setQuestionTotalCount( value: number ){
+    this.state.questionTotalCount = value
   }
 }

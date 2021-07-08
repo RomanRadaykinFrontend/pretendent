@@ -21,41 +21,34 @@ import {
 } from './';
 
 /**
- * User GUID and all responses received
+ * list of right answers
  * @export
- * @interface Answers
+ * @interface RightAnswersRes
  */
-export interface Answers {
-    /**
-     * GUID
-     * @type {string}
-     * @memberof Answers
-     */
-    userGUID: string;
+export interface RightAnswersRes {
     /**
      * 
      * @type {Array<Answer>}
-     * @memberof Answers
+     * @memberof RightAnswersRes
      */
-    answers: Array<Answer>;
+    correct?: Array<Answer>;
 }
 
-export function AnswersFromJSON(json: any): Answers {
-    return AnswersFromJSONTyped(json, false);
+export function RightAnswersResFromJSON(json: any): RightAnswersRes {
+    return RightAnswersResFromJSONTyped(json, false);
 }
 
-export function AnswersFromJSONTyped(json: any, ignoreDiscriminator: boolean): Answers {
+export function RightAnswersResFromJSONTyped(json: any, ignoreDiscriminator: boolean): RightAnswersRes {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'userGUID': json['userGUID'],
-        'answers': ((json['answers'] as Array<any>).map(AnswerFromJSON)),
+        'correct': (json as Array<any>).map(AnswerFromJSON),
     };
 }
 
-export function AnswersToJSON(value?: Answers | null): any {
+export function RightAnswersResToJSON(value?: RightAnswersRes | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -64,8 +57,7 @@ export function AnswersToJSON(value?: Answers | null): any {
     }
     return {
         
-        'userGUID': value.userGUID,
-        'answers': ((value.answers as Array<any>).map(AnswerToJSON)),
+        'correct': value.correct === undefined ? undefined : ((value.correct as Array<any>).map(AnswerToJSON)),
     };
 }
 

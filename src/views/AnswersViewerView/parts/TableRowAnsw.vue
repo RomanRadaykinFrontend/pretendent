@@ -1,5 +1,5 @@
 <template lang="pug">
-.table-row-answ( :class = "rowClass" )
+.table-row-answ
   TableCellAnsw.number(
     :value = "questNumber"
     type = "number"
@@ -12,8 +12,9 @@
   TableCellAnsw.answers(
     :value = "answers"
     type = "answersArr"
+    :selected-answer = "userAnswer"
+    :right-answer = "rightAnswer"
   )
-
 </template>
 
 <script lang="ts">
@@ -21,26 +22,22 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import TableCellAnsw from '@/views/AnswersViewerView/parts/TableCellAnsw.vue'
 import { Question } from '@/common/questions'
 import { Base64 } from 'js-base64'
+import { PropAnswer } from '@/types/common'
 
 @Component({
   components: { TableCellAnsw },
 })
 export default class TableRowAnsw extends Vue{
-  @Prop({ default: false }) private isHeaderRow!: boolean
   @Prop() private tableValue!: Question
   @Prop() private questNumber!: number
-
-  get rowClass(){
-    return {
-      ['header-row']: this.isHeaderRow,
-    }
-  }
+  @Prop() private userAnswer!: PropAnswer
+  @Prop() private rightAnswer!: PropAnswer
 
   get value(){
     return this.tableValue
   }
   get question(){
-    return Base64.decode( this.value.question )
+    return this.value.question ? Base64.decode( this.value.question ) : ''
   }
   get code(){
     if( this.value.code ){

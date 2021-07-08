@@ -1,9 +1,27 @@
 <template lang="pug">
-.table-row( :class = "rowClass" )
+.table-row
   TableCellAdmin(
-    v-for = "(cell,index) in tableValue"
-    :key = "index"
-    :value = "cell"
+    :value = "rowNumb"
+  )
+  TableCellAdmin(
+    :value = "userInfo.name"
+  )
+  TableCellAdmin(
+    :value = "userInfo.lastName"
+  )
+  TableCellAdmin(
+    :value = "userPercent"
+    :id = "rowNumb"
+    type = "percent"
+  )
+  TableCellAdmin(
+    :value = "userInfo.email"
+  )
+  TableCellAdmin(
+    :value = "userInfo.telegram"
+  )
+  TableCellAdmin(
+    :value = "actualDate"
   )
 
 </template>
@@ -11,19 +29,28 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import TableCellAdmin from '@/views/AdminPanelView/parts/TableCellAdmin.vue'
+import { Results } from '@/services/api'
+import { getDate } from '@/helpers/functions'
 
 @Component({
   components: { TableCellAdmin },
 })
 export default class TableRowAdmin extends Vue{
-  @Prop({ default: false }) private isHeaderRow!: boolean
-  @Prop() private tableValue!: Array<any>
+  @Prop() private tableValue!: Results
+  @Prop() private rowNumb!: number
 
-  get rowClass(){
-    return {
-      ['header-row']: this.isHeaderRow,
-    }
+  get userInfo(){
+    return this.tableValue.user
   }
+
+  get userPercent(){
+    return this.tableValue.percent
+  }
+
+  get actualDate(){
+    return getDate( this.userInfo?.timeCreate || new Date() )
+  }
+
 }
 </script>
 
@@ -35,9 +62,4 @@ export default class TableRowAdmin extends Vue{
   font-weight: normal
   font-size: 16px
   color: black
-  &.header-row
-    background: rgba(240, 242, 244, 0.5)
-    color: #7B8395
-    font-weight: 500
-    font-size: 12px
 </style>

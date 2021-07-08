@@ -43,6 +43,7 @@ export default class App extends Vue {
   }
 
   private created(){
+    testingModule.actions.getQuestions()
     if( localStorage.getItem( 'doneTaskList' ) ) {
       const value = JSON.parse( localStorage?.getItem( 'doneTaskList' ) || '' )
       testingModule.mutations.setDoneTaskListLocalStorage( value )

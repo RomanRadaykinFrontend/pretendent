@@ -6,17 +6,23 @@
       AppHeaderTableRow(
         :is-header-row = "true"
         :table-value = "headerRow"
+        @sort-by-date = " sortByDate( $event ) "
+        @sort-by-percent = " sortByPercent( $event ) "
       )
       TableRowAdmin(
-        :table-value = "dataRow"
+        v-for = " ( result, index ) in results "
+        :key = "index"
+        :table-value = "result"
+        :row-numb = " rowNumb + index + 1 "
       )
-      TableRowAdmin(
-        :table-value = "dataRow"
-      )
-      TableRowAdmin(
-        :table-value = "dataRow"
-      )
-  ControlPanel
+  ControlPanel(
+    @change-count-result = "changeResultsCount( $event )"
+    @to-current-page = " getNewUsersList ( $event )  "
+    @to-next-page = " getNewUsersList ( $event ) "
+    @to-previous-page = " getNewUsersList ( $event ) "
+    :results-count = " resultsCount "
+    :total-count = " totalCount "
+  )
 
 </template>
 
@@ -25,6 +31,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import AppHeaderTableRow from '@/components/AppHeaderTableRow.vue'
 import ControlPanel from '@/views/AdminPanelView/parts/ControlPanel.vue'
 import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
+import { adminModule } from '@/store'
+import { sortItems } from '@/helpers/functions'
 
 @Component({
   components: {
@@ -35,18 +43,59 @@ import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
 })
 export default class AdminPanelView extends Vue{
 
+  get results(){
+    return adminModule.getters.results
+  }
+
+  get resultsCount(){
+    return adminModule.getters.resultsCount
+  }
+
+  get totalCount(){
+    return adminModule.getters.totalCount
+  }
+
+  get page(){
+    return adminModule.getters.page
+  }
+
+  get rowNumb(){
+    return 0
+  }
+
   private headerRow = [
     { name: '#', needSort: false },
     { name: 'Имя', needSort: false },
     { name: 'Фамилия', needSort: false },
-    { name: 'Правильных ответов', needSort: true },
+    { name: 'Правильных ответов', needSort: true, sortType: 'byPercent' },
     { name: 'Email', needSort: false },
     { name: 'Telegram', needSort: false },
-    { name: 'Дата прохождения', needSort: true },
-    { name: 'Время прохождения', needSort: true }]
+    { name: 'Дата прохождения', needSort: true, sortType: 'byDate' },
+  ]
 
-  private dataRow = [ '1', 'Иван', 'Иванов', { count: 28, needRef: true },
-    'ivan@mail.ru', '@ivan313', '15.07.2021', '59:31' ]
+  private sortByPercent( direction: boolean ){
+    return this.results.sort( ( a, b ) => sortItems( a.percent, b.percent, direction ) )
+
+  }
+  private sortByDate( direction: boolean ){
+    console.log( this.results )
+    return this.results.sort( ( a, b ) => sortItems( a.user.timeCreate, b.user.timeCreate, direction ) )
+  }
+
+  private mounted(){
+    adminModule.actions.getResults({ offset: 0, limit: +this.resultsCount })
+  }
+
+  private changeResultsCount( resultsCount: number  ){
+    adminModule.mutations.setResultsCount( resultsCount.toString() )
+    adminModule.actions.getResults({ offset: 0, limit: resultsCount })
+  }
+
+  private getNewUsersList( page: number ){
+    const newOffset = ( page * this.resultsCount ) - +this.resultsCount
+    adminModule.actions.getResults({ offset: newOffset, limit: +this.resultsCount })
+    adminModule.mutations.setPage( page )
+  }
 
 }
 </script>

@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: 'Pretendent backend'
-  version: '0.1.2'
+  version: '0.1.3'
 
 servers:
   - url: /api/v1
@@ -11,6 +11,13 @@ tags:
     description: User create
   - name: answer
     description: Answers from the user
+  - name: results
+    description: Results users with their answers
+  - name: questions
+    description: List questions
+  - name: correct
+    description: List right answers
+    
 
 
 paths:
@@ -65,7 +72,62 @@ paths:
         '500':
           $ref: '#/components/responses/ErrorUnexpected'
 
+  # Results information page
+  /results:
+    get:
+      description: Results users with their answers
+      operationId: results
+      tags: ['results']
+      parameters:
+        - $ref: "#/components/parameters/PaginationOffset"
+        - $ref: "#/components/parameters/PaginationLimit"
+      responses:
+        '200':
+          $ref: '#/components/responses/ResultsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorBadRequest'
+        '403':
+          $ref: '#/components/responses/ErrorForbidden'          
+        '429':
+          $ref: '#/components/responses/ErrorRateLimit'          
+        '500':
+          $ref: '#/components/responses/ErrorUnexpected'
 
+  # Results information page
+  /questions:
+    get:
+      description: List Questions
+      operationId: questions
+      tags: ['questions']
+      responses:
+        '200':
+          $ref: '#/components/responses/QuestionsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorBadRequest'
+        '403':
+          $ref: '#/components/responses/ErrorForbidden'          
+        '429':
+          $ref: '#/components/responses/ErrorRateLimit'          
+        '500':
+          $ref: '#/components/responses/ErrorUnexpected'
+
+  # Results information page
+  /correct:
+    get:
+      description: List right Answers
+      operationId: correct
+      tags: ['correct']
+      responses:
+        '200':
+          $ref: '#/components/responses/RightAnswersResponse'
+        '400':
+          $ref: '#/components/responses/ErrorBadRequest'
+        '403':
+          $ref: '#/components/responses/ErrorForbidden'          
+        '429':
+          $ref: '#/components/responses/ErrorRateLimit'          
+        '500':
+          $ref: '#/components/responses/ErrorUnexpected'          
 
 components:
   schemas:
@@ -94,13 +156,12 @@ components:
 
     User:
       type: object
-      description: User
+      description: User information
       required:
         - name
         - lastName
         - email
         - telegram
-        - userGUID
       properties:
         name:     
           type: string
@@ -125,6 +186,73 @@ components:
           description: User uuid
           readOnly: true
 
+    Results:
+      description: Results list
+      required:
+        - users
+        - count
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRes'
+        count:
+          type: integer 
+          description: Total count of users
+          readOnly: true
+
+    UserRes:
+      type: object
+      properties:
+          user:
+            $ref: '#/components/schemas/User'
+            readOnly: true  
+          percent:
+            type: integer 
+            description: Percentage of correct answers
+            readOnly: true   
+          answers:
+            type: array
+            items:
+              $ref: '#/components/schemas/Answer'
+    
+
+
+    QuestionsRes:
+      description: List of questions
+      properties:
+        Questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Questions'         
+
+    Questions:
+      type: object
+      description: list of questions with answers
+      properties:
+        id:     
+          type: integer
+          description: Question number
+        code:     
+          type: string
+          description: Code question       
+        question:
+          type: string
+          description: Question 
+        answers:
+          description: Answer options    
+          type: array
+          items:
+            type: string
+
+    RightAnswersRes:
+      description: list of right answers
+      properties:
+        correct:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'  
+
     Answers:
       type: object
       description: User GUID and all responses received
@@ -143,7 +271,7 @@ components:
 
     Answer:
       type: object
-      description: Add new answer
+      description: The object describes the user response
       required:
         - question
         - answer
@@ -155,10 +283,9 @@ components:
           type: integer
           description: Answer to the question on this number
 
-
+  # responses
   responses:
-    # responses
-
+  
     SuccessfulRecord:
       description: Successful record
       content:
@@ -173,6 +300,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/User'
+
+    # Results responses
+    ResultsResponse:
+      description: Results
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Results'
+
+    # Questions responses
+    QuestionsResponse:
+      description: Questions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QuestionsRes'
+
+    # Right answers
+    RightAnswersResponse:
+      description: Right Answers
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RightAnswersRes'
 
     # error responses            
     ErrorUnexpected:
@@ -211,4 +362,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Message'
-    
+  
+  parameters:
+    PaginationLimit:
+      name: limit
+      in: query
+      description: maximum number of results to return
+      required: false
+      schema:
+        type: integer
+        format: int64
+
+    PaginationOffset:
+      name: offset
+      in: query
+      description: offset for pagination
+      required: false
+      schema:
+        type: integer
+        format: int64            

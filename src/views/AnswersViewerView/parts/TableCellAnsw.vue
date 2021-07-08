@@ -9,8 +9,9 @@
     v-show = " type === 'answersArr' "
     v-for = "(answer, index) in cellValue"
   )
-    .radio-div.is-done-true(
+    .radio-div(
       :key = "'answer' + index"
+      :class = " styleSelectedAnsw( index ) "
     )
     label(
       :key = "'textAnswer' + index"
@@ -18,11 +19,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import hljs from 'highlight.js'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import Highlight from 'vue-highlight-component'
+import { PropAnswer } from '@/types/common'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 hljs.registerLanguage( 'cpp', require( 'highlight.js/lib/languages/cpp' ) )
@@ -36,6 +38,8 @@ export default class TableCellAnsw extends Vue{
   @Prop() private value!: string | number | Array<string>
   @Prop() private type!: 'number' | 'task' | 'answersArr'
   @Prop({ required: false }) private code!: string
+  @Prop({ required: false }) private selectedAnswer!: PropAnswer
+  @Prop() private rightAnswer!: PropAnswer
 
   get cellValue(){
     return this.value
@@ -46,6 +50,31 @@ export default class TableCellAnsw extends Vue{
   get showCode(){
     return this.codeValue !== ''
   }
+
+  get answ(){
+    return this.selectedAnswer
+  }
+
+  get taskIsDone(){
+    return this.selectedAnswer?.answer === this.rightAnswer?.answer
+  }
+
+  // получаем класс радио-кнопок в зависимости от правильных и неправильных ответов
+  private styleSelectedAnsw( index: number ){
+    if( this.answ?.answer && this.rightAnswer?.answer ){
+      return {
+        ['is-done-true']: this.taskIsDone && index === this.answ?.answer - 1,
+        ['is-done-false']: !this.taskIsDone && index === this.answ?.answer - 1,
+        ['is-true']: index === this.rightAnswer.answer - 1,
+      }
+    }
+    if( this.rightAnswer?.answer ){
+      return {
+        ['is-true']: index === this.rightAnswer.answer - 1,
+      }
+    }
+  }
+
 }
 </script>
 
@@ -91,13 +120,4 @@ export default class TableCellAnsw extends Vue{
         background: green
     .is-true
       border-color: green
-    .is-false
-      border-color: red
-
-
-
-
-
-
-
 </style>
