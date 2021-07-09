@@ -5,7 +5,7 @@
       type="text"
       :placeholder = "placeholder"
       :name = "name"
-      v-model = "value"
+      v-model.trim = "value"
       @focus = "isFocused = 'focused'; focusCount +=1"
       @blur = "isFocused = 'blur'"
       @input = "changeUserInfo([ name, value ])"
@@ -82,9 +82,7 @@ export default class LoginFormInputView extends Vue {
           return false
         }
       case 'telegram':
-        if ( this.value === '' ) {
-          return 'empty'
-        } else if( !regExpTelegram.test( this.value ) ){
+        if( !regExpTelegram.test( this.value ) && this.value !== '' ){
           return 'incorrectTelegram'
         } else {
           return false
@@ -119,9 +117,7 @@ export default class LoginFormInputView extends Vue {
           return false
         }
       case 'telegram':
-        if ( this.value === '' ) {
-          return 'empty'
-        } else if( !regExpTelegram.test( this.value ) ){
+        if( !regExpTelegram.test( this.value ) && this.value !== '' ){
           return 'incorrectTelegram'
         } else {
           return false
@@ -144,6 +140,9 @@ export default class LoginFormInputView extends Vue {
     }
     case 'telegram':
       this.borderColorStyle['border-color'] = regExpTelegram.test( this.value ) ? 'blue' : 'red'
+      if( this.value === '' ) {
+        this.borderColorStyle['border-color'] = 'rgb(225, 225, 225)'
+      }
       break
     default:
       this.borderColorStyle['border-color'] = regExpName.test( this.value ) ? 'blue' : 'red'

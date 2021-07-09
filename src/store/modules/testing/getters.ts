@@ -38,10 +38,6 @@ export class TestingGetters extends Getters<TestingState> {
     return this.state.timeRemain
   }
 
-  get isAccountExist(){
-    return this.state.isAccountExist
-  }
-
   get timer(){
     return this.state.timer
   }

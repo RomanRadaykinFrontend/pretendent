@@ -15,11 +15,15 @@ TestingActions> {
     try {
       const result = await USER_API.usersCreate( data )
       this.commit( SET_USERGUID, result.userGUID )
-      this.commit( 'setIsErrorLogin', false )
+      this.commit( 'setIsErrorLogin', '' )
       this.commit( 'setIsShowFetchedError', false )
       return result
     } catch ( error ){
-      this.commit( 'setIsErrorLogin', true )
+      if( error.status === 409 ){
+        this.commit( 'setIsErrorLogin', 'Данный email уже зарегистрирован, введите другой email' )
+      } else {
+        this.commit( 'setIsErrorLogin', 'Что-то пошло не-так, обратитесь к администратору' )
+      }
       return error.message
     }
   }

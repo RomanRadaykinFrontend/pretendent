@@ -42,6 +42,7 @@ export default class App extends Vue {
     return testingModule.getters.isModalWindowShowed
   }
 
+  // при создании app задаем вводные - проверяем авторизацию, пушим данные из локала в стор
   private created(){
     if( localStorage.getItem( 'doneTaskList' ) ) {
       const value = JSON.parse( localStorage?.getItem( 'doneTaskList' ) || '' )
@@ -67,7 +68,9 @@ export default class App extends Vue {
   }
   private hideModalWindow(){
     testingModule.mutations.setIsModalWindowShowed( false )
-    this.$router.push( `/questions/${localStorage.task}` )
+    if( this.$route.params.id !== localStorage.getItem( 'task' ) ){
+      this.$router.push( `/questions/${localStorage.task}` )
+    }
   }
   private goToFinalPage(){
     testingModule.mutations.setIsModalWindowShowed( false )

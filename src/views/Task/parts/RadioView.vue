@@ -40,6 +40,7 @@ export default class RadioView extends Vue {
   @Prop() private questionNumber!: number
 
   private taskNumber = +this.$route.params.id
+  private doneTasksCount = testingModule.getters.doneTaskList.length
 
   // пушим в стейт выбранный вариант ответа и достаем по необходимости
   set picked( value: string ){
@@ -68,10 +69,12 @@ export default class RadioView extends Vue {
     this.changePageHandler()
   }
 
-  // хелпер по переключению страниц
+  // если мы на 44 вовпросе - модалка "закончить тест", если нет - следующая таска
   private changePageHandler() {
-    if ( this.totalCount === +this.$route.params.id ) {
+    if ( +this.$route.params.id === this.totalCount && this.totalCount !== this.doneTasksCount ) {
       testingModule.mutations.setIsModalWindowShowed( true )
+    } else if( +this.$route.params.id === this.totalCount && this.totalCount === this.doneTasksCount ){
+      this.$router.push( '/final' )
     } else {
       localStorage.task = 1 + this.questionNumber
       this.$router.push({
