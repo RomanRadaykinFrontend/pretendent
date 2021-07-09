@@ -1,12 +1,11 @@
 import { Mutations } from 'vuex-smart-module'
 import { AdminState } from '@/store/modules/admin/index'
-import { Question } from '@/common/questions'
-import { UserRes } from '@/services/api'
+import { CorrectAnswer, Questions, UserResult } from '@/services/api'
 
 
 
 export class AdminMutations extends Mutations<AdminState> {
-  public setResults( value: Array<UserRes> ){
+  public setResults( value: Array<UserResult> ){
     this.state.results = value
   }
 
@@ -26,7 +25,7 @@ export class AdminMutations extends Mutations<AdminState> {
     this.state.typeTasks = value
   }
 
-  public setQuestions( value: Array<Question> ){
+  public setQuestions( value: Array<Questions> | undefined ){
     this.state.questions = value
   }
 
@@ -34,7 +33,15 @@ export class AdminMutations extends Mutations<AdminState> {
     this.state.page = value
   }
 
-  public setSortQuestions( value: Array<Question> ){
+  public setSortQuestions( value: Array<Questions> ){
     this.state.sortQuestions = value
+  }
+
+  public setIsAllDataFetched( value: boolean ){
+    this.state.isAllDataFetched = value
+  }
+
+  public setRightAnswers( value: Array<CorrectAnswer> ){
+    this.state.rightAnswers = value
   }
 }

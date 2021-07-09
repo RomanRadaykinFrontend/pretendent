@@ -1,6 +1,5 @@
 .openapi-generator-ignore
 apis/AnswerApi.ts
-apis/CorrectApi.ts
 apis/QuestionsApi.ts
 apis/ResultsApi.ts
 apis/UserApi.ts
@@ -8,12 +7,13 @@ apis/index.ts
 index.ts
 models/Answer.ts
 models/Answers.ts
+models/CorrectAnswer.ts
+models/CorrectAnswers.ts
 models/Message.ts
 models/Questions.ts
-models/QuestionsRes.ts
+models/QuestionsItems.ts
 models/Results.ts
-models/RightAnswersRes.ts
 models/User.ts
-models/UserRes.ts
+models/UserResult.ts
 models/index.ts
 runtime.ts

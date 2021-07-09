@@ -23,22 +23,22 @@ import {
 /**
  * List of questions
  * @export
- * @interface QuestionsRes
+ * @interface QuestionsItems
  */
-export interface QuestionsRes {
+export interface QuestionsItems {
     /**
      * 
      * @type {Array<Questions>}
-     * @memberof QuestionsRes
+     * @memberof QuestionsItems
      */
     questions?: Array<Questions>;
 }
 
-export function QuestionsResFromJSON(json: any): QuestionsRes {
-    return QuestionsResFromJSONTyped(json, false);
+export function QuestionsItemsFromJSON(json: any): QuestionsItems {
+    return QuestionsItemsFromJSONTyped(json, false);
 }
 
-export function QuestionsResFromJSONTyped(json: any, ignoreDiscriminator: boolean): QuestionsRes {
+export function QuestionsItemsFromJSONTyped(json: any, ignoreDiscriminator: boolean): QuestionsItems {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -48,7 +48,7 @@ export function QuestionsResFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function QuestionsResToJSON(value?: QuestionsRes | null): any {
+export function QuestionsItemsToJSON(value?: QuestionsItems | null): any {
     if (value === undefined) {
         return undefined;
     }

@@ -29,14 +29,14 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import TableCellAdmin from '@/views/AdminPanelView/parts/TableCellAdmin.vue'
-import { Results } from '@/services/api'
+import { UserResult } from '@/services/api'
 import { getDate } from '@/helpers/functions'
 
 @Component({
   components: { TableCellAdmin },
 })
 export default class TableRowAdmin extends Vue{
-  @Prop() private tableValue!: Results
+  @Prop() private tableValue!: UserResult
   @Prop() private rowNumb!: number
 
   get userInfo(){

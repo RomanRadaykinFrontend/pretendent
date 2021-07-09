@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    UserRes,
-    UserResFromJSON,
-    UserResFromJSONTyped,
-    UserResToJSON,
+    UserResult,
+    UserResultFromJSON,
+    UserResultFromJSONTyped,
+    UserResultToJSON,
 } from './';
 
 /**
@@ -28,10 +28,10 @@ import {
 export interface Results {
     /**
      * 
-     * @type {Array<UserRes>}
+     * @type {Array<UserResult>}
      * @memberof Results
      */
-    users: Array<UserRes>;
+    users: Array<UserResult>;
     /**
      * Total count of users
      * @type {number}
@@ -50,7 +50,7 @@ export function ResultsFromJSONTyped(json: any, ignoreDiscriminator: boolean): R
     }
     return {
         
-        'users': ((json['users'] as Array<any>).map(UserResFromJSON)),
+        'users': ((json['users'] as Array<any>).map(UserResultFromJSON)),
         'count': json['count'],
     };
 }
@@ -64,7 +64,7 @@ export function ResultsToJSON(value?: Results | null): any {
     }
     return {
         
-        'users': ((value.users as Array<any>).map(UserResToJSON)),
+        'users': ((value.users as Array<any>).map(UserResultToJSON)),
     };
 }
 

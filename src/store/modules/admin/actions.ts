@@ -2,7 +2,7 @@ import { AdminState } from './index.js'
 import { Actions } from 'vuex-smart-module'
 import { AdminGetters } from '@/store/modules/admin/getters'
 import { AdminMutations } from '@/store/modules/admin/mutations'
-import { CORRECT_API, QUESTIONS_API, RESULTS_API, ResultsRequest } from '@/services/api'
+import { QUESTIONS_API, RESULTS_API, ResultsRequest } from '@/services/api'
 
 
 
@@ -23,18 +23,20 @@ AdminActions> {
 
   public async getResults( resReq: ResultsRequest ) {
     try {
+      this.commit( 'setIsAllDataFetched', true )
       const result = await RESULTS_API.results( resReq )
       this.commit( 'setResults', result.users )
       this.commit( 'setTotalCount', result.count )
     } catch ( e ) {
       return e.message
     }
+    this.commit( 'setIsAllDataFetched', false )
   }
 
   public async getRightAnswer(){
     try{
-      const result = await CORRECT_API.correct()
-      console.log( result )
+      const result = await QUESTIONS_API.correct()
+      this.commit( 'setRightAnswers', result.correctAnswers )
     }catch ( e ){
       return e.message
     }

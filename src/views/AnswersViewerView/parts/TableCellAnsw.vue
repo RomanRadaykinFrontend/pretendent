@@ -1,13 +1,13 @@
 <template lang="pug">
 .table-cell-answ
   .table-cell-answ__task-number( v-show = " type === 'number' " )
-    span {{ cellValue }}
+    span {{ actualValue }}
   .table-cell-answ__text-code( v-show = " type === 'task' " )
-    span {{ cellValue }}
-    Highlight( v-show = " showCode " ) {{ codeValue }}
+    span {{ actualValue }}
+    Highlight( v-show = " showCode " ) {{ actualCode }}
   .table-cell-answ__radio(
     v-show = " type === 'answersArr' "
-    v-for = "(answer, index) in cellValue"
+    v-for = "(answer, index) in actualValue"
   )
     .radio-div(
       :key = "'answer' + index"
@@ -19,12 +19,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import hljs from 'highlight.js'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import Highlight from 'vue-highlight-component'
-import { PropAnswer } from '@/types/common'
+import { Answer, CorrectAnswer } from '@/services/api'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 hljs.registerLanguage( 'cpp', require( 'highlight.js/lib/languages/cpp' ) )
@@ -38,39 +38,51 @@ export default class TableCellAnsw extends Vue{
   @Prop() private value!: string | number | Array<string>
   @Prop() private type!: 'number' | 'task' | 'answersArr'
   @Prop({ required: false }) private code!: string
-  @Prop({ required: false }) private selectedAnswer!: PropAnswer
-  @Prop() private rightAnswer!: PropAnswer
+  @Prop({ required: false }) private userAnswer!: Answer
+  @Prop() private rightAnswer!: CorrectAnswer
 
-  get cellValue(){
-    return this.value
-  }
-  get codeValue(){
+  get actualCode(){
     return this.code
   }
-  get showCode(){
-    return this.codeValue !== ''
+
+  get actualValue(){
+    return this.value
   }
 
-  get answ(){
-    return this.selectedAnswer
+  get showCode(){
+    return this.actualCode !== ''
   }
 
   get taskIsDone(){
-    return this.selectedAnswer?.answer === this.rightAnswer?.answer
+    return this.actualUserAnswer === this.actualRightAnswer
+  }
+
+  get actualRightAnswer(){
+    if( this.rightAnswer ){
+      return this.rightAnswer.answers[0]
+    }
+    return 0
+  }
+
+  get actualUserAnswer(){
+    if( this.userAnswer ){
+      return this.userAnswer.answer
+    }
+    return 0
   }
 
   // получаем класс радио-кнопок в зависимости от правильных и неправильных ответов
   private styleSelectedAnsw( index: number ){
-    if( this.answ?.answer && this.rightAnswer?.answer ){
+    if( this.actualUserAnswer && this.actualRightAnswer ){
       return {
-        ['is-done-true']: this.taskIsDone && index === this.answ?.answer - 1,
-        ['is-done-false']: !this.taskIsDone && index === this.answ?.answer - 1,
-        ['is-true']: index === this.rightAnswer.answer - 1,
+        ['is-done-true']: this.taskIsDone && index === this.actualUserAnswer - 1,
+        ['is-done-false']: !this.taskIsDone && index === this.actualUserAnswer - 1,
+        ['is-true']: index === this.actualRightAnswer - 1,
       }
     }
-    if( this.rightAnswer?.answer ){
+    if( this.actualRightAnswer ){
       return {
-        ['is-true']: index === this.rightAnswer.answer - 1,
+        ['is-true']: index === this.actualRightAnswer - 1,
       }
     }
   }

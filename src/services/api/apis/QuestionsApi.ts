@@ -15,12 +15,15 @@
 
 import * as runtime from '../runtime';
 import {
+    CorrectAnswers,
+    CorrectAnswersFromJSON,
+    CorrectAnswersToJSON,
     Message,
     MessageFromJSON,
     MessageToJSON,
-    QuestionsRes,
-    QuestionsResFromJSON,
-    QuestionsResToJSON,
+    QuestionsItems,
+    QuestionsItemsFromJSON,
+    QuestionsItemsToJSON,
 } from '../models';
 
 /**
@@ -29,9 +32,35 @@ import {
 export class QuestionsApi extends runtime.BaseAPI {
 
     /**
+     * List correct Answers
+     */
+    async correctRaw(): Promise<runtime.ApiResponse<CorrectAnswers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/questions/correct`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CorrectAnswersFromJSON(jsonValue));
+    }
+
+    /**
+     * List correct Answers
+     */
+    async correct(): Promise<CorrectAnswers> {
+        const response = await this.correctRaw();
+        return await response.value();
+    }
+
+    /**
      * List Questions
      */
-    async questionsRaw(): Promise<runtime.ApiResponse<QuestionsRes>> {
+    async questionsRaw(): Promise<runtime.ApiResponse<QuestionsItems>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -43,13 +72,13 @@ export class QuestionsApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => QuestionsResFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => QuestionsItemsFromJSON(jsonValue));
     }
 
     /**
      * List Questions
      */
-    async questions(): Promise<QuestionsRes> {
+    async questions(): Promise<QuestionsItems> {
         const response = await this.questionsRaw();
         return await response.value();
     }

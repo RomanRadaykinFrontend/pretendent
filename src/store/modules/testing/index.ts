@@ -44,7 +44,7 @@ export class TestingState {
 
   public isShowFetchedError = false
 
-  public currentQuestion = {} as Questions
+  public currentQuestion = {} as Questions | {}
 
   public questionTotalCount = 0
 

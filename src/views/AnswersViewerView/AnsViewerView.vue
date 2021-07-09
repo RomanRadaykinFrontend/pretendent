@@ -1,16 +1,22 @@
 <template lang="pug">
-.ans-viewer-view
-  .ans-viewer-view__control-panel
+.ans-viewer-view( :class = "ansViewerViewClass" )
+  VueSimpleSpinner.spinner(
+    size = "huge"
+    v-if = " isAllDataFetched "
+  )
+  .ans-viewer-view__control-panel(
+    v-if = " !isAllDataFetched "
+  )
     button( @click = " () => $router.push('/admin')" ).ans-viewer-view__back-button Назад
     h1.ans-viewer-view__title Просмотр ответов
     select(
       v-model = " taskType "
     ).ans-viewer-view__select
       option( selected ) Все вопросы
-      option( :disabled = "isAnsweredFlag" ) Отвеченные вопросы
-      option( :disabled = "isNotAnsweredFlag" ) Неотвеченные вопросы
-      option( :disabled = "isRightAnswFlag" ) Отвеченные правильно
-      option( :disabled = "isWrongAnswFlag" ) Отвеченные неправильно
+      option( :disabled = " isAnsweredFlag " ) Отвеченные вопросы
+      option( :disabled = " isNotAnsweredFlag " ) Неотвеченные вопросы
+      option( :disabled = " isRightAnswFlag " ) Отвеченные правильно
+      option( :disabled = " isWrongAnswFlag " ) Отвеченные неправильно
     .ans-viewer-view__about(
       v-for = " data in pretendData "
       :key = " data.title "
@@ -19,7 +25,9 @@
       span.data {{ data.data }}
 
 
-  .ans-viewer-view__table
+  .ans-viewer-view__table(
+    v-if = " !isAllDataFetched "
+  )
     .ans-viewer-view__table-body
     AppHeaderTableRow(
       :is-header-row = "true"
@@ -30,9 +38,9 @@
       v-for = "(question, index) in sortQuestions"
       :key = "index"
       :table-value = "question"
-      :quest-number = "question.id"
-      :user-answer = " getCurrentAnswer( question.id ) "
-      :right-answer = " getCurrentRightAnswer( question.id ) "
+      :quest-number = "question.orderNumber"
+      :user-answer = " getCurrentAnswer( question.orderNumber ) "
+      :right-answer = " getCurrentRightAnswer( question.orderNumber ) "
     )
 
 </template>
@@ -43,11 +51,13 @@ import TableRowAnsw from '@/views/AnswersViewerView/parts/TableRowAnsw.vue'
 import AppHeaderTableRow from '@/components/AppHeaderTableRow.vue'
 import { adminModule } from '@/store'
 import { getDate, sortItems } from '@/helpers/functions'
-import { rightAnswers } from '@/common/questions'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import VueSimpleSpinner from 'vue-simple-spinner'
 
 @Component({
   components: {
-    TableRowAnsw, AppHeaderTableRow,
+    TableRowAnsw, AppHeaderTableRow, VueSimpleSpinner,
   },
 })
 export default class AnsViewerView extends Vue{
@@ -60,7 +70,11 @@ export default class AnsViewerView extends Vue{
     { name: 'Ответ', needSort: false }]
 
   private sortByNumber( direction: boolean ){
-    return this.questions.sort( ( a, b ) => sortItems( a.id, b.id, direction ) )
+    if( this.taskType === 'Все вопросы' ){
+      return this.questions.sort( ( a, b ) => sortItems( a.orderNumber, b.orderNumber, direction ) )
+    } else{
+      return this.sortQuestions?.sort( ( a, b ) => sortItems( a.orderNumber, b.orderNumber, direction ) )
+    }
   }
 
   get questions(){
@@ -75,15 +89,15 @@ export default class AnsViewerView extends Vue{
 
   get pretendData(){
     return [
-      { title: 'Имя', data: this.userInfo?.name },
-      { title: 'Email', data: this.userInfo?.lastName },
-      { title: 'Telegram', data: this.userInfo?.telegram },
+      { title: 'Имя', data: this.userInfo.name },
+      { title: 'Email', data: this.userInfo.lastName },
+      { title: 'Telegram', data: this.userInfo.telegram },
       { title: 'Правильных ответов', data: `${this.percent}%` },
-      { title: 'Дата прохождения', data: getDate( this.userInfo?.timeCreate || new Date() ) },
+      { title: 'Дата прохождения', data: getDate( this.userInfo.timeCreate ) },
     ]
   }
 
-  private mounted(){
+  private created(){
     adminModule.actions.getResults({ offset: 0, limit: +this.$route.params.id })
     adminModule.actions.getAllQuestions()
     adminModule.actions.getRightAnswer()
@@ -93,18 +107,40 @@ export default class AnsViewerView extends Vue{
     adminModule.mutations.setTypeTasks( 'Все вопросы' )
   }
 
+  get ansViewerViewClass(){
+    return{
+      ['show-spinner']: this.isAllDataFetched,
+    }
+  }
+
   get result(){
-    return adminModule.getters.results[this.id] || {}
+    return adminModule.getters.results[ this.id ] || {}
+  }
+
+  get isAllDataFetched(){
+    return adminModule.getters.isAllDataFetched
   }
 
   get userInfo(){
-    return this.result?.user ?? {}
+    return this.result.user ?? {
+      name: '',
+      lastName: '',
+      telegram: '',
+      timeCreate: new Date(),
+    }
   }
   get percent(){
     return this.result.percent ?? 0
   }
   get answers(){
-    return this.result.answers?.sort( ( a, b ) => a.question > b.question ? 1: -1  ) ?? []
+    if( this.result.answers ){
+      return this.result.answers.sort( ( a, b ) => a.question > b.question ? 1: -1  ) ?? []
+    }
+    return []
+  }
+
+  get rightAnswers(){
+    return adminModule.getters.rightAnswers
   }
 
   get userTasksID(){
@@ -133,27 +169,32 @@ export default class AnsViewerView extends Vue{
   }
 
   get answeredQuestionList(){
-    return this.questions.filter( q => this.userTasksID.includes( q.id ) ) ?? []
+    return this.questions.filter( q => q.orderNumber ? this.userTasksID.includes( q.orderNumber ) : false ) ?? []
   }
 
   get unAnsweredQuestionList(){
-    return this.questions.filter( q => !this.userTasksID.includes( q.id )  ) ?? []
+    return this.questions.filter( q => q.orderNumber ? !this.userTasksID.includes( q.orderNumber ) : false ) ?? []
   }
 
   get answeredRightQuestionList(){
     return this.answeredQuestionList.filter( aq => {
-      const userA = this.answers.find( uq => uq.question === aq.id )
-      const rightA = rightAnswers.find( rq => rq.question === aq.id )
-      return userA.question === rightA.question && userA.answer === rightA.answer
+      const userA = this.answers.find( uq => uq.question === aq.orderNumber )
+      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.orderNumber )
+      if( userA && rightA ){
+        return userA.question === rightA.id + 1 && userA.answer === rightA.answers[0]
+      }
     },
     ) ?? []
   }
 
   get answeredWrongQuestionList(){
     return this.answeredQuestionList.filter( aq => {
-      const userA = this.answers.find( uq => uq.question === aq.id )
-      const rightA = rightAnswers.find( rq => rq.question === aq.id )
-      return !( userA.question === rightA.question && userA.answer === rightA.answer )
+      const userA = this.answers.find( uq => uq.question === aq.orderNumber )
+      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.orderNumber )
+      if( userA && rightA ){
+        return !( userA.question === rightA.id + 1 && userA.answer === rightA.answers[0])
+      }
+
     },
     ) ?? []
   }
@@ -186,7 +227,7 @@ export default class AnsViewerView extends Vue{
     return this.answers?.find( answ => answ.question === questNumb )
   }
   private getCurrentRightAnswer( questNumb: number ){
-    return rightAnswers.find( answ => answ.question === questNumb )
+    return this.rightAnswers.find( answ => answ.id + 1 === questNumb )
   }
 
 }

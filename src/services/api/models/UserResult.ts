@@ -27,34 +27,34 @@ import {
 /**
  * 
  * @export
- * @interface UserRes
+ * @interface UserResult
  */
-export interface UserRes {
+export interface UserResult {
     /**
      * 
      * @type {User}
-     * @memberof UserRes
+     * @memberof UserResult
      */
     user?: User;
     /**
      * Percentage of correct answers
      * @type {number}
-     * @memberof UserRes
+     * @memberof UserResult
      */
     readonly percent?: number;
     /**
      * 
      * @type {Array<Answer>}
-     * @memberof UserRes
+     * @memberof UserResult
      */
     answers?: Array<Answer>;
 }
 
-export function UserResFromJSON(json: any): UserRes {
-    return UserResFromJSONTyped(json, false);
+export function UserResultFromJSON(json: any): UserResult {
+    return UserResultFromJSONTyped(json, false);
 }
 
-export function UserResFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserRes {
+export function UserResultFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserResult {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -66,7 +66,7 @@ export function UserResFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
     };
 }
 
-export function UserResToJSON(value?: UserRes | null): any {
+export function UserResultToJSON(value?: UserResult | null): any {
     if (value === undefined) {
         return undefined;
     }

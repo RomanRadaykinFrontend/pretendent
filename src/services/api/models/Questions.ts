@@ -24,25 +24,25 @@ export interface Questions {
      * @type {number}
      * @memberof Questions
      */
-    id?: number;
+    orderNumber?: number;
     /**
      * Code question
      * @type {string}
      * @memberof Questions
      */
-    code?: string;
+    code: string;
     /**
      * Question
      * @type {string}
      * @memberof Questions
      */
-    question?: string;
+    question: string;
     /**
      * Answer options
      * @type {Array<string>}
      * @memberof Questions
      */
-    answers?: Array<string>;
+    answers: Array<string>;
 }
 
 export function QuestionsFromJSON(json: any): Questions {
@@ -55,10 +55,10 @@ export function QuestionsFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'code': !exists(json, 'code') ? undefined : json['code'],
-        'question': !exists(json, 'question') ? undefined : json['question'],
-        'answers': !exists(json, 'answers') ? undefined : json['answers'],
+        'orderNumber': !exists(json, 'order_number') ? undefined : json['order_number'],
+        'code': json['code'],
+        'question': json['question'],
+        'answers': json['answers'],
     };
 }
 
@@ -71,7 +71,7 @@ export function QuestionsToJSON(value?: Questions | null): any {
     }
     return {
         
-        'id': value.id,
+        'order_number': value.orderNumber,
         'code': value.code,
         'question': value.question,
         'answers': value.answers,

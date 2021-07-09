@@ -18,41 +18,27 @@ export const sendAnswers = async ( arrayOfValues: Array<string> ) => {
   })
 }
 
-export const getDate = ( date: Date ) => {
-  const formatDate = new Date( date )
+export const getDate = ( date: Date | undefined ) => {
+  if( date ){
+    const formatDate = new Date( date )
 
-  const addZero = ( numb: number ) => {
-    if( numb.toString().length === 1 ){
-      return '0' + numb.toString()
+    const addZero = ( numb: number ) => {
+      if( numb.toString().length === 1 ){
+        return '0' + numb.toString()
+      }
+      return numb.toString()
     }
-    return numb.toString()
+
+    const day = formatDate.getDate()
+    const month = formatDate.getMonth() + 1
+    const year = formatDate.getFullYear()
+
+    return `${addZero( day )}.${addZero( month )}.${addZero( year )}`
   }
 
-  const day = formatDate.getDate()
-  const month = formatDate.getMonth() + 1
-  const year = formatDate.getFullYear()
-
-  return `${addZero( day )}.${addZero( month )}.${addZero( year )}`
 }
 
 export const sortItems = ( a: any, b: any, direction: boolean ) => direction ?
   a > b ? 1 : -1
   :
   a < b ? 1 : -1
-
-export const unBaseUnStringData = ( data: string, isUtf8 = false ): object | undefined | string | number => {
-  let uncodedDataString = ''
-  try {
-    uncodedDataString = atob( data )
-    if( isUtf8 ) {
-      uncodedDataString = decodeURIComponent( escape( uncodedDataString ) )
-    }
-  } catch ( err ) {
-    console.log( err )
-  }
-  if ([ '{', '[' ].includes( uncodedDataString.charAt( 0 ) ) ) {
-    const extractedData = JSON.parse( uncodedDataString )
-    return extractedData
-  }
-  return Number.isNaN( +uncodedDataString ) ? uncodedDataString : +uncodedDataString
-}

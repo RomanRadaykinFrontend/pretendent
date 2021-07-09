@@ -12,7 +12,7 @@
   TableCellAnsw.answers(
     :value = "answers"
     type = "answersArr"
-    :selected-answer = "userAnswer"
+    :user-answer = "userAnswer"
     :right-answer = "rightAnswer"
   )
 </template>
@@ -20,34 +20,28 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import TableCellAnsw from '@/views/AnswersViewerView/parts/TableCellAnsw.vue'
-import { Question } from '@/common/questions'
-import { Base64 } from 'js-base64'
-import { PropAnswer } from '@/types/common'
+import { Answer, CorrectAnswer, Questions } from '@/services/api'
 
 @Component({
   components: { TableCellAnsw },
 })
 export default class TableRowAnsw extends Vue{
-  @Prop() private tableValue!: Question
+  @Prop() private tableValue!: Questions
   @Prop() private questNumber!: number
-  @Prop() private userAnswer!: PropAnswer
-  @Prop() private rightAnswer!: PropAnswer
+  @Prop() private userAnswer!: Answer
+  @Prop() private rightAnswer!: CorrectAnswer
 
-  get value(){
-    return this.tableValue
-  }
   get question(){
-    return this.value.question ? Base64.decode( this.value.question ) : ''
+    return this.tableValue.question ? this.tableValue.question : ''
   }
   get code(){
-    if( this.value.code ){
-      return Base64.decode( this.value.code )
+    if( this.tableValue.code ){
+      return this.tableValue.code
     }
     return ''
-
   }
   get answers(){
-    return this.value.answers
+    return this.tableValue.answers
   }
 }
 </script>

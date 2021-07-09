@@ -13,7 +13,7 @@
         v-for = " ( result, index ) in results "
         :key = "index"
         :table-value = "result"
-        :row-numb = " rowNumb + index + 1 "
+        :row-numb = " rowNumb + index + 1   "
       )
   ControlPanel(
     @change-count-result = "changeResultsCount( $event )"
@@ -60,7 +60,7 @@ export default class AdminPanelView extends Vue{
   }
 
   get rowNumb(){
-    return 0
+    return this.page !== 1 ? ( this.page * +this.resultsCount ) - +this.resultsCount : 0
   }
 
   private headerRow = [
@@ -78,8 +78,7 @@ export default class AdminPanelView extends Vue{
 
   }
   private sortByDate( direction: boolean ){
-    console.log( this.results )
-    return this.results.sort( ( a, b ) => sortItems( a.user.timeCreate, b.user.timeCreate, direction ) )
+    return this.results.sort( ( a, b ) => sortItems( a.user?.timeCreate, b.user?.timeCreate, direction ) )
   }
 
   private mounted(){
@@ -92,7 +91,7 @@ export default class AdminPanelView extends Vue{
   }
 
   private getNewUsersList( page: number ){
-    const newOffset = ( page * this.resultsCount ) - +this.resultsCount
+    const newOffset = ( page * +this.resultsCount ) - +this.resultsCount
     adminModule.actions.getResults({ offset: newOffset, limit: +this.resultsCount })
     adminModule.mutations.setPage( page )
   }
