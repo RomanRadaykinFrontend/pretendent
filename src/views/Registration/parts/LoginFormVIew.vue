@@ -43,7 +43,7 @@ import TestLogo from '@/common/images/logo-test.svg'
 @Component({
   components: {
     AppButton, LoginFormInputView,
-    InfoLogo, STCLogo, TestLogo
+    InfoLogo, STCLogo, TestLogo,
   },
 })
 
@@ -60,10 +60,6 @@ export default class LoginFormView extends Vue {
   private emailValidate = regExpEmail
   private telegramValidate = regExpTelegram
   private nameValidate = regExpName
-
-  get isAccountExist(){
-    return testingModule.getters.isAccountExist
-  }
 
   get errorLogin(){
     return testingModule.getters.errorLogin
@@ -96,12 +92,8 @@ export default class LoginFormView extends Vue {
           await this.$router.push( '/questions/1' )
           await testingModule.mutations.setTimeRemain()
 
-        } else {
-          await testingModule.mutations.setIsAccountExist( true )
         }
 
-      } else {
-        await testingModule.mutations.setIsShowFetchedError( true )
       }
 
 
