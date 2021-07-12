@@ -42,9 +42,9 @@ export class TestingState {
 
   public isShowFetchedError = false
 
-  public currentQuestion = {} as Questions | {}
-
   public questionTotalCount = 0
+
+  public allQuestions = [] as Array<Questions> | []
 
 }
 

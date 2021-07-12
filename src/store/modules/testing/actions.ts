@@ -35,13 +35,13 @@ TestingActions> {
     }
   }
 
-  public async getQuestions( numOfQuest: number ){
+  public async getAllQuestions(){
     try{
       const result = await QUESTIONS_API.questions()
-      const currentQuestion = result.questions ? result.questions[numOfQuest - 1] : {}
-      this.commit( 'setCurrentQuestion', currentQuestion )
+      const allQuestions = result.questions ?? []
+      this.commit( 'setAllQuestions', allQuestions )
       this.commit( 'setQuestionTotalCount', result.questions ? result.questions.length : 0 )
-      return currentQuestion
+      return allQuestions
     } catch( error ){
       return error
     }

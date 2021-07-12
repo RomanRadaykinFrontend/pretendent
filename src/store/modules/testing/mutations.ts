@@ -95,11 +95,11 @@ export class TestingMutations extends Mutations<TestingState> {
     this.state.isShowFetchedError = value
   }
 
-  public setCurrentQuestion( value: Questions | {}){
-    this.state.currentQuestion = value
-  }
-
   public setQuestionTotalCount( value: number ){
     this.state.questionTotalCount = value
+  }
+
+  public setAllQuestions( value: Array<Questions> ){
+    this.state.allQuestions = value
   }
 }
