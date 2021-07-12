@@ -43,7 +43,7 @@ import TestLogo from '@/common/images/logo-test.svg'
 @Component({
   components: {
     AppButton, LoginFormInputView,
-    InfoLogo, STCLogo, TestLogo
+    InfoLogo, STCLogo, TestLogo,
   },
 })
 
@@ -54,7 +54,9 @@ export default class LoginFormView extends Vue {
     { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram' },
   ]
 
-  private user = commonModule.getters.user
+  get user(){
+    return commonModule.getters.user
+  }
 
 
   private emailValidate = regExpEmail
@@ -71,17 +73,26 @@ export default class LoginFormView extends Vue {
 
   get isLoginDataCorrect(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
-    const isCorrectTelegram = this.user.telegram !== '' ? this.telegramValidate.test( this.user.telegram ) : true
+    const isCorrectTelegram = () => {
+      if( !this.user.telegram ){
+        return true
+      } else if( this.user.telegram !== '' ){
+        this.telegramValidate.test( this.user.telegram )
+      }
+    }
     const isCorrectLastName = this.user.name ? this.nameValidate.test( this.user.lastName ) : false
     const isCorrectName = this.user.lastName ? this.nameValidate.test( this.user.name ) : false
 
     return !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail
-      && isCorrectTelegram && isCorrectLastName && isCorrectName
+      && isCorrectTelegram() && isCorrectLastName && isCorrectName
   }
 
   private async onSubmitHandler(){
     if ( this.isLoginDataCorrect ) {
-      const result = await commonModule.actions.fetchUser({ user: this.user })
+      const userData = this.user.telegram === '' ?
+        { name: this.user.name, lastName: this.user.lastName, email: this.user.email } :
+        this.user
+      const result = await commonModule.actions.fetchUser({ user: userData })
       if ( !this.errorLogin ) {
 
         if( result ){
