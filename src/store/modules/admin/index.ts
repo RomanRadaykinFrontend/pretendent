@@ -5,6 +5,7 @@ import { AdminActions } from '@/store/modules/admin/actions'
 import { CorrectAnswer, Questions, UserResult } from '@/services/api'
 
 
+
 export class AdminState {
   public results = [] as Array<UserResult>
   public resultsCount = '10'

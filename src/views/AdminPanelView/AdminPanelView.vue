@@ -1,6 +1,15 @@
 <template lang="pug">
 .admin-panel-view
   h1.admin-panel-view__title Администрирование
+  .admin-panel-view__export
+    vue-excel-xlsx.admin-panel-view__export-button(
+      :data = "dataExcel"
+      :columns = "columnsExcel"
+      filename = "table"
+      sheetnam= "sheetname"
+    )
+      SortArrowLogo
+      | Скачать .xls
   .admin-panel-view__table
     .admin-panel-view__table-body
       AppHeaderTableRow(
@@ -24,6 +33,7 @@
     :total-count = " totalCount "
   )
 
+
 </template>
 
 <script lang="ts">
@@ -32,16 +42,63 @@ import AppHeaderTableRow from '@/components/AppHeaderTableRow.vue'
 import ControlPanel from '@/views/AdminPanelView/parts/ControlPanel.vue'
 import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
 import { adminModule } from '@/store'
-import { sortItems } from '@/helpers/functions'
+import { getDate, sortItems } from '@/helpers/functions'
+import SortArrowLogo from '@/common/images/sort-arrow.svg'
 
 @Component({
   components: {
     ControlPanel,
     AppHeaderTableRow,
     TableRowAdmin,
+    SortArrowLogo,
   },
 })
 export default class AdminPanelView extends Vue{
+
+  private columnsExcel = [
+    {
+      label: '#',
+      field: 'id',
+    },
+    {
+      label: 'Имя',
+      field: 'name',
+    },
+    {
+      label: 'Фамилия',
+      field: 'lastName',
+    },
+    {
+      label: 'Правильных ответов',
+      field: 'percent',
+    },
+    {
+      label: 'Email',
+      field: 'email',
+    },
+    {
+      label: 'Telegram',
+      field: 'telegram',
+    },
+    {
+      label: 'Дата прохождения',
+      field: 'date',
+    },
+  ]
+
+  get dataExcel(){
+    return this.results.map( ( res, idx ) => {
+      const newObj = {}
+      newObj.id = idx + 1
+      newObj.name = res.user?.name
+      newObj.lastName = res.user?.lastName
+      newObj.percent = res.percent
+      newObj.email = res.user?.email
+      newObj.telegram = res.user?.telegram
+      newObj.date = getDate( res.user?.timeCreate )
+      return newObj
+    })
+  }
 
   get results(){
     return adminModule.getters.results
@@ -96,6 +153,8 @@ export default class AdminPanelView extends Vue{
     adminModule.mutations.setPage( page )
   }
 
+
+
 }
 </script>
 
@@ -112,6 +171,20 @@ export default class AdminPanelView extends Vue{
     line-height: 29px
     color: #2D2F33
     margin: 0
+  &__export
+    display: flex
+    justify-content: flex-end
+  &__export-button
+    background: #F5F5F5
+    border: 1px solid #D2D4D6
+    padding: 8px 12px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 112px
+    height: 32px
+    cursor: pointer
+
   &__table
     display: table
     width: 100%
