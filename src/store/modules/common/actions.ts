@@ -3,7 +3,7 @@ import { Actions } from 'vuex-smart-module'
 import { CommonMutations } from './mutations'
 import { CommonGetters } from './getters'
 import { SET_USERGUID } from '@/store/mutation.types'
-import { UsersCreateRequest, USER_API, AddNewAnswersRequest, ANSWER_API } from '@/services/api'
+import { UsersCreateRequest, USER_API, AddNewAnswersRequest, ANSWER_API, QUESTIONS_API } from '@/services/api'
 
 
 export class CommonActions extends Actions<
@@ -32,6 +32,18 @@ CommonActions> {
       await ANSWER_API.addNewAnswers( data )
     } catch ( error ) {
       return  error.message
+    }
+  }
+
+  public async getAllQuestions(){
+    try{
+      const result = await QUESTIONS_API.questions()
+      const allQuestions = result.questions ?? []
+      this.commit( 'setAllQuestions', allQuestions )
+      this.commit( 'setQuestionTotalCount', result.questions ? result.questions.length : 0 )
+      return allQuestions
+    } catch( error ){
+      return error
     }
   }
 

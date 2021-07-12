@@ -49,4 +49,13 @@ export class CommonGetters extends Getters<CommonState> {
   get isShowFetchedError(){
     return this.state.isShowFetchedError
   }
+
+  get allQuestions(){
+    return this.state.allQuestions
+  }
+
+  get questionTotalCount(){
+    return this.state.questionTotalCount
+  }
+
 }

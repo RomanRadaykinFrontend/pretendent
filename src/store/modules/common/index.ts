@@ -3,7 +3,7 @@ import { CommonMutations } from './mutations'
 import { CommonActions } from './actions'
 import { CommonGetters } from './getters'
 import { User } from 'src/services/api/models/User'
-import { Answers } from '@/services/api'
+import { Answers, Questions } from '@/services/api'
 import { DoneTaskList } from '@/types/common'
 
 export class CommonState {
@@ -41,6 +41,10 @@ export class CommonState {
   public errorLogin = ''
 
   public isShowFetchedError = false
+
+  public allQuestions = [] as Array<Questions>
+
+  public questionTotalCount = 0
 
 }
 

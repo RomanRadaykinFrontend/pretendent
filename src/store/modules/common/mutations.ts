@@ -1,7 +1,7 @@
 import { Mutations } from 'vuex-smart-module'
 import { CommonState } from './index'
 import { CurrentAnswer, DoneTaskList, InputName } from '@/types/common'
-import { Answer } from 'src/services/api'
+import { Answer, Questions } from 'src/services/api'
 
 export class CommonMutations extends Mutations<CommonState> {
   public setUser( arrData: [InputName, string]) {
@@ -93,5 +93,13 @@ export class CommonMutations extends Mutations<CommonState> {
 
   public setIsShowFetchedError( value: boolean ) {
     this.state.isShowFetchedError = value
+  }
+
+  public setQuestionTotalCount( value: number ){
+    this.state.questionTotalCount = value
+  }
+
+  public setAllQuestions( value: Array<Questions> ){
+    this.state.allQuestions = value
   }
 }

@@ -44,6 +44,7 @@ export default class App extends Vue {
 
   // при создании app задаем вводные - проверяем авторизацию, пушим данные из локала в стор
   private created(){
+    commonModule.actions.getAllQuestions()
     if( localStorage.getItem( 'doneTaskList' ) ) {
       const value = JSON.parse( localStorage?.getItem( 'doneTaskList' ) || '' )
       commonModule.mutations.setDoneTaskListLocalStorage( value )

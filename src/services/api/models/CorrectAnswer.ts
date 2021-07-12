@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * The object describes the user response
  * @export
- * @interface Answer
+ * @interface CorrectAnswer
  */
-export interface Answer {
+export interface CorrectAnswer {
     /**
      * Question number
      * @type {number}
-     * @memberof Answer
+     * @memberof CorrectAnswer
      */
-    question: number;
+    id: number;
     /**
-     * Answer to the question on this number
-     * @type {number}
-     * @memberof Answer
+     * 
+     * @type {Array<number>}
+     * @memberof CorrectAnswer
      */
-    answer: number;
+    answers: Array<number>;
 }
 
-export function AnswerFromJSON(json: any): Answer {
-    return AnswerFromJSONTyped(json, false);
+export function CorrectAnswerFromJSON(json: any): CorrectAnswer {
+    return CorrectAnswerFromJSONTyped(json, false);
 }
 
-export function AnswerFromJSONTyped(json: any, ignoreDiscriminator: boolean): Answer {
+export function CorrectAnswerFromJSONTyped(json: any, ignoreDiscriminator: boolean): CorrectAnswer {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'question': json['question'],
-        'answer': json['answer'],
+        'id': json['id'],
+        'answers': json['answers'],
     };
 }
 
-export function AnswerToJSON(value?: Answer | null): any {
+export function CorrectAnswerToJSON(value?: CorrectAnswer | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -57,8 +57,8 @@ export function AnswerToJSON(value?: Answer | null): any {
     }
     return {
         
-        'question': value.question,
-        'answer': value.answer,
+        'id': value.id,
+        'answers': value.answers,
     };
 }
 

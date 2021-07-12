@@ -1,6 +1,9 @@
 <template lang="pug">
   .task-info
-    TaskChanger( :array-of-values = "actualAnswers" )
+    TaskChanger(
+      :array-of-values = "currentQuestion.answers"
+      :question-total-count = "questionTotalCount"
+      )
     .task-info__control-panel
       .task-info__time-remain
         span Осталось &nbsp
@@ -14,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { commonModule } from '@/store'
-import { questions } from '@/common/questions'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
+import { Questions } from '@/services/api'
 
 @Component({
   components: {
@@ -26,10 +29,9 @@ import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
 })
 export default class TaskInfo extends Vue{
 
-  private questions = questions
-  private taskNumber = +this.$route.params.id
-  private actualTask = this.questions[this.taskNumber - 1]
-  private actualAnswers = this.actualTask.answers
+  @Prop() private currentQuestion!: Questions
+  @Prop() private questionTotalCount!: number
+
 
   get timeRemain(){
     if( commonModule.getters.timeRemain <= 0 ){

@@ -43,7 +43,7 @@ import TestLogo from '@/common/images/logo-test.svg'
 @Component({
   components: {
     AppButton, LoginFormInputView,
-    InfoLogo, STCLogo, TestLogo
+    InfoLogo, STCLogo, TestLogo,
   },
 })
 

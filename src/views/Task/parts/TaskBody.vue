@@ -3,25 +3,24 @@
     .task-body__task-question
       .task-body__task-title {{ actualQuestion }}
       TaskCode(
-        v-show = "actualTask.hasOwnProperty('code')"
-        :code = "actualTask.code"
+        v-show = "currentQuestion.hasOwnProperty('code')"
+        :code = "currentQuestion.code"
       )
 
     .task-body__task-answers
       RadioView(
-        ordinalNumber = "taskNumber"
-        :array-of-values = "actualAnswers"
-        :questionNumber = "taskNumber"
-        :totalCount = "countQuestions"
+        :ordinalNumber = "currentQuestion.orderNumber"
+        :array-of-values = "currentQuestion.answers"
+        :questionNumber = "currentQuestion.orderNumber"
+        :totalCount = "questionTotalCount"
       )
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { Base64 } from 'js-base64'
-import { questions } from '@/common/questions'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import TaskCode from '@/views/Task/parts/TaskCode.vue'
 import RadioView from '@/views/Task/parts/RadioView.vue'
+import { Questions } from '@/services/api'
 
 @Component({
   components: {
@@ -30,12 +29,13 @@ import RadioView from '@/views/Task/parts/RadioView.vue'
 })
 export default class TaskBody extends Vue {
 
-  private questions = questions
-  private taskNumber = +this.$route.params.id
-  private countQuestions = this.questions.length
-  private actualTask = this.questions[this.taskNumber - 1]
-  private actualQuestion = Base64.decode( this.actualTask.question )
-  private actualAnswers = this.actualTask.answers
+  @Prop() private currentQuestion!: Questions
+  @Prop() private questionTotalCount!: number
+
+  get actualQuestion(){
+    return this.currentQuestion.question
+  }
+
 
 }
 </script>
