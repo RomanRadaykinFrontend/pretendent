@@ -1,11 +1,12 @@
 import { Mutations } from 'vuex-smart-module'
 import { AdminState } from '@/store/modules/admin/index'
 import { CorrectAnswer, Questions, UserResult } from '@/services/api'
+import { UserResultWithID } from '@/types/common'
 
 
 
 export class AdminMutations extends Mutations<AdminState> {
-  public setResults( value: Array<UserResult> ){
+  public setResults( value: Array<UserResultWithID> ){
     this.state.results = value
   }
 

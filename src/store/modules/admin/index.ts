@@ -3,11 +3,12 @@ import { AdminGetters } from '@/store/modules/admin/getters'
 import { AdminMutations } from '@/store/modules/admin/mutations'
 import { AdminActions } from '@/store/modules/admin/actions'
 import { CorrectAnswer, Questions, UserResult } from '@/services/api'
+import { UserResultWithID } from '@/types/common'
 
 
 
 export class AdminState {
-  public results = [] as Array<UserResult>
+  public results = [] as Array<UserResultWithID>
   public resultsCount = '10'
   public totalCount = 0
   public userID = ''

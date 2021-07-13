@@ -22,7 +22,7 @@
         v-for = " ( result, index ) in results "
         :key = "index"
         :table-value = "result"
-        :row-numb = " rowNumb + index + 1   "
+        :row-numb = " result.id  "
       )
   ControlPanel(
     @change-count-result = "changeResultsCount( $event )"
@@ -44,6 +44,7 @@ import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
 import { adminModule } from '@/store'
 import { getDate, sortItems } from '@/helpers/functions'
 import SortArrowLogo from '@/common/images/sort-arrow.svg'
+import { DataExcel } from '@/types/common'
 
 @Component({
   components: {
@@ -88,14 +89,14 @@ export default class AdminPanelView extends Vue{
 
   get dataExcel(){
     return this.results.map( ( res, idx ) => {
-      const newObj = {}
+      const newObj = {} as DataExcel
       newObj.id = idx + 1
-      newObj.name = res.user?.name
-      newObj.lastName = res.user?.lastName
-      newObj.percent = res.percent
-      newObj.email = res.user?.email
-      newObj.telegram = res.user?.telegram
-      newObj.date = getDate( res.user?.timeCreate )
+      newObj.name = res.user?.name ?? ''
+      newObj.lastName = res.user?.lastName ?? ''
+      newObj.percent = res.percent ?? 0
+      newObj.email = res.user?.email ?? ''
+      newObj.telegram = res.user?.telegram ?? ''
+      newObj.date = getDate( res.user?.timeCreate ) ?? ''
       return newObj
     })
   }
@@ -114,10 +115,6 @@ export default class AdminPanelView extends Vue{
 
   get page(){
     return adminModule.getters.page
-  }
-
-  get rowNumb(){
-    return this.page !== 1 ? ( this.page * +this.resultsCount ) - +this.resultsCount : 0
   }
 
   private headerRow = [

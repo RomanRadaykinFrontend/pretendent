@@ -25,7 +25,9 @@ AdminActions> {
     try {
       this.commit( 'setIsAllDataFetched', true )
       const result = await RESULTS_API.results( resReq )
-      this.commit( 'setResults', result.users )
+      const count = resReq.offset ?? 0
+      const users = result.users.map( ( u, idx ) => ({ ...u, id: count + idx + 1 }) )
+      this.commit( 'setResults', users )
       this.commit( 'setTotalCount', result.count )
     } catch ( e ) {
       return e.message
