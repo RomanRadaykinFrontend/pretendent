@@ -1,0 +1,72 @@
+.unselectable, .unselectable *
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+.thead, .tr
+  display: grid
+  grid-template-columns: 1fr 1fr
+  width: 100%
+
+.thead
+  background-color: #BCC2DF
+  font-size: 12px
+  border-top-left-radius: 6px
+  border-top-right-radius: 6px
+.th
+  padding: 7px 10px
+.td
+  font-size: 14px
+  padding: 0 10px
+  display: flex
+  line-height: 40px
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  &.status-n-actions
+    width: 150px
+    justify-content: space-between
+
+.td+.td
+  border-left: 1px solid #dddddd
+
+.tbody
+  border-left: 1px solid #dddddd
+  border-right: 1px solid #dddddd
+.tr
+  border-bottom: 1px solid #dddddd
+  height: 40px
+  background-color: #fff
+  &:hover
+    background-color: #BCC2DF
+    td
+      border-color: transparent
+    .actions
+      opacity: 1
+
+.edit-item
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 20px
+  height: 20px
+  margin: 0 15px 0 0
+
+.block-item, .unblock-item, .show-users, .remove-item, .view-item
+  display: flex
+  align-items: center
+  justify-content: center
+  margin: 0 15px 0 0
+
+.td
+  &__actions
+    display: flex
+    justify-content: space-between
+
+
+.actions
+  display: flex
+  align-items: center

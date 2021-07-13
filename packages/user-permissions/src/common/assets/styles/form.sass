@@ -1,0 +1,161 @@
+*
+  font-family: Roboto, Arial, sans-serif
+  margin: 0
+  padding: 0
+  font-size: 14px
+  box-sizing: border-box
+
+form
+  margin-top: 10px
+
+hr
+  margin: 15px 0
+  border: 1px solid #2F3855
+
+h3
+  font-size: 16px
+  font-weight: 700
+  color: #333C57
+
+h2
+  font-size: 14px
+  font-weight: 700
+  color: #333C57
+
+button:nth-last-child(n)
+  margin-left: 10px
+
+input
+  height: 25px
+  width: 240px
+  border: 1px solid #2F3855
+  border-radius: 3px
+  background: #FFFFFF
+  padding-left: 6px
+  &:disabled
+    background:#c3c9e3
+    color: #4C4C4C
+    border: 1px solid #4C4C4C
+select
+  width: 100%
+  height: 25px
+  border: 1px solid #2F3855
+  border-radius: 3px
+  padding-left: 6px
+  padding-right: 35px
+  background: #FFF
+  width: 100%
+  text-overflow: ellipsis
+  overflow: hidden
+  -webkit-appearance: none
+  -moz-appearance: none
+  &:option
+    text-overflow: ellipsis
+    overflow: hidden
+  &:disabled
+    background:#c3c9e3
+    color: #000
+
+.user-groups, .user-regions, .user-permits
+  &__list
+    width: 100%
+    max-height: 150px
+    overflow-x: hidden
+    @include custom-scroll-bar
+    &-item
+      width: 100%
+      display: flex
+      align-items: center
+      justify-content: space-between
+      border-bottom: 1px solid #dddddd
+      padding: 3px 3px 3px 0
+      &:last-child
+        border-bottom: none
+      .item
+        &__caption
+          max-width: 250px
+          padding-left: 3px
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+        &__action
+          display: flex
+          align-items: center
+          margin-right: 5px
+
+.add-item
+  position: absolute
+  padding-top: 3px
+  right: 5px
+
+.param-wrapper
+  display: flex
+  margin: 5px 0
+  justify-content: space-between
+
+.button-container
+  margin-top: 15px
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: space-between
+  &__right
+    display: flex
+    align-items: center
+    justify-content: flex-end
+
+.btn-apply
+  width: 100px
+  background: #2F3855
+  border: 0px
+  color: white
+  border-radius: 5px
+  padding: 6px 10px
+  &:disabled
+    opacity: 0.6
+    pointer-events: none
+  &:hover
+    box-shadow: 0 0 5px rgba(0,0,0,0.5)
+
+.message__error
+  color: red
+
+.no-data
+  width: 100%
+
+.remove-item
+  padding-right: 5px
+
+.param
+  &__label
+    height: 25px
+    width: 150px
+    display: flex
+    align-items: center
+
+  &__data
+    min-height: 25px
+    min-width: 240px
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    input
+      width: 100%
+    &-wrapper
+      display: flex
+      align-items: center
+      position: relative
+
+.warinig__icon
+  display: flex
+  margin-left: 5px
+  svg, path
+    &:hover, &:focus
+      filter: none
+
+.country-name::selection
+  background-color: rgba(255,255,255,0.99)
+
+.bold
+  font-weight: bold
