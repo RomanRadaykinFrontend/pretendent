@@ -2,7 +2,7 @@ import { AdminState } from './index.js'
 import { Actions } from 'vuex-smart-module'
 import { AdminGetters } from '@/store/modules/admin/getters'
 import { AdminMutations } from '@/store/modules/admin/mutations'
-import { QUESTIONS_API, RESULTS_API, ResultsRequest } from '@/services/api'
+import { QUESTIONS_API, RESULTS_API, UserResult } from '@/services/api'
 
 
 
@@ -21,19 +21,31 @@ AdminActions> {
     }
   }
 
-  public async getResults( resReq: ResultsRequest ) {
+  public async getResults() {
     try {
       this.commit( 'setIsAllDataFetched', true )
-      const result = await RESULTS_API.results( resReq )
-      const count = resReq.offset ?? 0
-      const users = result.users.map( ( u, idx ) => ({ ...u, id: count + idx + 1 }) )
+
+      const totalCount = ( await RESULTS_API.results({ offset: 0, limit: 1 }) ).count
+      this.commit( 'setTotalCount', totalCount )
+
+      const result = await  RESULTS_API.results({ offset: 0, limit: totalCount })
+      const users = result.users.map( ( u: UserResult, idx: number ) => ({ ...u, id: idx + 1 }) )
+
       this.commit( 'setResults', users )
-      this.commit( 'setTotalCount', result.count )
     } catch ( e ) {
       return e.message
     }
     this.commit( 'setIsAllDataFetched', false )
   }
+
+  // public async getTotalCount( resReq = { offset: 0, limit: 1 }) {
+  //   try {
+  //     const result = await RESULTS_API.results( resReq )
+  //     this.commit( 'setTotalCount', result.count )
+  //   } catch ( e ) {
+  //     return e.message
+  //   }
+  // }
 
   public async getRightAnswer(){
     try{

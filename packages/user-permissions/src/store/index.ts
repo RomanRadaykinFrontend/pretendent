@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import upCommon from './modules/common'
 import upAccounts from './modules/accounts.module'
 import upGroups from './modules/groups.module'
-import { loggeduser } from 'login-form'
+import { authStore } from 'login-form'
 
 Vue.use( Vuex );
 
@@ -12,6 +12,6 @@ export default new Vuex.Store({
     upCommon,
     upGroups,
     upAccounts,
-    loggeduser,
+    authStore,
   },
 })

@@ -2,7 +2,7 @@ import { Module } from 'vuex-smart-module'
 import { AdminGetters } from '@/store/modules/admin/getters'
 import { AdminMutations } from '@/store/modules/admin/mutations'
 import { AdminActions } from '@/store/modules/admin/actions'
-import { CorrectAnswer, Questions, UserResult } from '@/services/api'
+import { CorrectAnswer, Questions } from '@/services/api'
 import { UserResultWithID } from '@/types/common'
 
 

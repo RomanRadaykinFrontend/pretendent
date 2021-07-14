@@ -1,7 +1,19 @@
 <template lang="pug">
-.admin-panel-view
-  h1.admin-panel-view__title Администрирование
-  .admin-panel-view__export
+.admin-panel-view(  :class = "adminPanelViewClass" )
+  VueSimpleSpinner.spinner(
+    size = "huge"
+    v-if = " isAllDataFetched "
+  )
+  .admin-panel-view__header(
+    v-if = " !isAllDataFetched "
+  )
+    h1.admin-panel-view__title Администрирование
+    UserPanel(
+      @logout = "logout"
+    )
+  .admin-panel-view__export(
+    v-if = " !isAllDataFetched "
+  )
     vue-excel-xlsx.admin-panel-view__export-button(
       :data = "dataExcel"
       :columns = "columnsExcel"
@@ -10,7 +22,9 @@
     )
       SortArrowLogo
       | Скачать .xls
-  .admin-panel-view__table
+  .admin-panel-view__table(
+    v-if = " !isAllDataFetched "
+  )
     .admin-panel-view__table-body
       AppHeaderTableRow(
         :is-header-row = "true"
@@ -19,7 +33,7 @@
         @sort-by-percent = " sortByPercent( $event ) "
       )
       TableRowAdmin(
-        v-for = " ( result, index ) in results "
+        v-for = " ( result, index ) in actualResults "
         :key = "index"
         :table-value = "result"
         :row-numb = " result.id  "
@@ -31,13 +45,14 @@
     @to-previous-page = " getNewUsersList ( $event ) "
     :results-count = " resultsCount "
     :total-count = " totalCount "
+    v-if = " !isAllDataFetched "
   )
 
 
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import AppHeaderTableRow from '@/components/AppHeaderTableRow.vue'
 import ControlPanel from '@/views/AdminPanelView/parts/ControlPanel.vue'
 import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
@@ -45,13 +60,19 @@ import { adminModule } from '@/store'
 import { getDate, sortItems } from '@/helpers/functions'
 import SortArrowLogo from '@/common/images/sort-arrow.svg'
 import { DataExcel } from '@/types/common'
+import UserPanel from '../../../packages/login-form/src/auth/components/UserPanel.vue'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import VueSimpleSpinner from 'vue-simple-spinner'
 
 @Component({
   components: {
+    UserPanel,
     ControlPanel,
     AppHeaderTableRow,
     TableRowAdmin,
     SortArrowLogo,
+    VueSimpleSpinner,
   },
 })
 export default class AdminPanelView extends Vue{
@@ -87,6 +108,7 @@ export default class AdminPanelView extends Vue{
     },
   ]
 
+
   get dataExcel(){
     return this.results.map( ( res, idx ) => {
       const newObj = {} as DataExcel
@@ -105,6 +127,17 @@ export default class AdminPanelView extends Vue{
     return adminModule.getters.results
   }
 
+  get adminPanelViewClass(){
+    return{
+      ['show-spinner']: this.isAllDataFetched,
+    }
+  }
+
+  get actualResults(){
+    return this.results.slice( +this.resultsCount * this.page - +this.resultsCount,
+      +this.resultsCount * this.page )
+  }
+
   get resultsCount(){
     return adminModule.getters.resultsCount
   }
@@ -116,6 +149,11 @@ export default class AdminPanelView extends Vue{
   get page(){
     return adminModule.getters.page
   }
+
+  get isAllDataFetched(){
+    return adminModule.getters.isAllDataFetched
+  }
+
 
   private headerRow = [
     { name: '#', needSort: false },
@@ -135,8 +173,13 @@ export default class AdminPanelView extends Vue{
     return this.results.sort( ( a, b ) => sortItems( a.user?.timeCreate, b.user?.timeCreate, direction ) )
   }
 
-  private mounted(){
-    adminModule.actions.getResults({ offset: 0, limit: +this.resultsCount })
+  private getPaginationResults(){
+    return this.results.slice( +this.resultsCount * this.page - +this.resultsCount,
+      +this.resultsCount * this.page )
+  }
+
+  private created(){
+    adminModule.actions.getResults({ offset: 0, limit: this.totalCount })
   }
 
   private changeResultsCount( resultsCount: number  ){
@@ -145,13 +188,13 @@ export default class AdminPanelView extends Vue{
   }
 
   private getNewUsersList( page: number ){
-    const newOffset = ( page * +this.resultsCount ) - +this.resultsCount
-    adminModule.actions.getResults({ offset: newOffset, limit: +this.resultsCount })
     adminModule.mutations.setPage( page )
+    return this.getPaginationResults()
   }
 
-
-
+  private logout(){
+    window.localStorage.removeItem( 'token' )
+  }
 }
 </script>
 
@@ -160,6 +203,15 @@ export default class AdminPanelView extends Vue{
   display: flex
   flex-direction: column
   padding: 30px
+
+  &.show-spinner
+    justify-content: center
+    align-items: center
+    height: 100%
+  &__header
+    display: flex
+    justify-content: space-between
+
   &__title
     font-family: Inter, serif
     font-style: normal
@@ -171,6 +223,7 @@ export default class AdminPanelView extends Vue{
   &__export
     display: flex
     justify-content: flex-end
+    margin-top: 20px
   &__export-button
     background: #F5F5F5
     border: 1px solid #D2D4D6
@@ -185,7 +238,7 @@ export default class AdminPanelView extends Vue{
   &__table
     display: table
     width: 100%
-    margin: 40px 0
+    margin: 20px 0
     table-layout: fixed
   &__table-body
     display: table-row-group

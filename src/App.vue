@@ -19,6 +19,11 @@ import FinalPageView from './views/FinalPage/FinalPageView.vue'
 import ModalWindow from '@/components/AppModalWindow.vue'
 import { v4 as uuidv4 } from 'uuid'
 import { testingModule } from '@/store'
+import { authStore } from '../packages/login-form'
+import upAccounts from '../packages/user-permissions/src/store/modules/accounts.module'
+import upGroups from '../packages/user-permissions/src/store/modules/groups.module'
+import { getLoggedUserData } from 'login-form/src/auth/services/helpers/store'
+
 
 @Component({
   components: {
@@ -45,10 +50,25 @@ export default class App extends Vue {
   // при создании app задаем вводные - проверяем авторизацию, пушим данные из локала в стор
   private created(){
     testingModule.actions.getAllQuestions()
+
+    // подключаем стор из UserPerm и LoginForm
+    if( !this.$store.hasModule( 'authStore' ) ){
+      this.$store.registerModule( 'authStore', authStore )
+    }
+    if( !this.$store.hasModule( 'upAccounts' ) ){
+      this.$store.registerModule( 'upAccounts', upAccounts )
+    }
+    if( !this.$store.hasModule( 'upGroups' ) ){
+      this.$store.registerModule( 'upGroups', upGroups )
+    }
+
+    // если есть отвеченные вопросы в локал сторадж - пушим в стейт
     if( localStorage.getItem( 'doneTaskList' ) ) {
       const value = JSON.parse( localStorage?.getItem( 'doneTaskList' ) || '' )
       testingModule.mutations.setDoneTaskListLocalStorage( value )
     }
+
+    // проверка авторизован ли пользователь и осталось ли у него время на ответы
     if( localStorage.getItem( 'isAuthorized' ) === 'true' ){
       const answerFromStorage = localStorage?.getItem( 'answers' )
       const answers = answerFromStorage ? JSON.parse( answerFromStorage ) : []

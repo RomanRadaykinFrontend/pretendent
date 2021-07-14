@@ -7,7 +7,7 @@
   .ans-viewer-view__control-panel(
     v-if = " !isAllDataFetched "
   )
-    button( @click = " () => $router.push('/admin')" ).ans-viewer-view__back-button Назад
+    button( @click = " () => $router.push('/adminpanel')" ).ans-viewer-view__back-button Назад
     h1.ans-viewer-view__title Просмотр ответов
     select(
       v-model = " taskType "
@@ -98,7 +98,7 @@ export default class AnsViewerView extends Vue{
   }
 
   private created(){
-    adminModule.actions.getResults({ offset: 0, limit: +this.$route.params.id })
+    adminModule.actions.getResults()
     adminModule.actions.getAllQuestions()
     adminModule.actions.getRightAnswer()
   }
