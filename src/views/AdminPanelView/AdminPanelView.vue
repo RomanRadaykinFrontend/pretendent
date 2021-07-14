@@ -4,13 +4,14 @@
     size = "huge"
     v-if = " isAllDataFetched "
   )
+  AdminHeader(
+    @click-button = "goToUserPerm"
+    button-name = "Задать роли"
+  )
   .admin-panel-view__header(
     v-if = " !isAllDataFetched "
   )
     h1.admin-panel-view__title Администрирование
-    UserPanel(
-      @logout = "logout"
-    )
   .admin-panel-view__export(
     v-if = " !isAllDataFetched "
   )
@@ -52,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import AppHeaderTableRow from '@/components/AppHeaderTableRow.vue'
 import ControlPanel from '@/views/AdminPanelView/parts/ControlPanel.vue'
 import TableRowAdmin from '@/views/AdminPanelView/parts/TableRowAdmin.vue'
@@ -60,14 +61,14 @@ import { adminModule } from '@/store'
 import { getDate, sortItems } from '@/helpers/functions'
 import SortArrowLogo from '@/common/images/sort-arrow.svg'
 import { DataExcel } from '@/types/common'
-import UserPanel from '../../../packages/login-form/src/auth/components/UserPanel.vue'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import VueSimpleSpinner from 'vue-simple-spinner'
+import AdminHeader from '@/views/AdminHeader.vue'
 
 @Component({
   components: {
-    UserPanel,
+    AdminHeader,
     ControlPanel,
     AppHeaderTableRow,
     TableRowAdmin,
@@ -194,6 +195,10 @@ export default class AdminPanelView extends Vue{
 
   private logout(){
     window.localStorage.removeItem( 'token' )
+  }
+
+  private goToUserPerm(){
+    this.$router.push( '/userpermissions' )
   }
 }
 </script>

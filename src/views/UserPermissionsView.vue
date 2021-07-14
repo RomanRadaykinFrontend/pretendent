@@ -1,15 +1,28 @@
 <template lang="pug">
-  UserPermissions
+  .user-permissions-view
+    AdminHeader(
+      @click-button = "goToAdminPanel"
+      button-name = "Вернуться в админ-панель"
+    )
+    UserPermissions
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { UserPermissions } from '../../packages/user-permissions'
+import { UserPanel } from '../../packages/login-form'
+import AdminHeader from '@/views/AdminHeader.vue'
 
 @Component({
-  components: { UserPermissions },
+  components: { AdminHeader, UserPermissions, UserPanel },
 })
 export default class UserPermissionsView extends Vue{
+  private logout(){
+    window.localStorage.removeItem( 'token' )
+  }
+  private goToAdminPanel(){
+    this.$router.push( '/adminpanel' )
+  }
 }
 </script>
 

@@ -4,44 +4,46 @@
     size = "huge"
     v-if = " isAllDataFetched "
   )
-  .ans-viewer-view__control-panel(
-    v-if = " !isAllDataFetched "
-  )
-    button( @click = " () => $router.push('/adminpanel')" ).ans-viewer-view__back-button Назад
-    h1.ans-viewer-view__title Просмотр ответов
-    select(
-      v-model = " taskType "
-    ).ans-viewer-view__select
-      option( selected ) Все вопросы
-      option( :disabled = " isAnsweredFlag " ) Отвеченные вопросы
-      option( :disabled = " isNotAnsweredFlag " ) Неотвеченные вопросы
-      option( :disabled = " isRightAnswFlag " ) Отвеченные правильно
-      option( :disabled = " isWrongAnswFlag " ) Отвеченные неправильно
-    .ans-viewer-view__about(
-      v-for = " data in pretendData "
-      :key = " data.title "
+  AdminHeader
+  .ans-viewer-view__content
+    .ans-viewer-view__control-panel(
+      v-if = " !isAllDataFetched "
     )
-      span.subtitle {{ data.title }}
-      span.data {{ data.data }}
+      button( @click = " () => $router.push('/adminpanel')" ).ans-viewer-view__back-button Назад
+      h1.ans-viewer-view__title Просмотр ответов
+      select(
+        v-model = " taskType "
+      ).ans-viewer-view__select
+        option( selected ) Все вопросы
+        option( :disabled = " isAnsweredFlag " ) Отвеченные вопросы
+        option( :disabled = " isNotAnsweredFlag " ) Неотвеченные вопросы
+        option( :disabled = " isRightAnswFlag " ) Отвеченные правильно
+        option( :disabled = " isWrongAnswFlag " ) Отвеченные неправильно
+      .ans-viewer-view__about(
+        v-for = " data in pretendData "
+        :key = " data.title "
+      )
+        span.subtitle {{ data.title }}
+        span.data {{ data.data }}
 
 
-  .ans-viewer-view__table(
-    v-if = " !isAllDataFetched "
-  )
-    .ans-viewer-view__table-body
-    AppHeaderTableRow(
-      :is-header-row = "true"
-      :table-value = "headerRow"
-      @sort-by-id = "sortByNumber( $event )"
+    .ans-viewer-view__table(
+      v-if = " !isAllDataFetched "
     )
-    TableRowAnsw(
-      v-for = "(question, index) in sortQuestions"
-      :key = "index"
-      :table-value = "question"
-      :quest-number = "question.orderNumber"
-      :user-answer = " getCurrentAnswer( question.orderNumber ) "
-      :right-answer = " getCurrentRightAnswer( question.orderNumber ) "
-    )
+      .ans-viewer-view__table-body
+      AppHeaderTableRow(
+        :is-header-row = "true"
+        :table-value = "headerRow"
+        @sort-by-id = "sortByNumber( $event )"
+      )
+      TableRowAnsw(
+        v-for = "(question, index) in sortQuestions"
+        :key = "index"
+        :table-value = "question"
+        :quest-number = "question.orderNumber"
+        :user-answer = " getCurrentAnswer( question.orderNumber ) "
+        :right-answer = " getCurrentRightAnswer( question.orderNumber ) "
+      )
 
 </template>
 
@@ -54,9 +56,11 @@ import { getDate, sortItems } from '@/helpers/functions'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import VueSimpleSpinner from 'vue-simple-spinner'
+import AdminHeader from '@/views/AdminHeader.vue'
 
 @Component({
   components: {
+    AdminHeader,
     TableRowAnsw, AppHeaderTableRow, VueSimpleSpinner,
   },
 })
