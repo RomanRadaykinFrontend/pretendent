@@ -8,21 +8,22 @@
     @click-button = "goToUserPerm"
     button-name = "Задать роли"
   )
-  .admin-panel-view__header(
-    v-if = " !isAllDataFetched "
-  )
-    h1.admin-panel-view__title Администрирование
-  .admin-panel-view__export(
-    v-if = " !isAllDataFetched "
-  )
-    vue-excel-xlsx.admin-panel-view__export-button(
-      :data = "dataExcel"
-      :columns = "columnsExcel"
-      filename = "table"
-      sheetnam= "sheetname"
+  .admin-panel-view__header-wrapper
+    .admin-panel-view__header(
+      v-if = " !isAllDataFetched "
     )
-      SortArrowLogo
-      | Скачать .xls
+      h1.admin-panel-view__title Администрирование
+    .admin-panel-view__export(
+      v-if = " !isAllDataFetched "
+    )
+      vue-excel-xlsx.admin-panel-view__export-button(
+        :data = "dataExcel"
+        :columns = "columnsExcel"
+        filename = "table"
+        sheetnam= "sheetname"
+      )
+        SortArrowLogo
+        | Скачать .xls
   .admin-panel-view__table(
     v-if = " !isAllDataFetched "
   )
@@ -217,6 +218,12 @@ export default class AdminPanelView extends Vue{
     display: flex
     justify-content: space-between
 
+  &__header-wrapper
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin: 10px 0
+
   &__title
     font-family: Inter, serif
     font-style: normal
@@ -225,10 +232,7 @@ export default class AdminPanelView extends Vue{
     line-height: 29px
     color: #2D2F33
     margin: 0
-  &__export
-    display: flex
-    justify-content: flex-end
-    margin-top: 20px
+
   &__export-button
     background: #F5F5F5
     border: 1px solid #D2D4D6

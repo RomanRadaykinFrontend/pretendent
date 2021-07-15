@@ -195,7 +195,6 @@ export class UsersApi extends runtime.BaseAPI {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-        debugger
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
         } else if( window.localStorage.getItem( 'access_token' ) ){

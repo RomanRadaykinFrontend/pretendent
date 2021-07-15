@@ -9,6 +9,13 @@ import {
 } from '../../services/api'
 
 import { getAddDelLists, sortItems } from '../../services/helpers/userpermissions'
+import {
+  decodeJSON,
+  encodeJSON,
+  getFromStorage,
+  setToStorage,
+  StoreKeys,
+} from '../../../../login-form/src/auth/services/helpers'
 
 const namespaced = true
 
@@ -34,7 +41,7 @@ const getters: GetterTree<AccountsState, RootState> = {
   userKV: ({ user }) => ( key: string ) => JSON.parse( user?.kv?.find( kv => kv.key === key )?.value ?? 'null' ),
   isRegionsEditEnabled: state => !!state.regions,
   regions: state => state.regions ?? [],
-  userPermits: ({ user }): Array<string> => user?.kv?.filter( kv => !kv.groupIdent && kv.value === 'true' )?.map( kv => kv.key ) ?? []
+  userPermits: ({ user }): Array<string> => user?.kv?.filter( kv => !kv.groupIdent && kv.value === 'true' )?.map( kv => kv.key ) ?? [],
 }
 
 const mutations: MutationTree<AccountsState> = {
@@ -232,7 +239,7 @@ const actions: ActionTree<AccountsState, RootState> = {
           await kvApi.kvUserSet({
             login: user.login,
             domain: user.domain,
-            inlineObject10: { key: p, value: 'true' }
+            inlineObject10: { key: p, value: 'true' },
           })
         }
       }
@@ -240,7 +247,7 @@ const actions: ActionTree<AccountsState, RootState> = {
       await kvApi.kvUserSet({
         login: user.login,
         domain: user.domain,
-        inlineObject10: { key: permit.permit, value: 'true' }
+        inlineObject10: { key: permit.permit, value: 'true' },
       })
     }
     // Удаление разрешений

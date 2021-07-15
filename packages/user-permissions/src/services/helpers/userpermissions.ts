@@ -1,25 +1,25 @@
-import { difference, intersection, isEqual } from "lodash"
-import { SortType } from "../../types/common"
-import { AddDelList } from "../../types/userpermissions"
+import { difference, intersection, isEqual } from 'lodash'
+import { SortType } from '../../types/common'
+import { AddDelList } from '../../types/userpermissions'
 
-export const sortItems = ( items: any[], key: string, direction: 'asc' | 'desc' = 'asc' ): any[] => {
-  if (!items) {
+export const sortItems = ( items: Array<any>, key: string, direction: 'asc' | 'desc' = 'asc' ): Array<any> => {
+  if ( !items ) {
     return items
   }
-  for (const item of items) {
-    if (typeof item[key] === 'undefined') {
+  for ( const item of items ) {
+    if ( typeof item[key] === 'undefined' ) {
       item[key] = ''
     }
   }
-  return [...items].sort( (a, b) => {
+  return [ ...items ].sort( ( a, b ) => {
     if( a[key].toLowerCase() === b[key].toLowerCase() ){
       return 0
     } else {
       return direction === 'asc' ?
-          a[key].toLowerCase() < b[key].toLowerCase() ? 1 : -1 :
-          a[key].toLowerCase() > b[key].toLowerCase() ? 1 : -1
+        a[key].toLowerCase() < b[key].toLowerCase() ? 1 : -1 :
+        a[key].toLowerCase() > b[key].toLowerCase() ? 1 : -1
     }
-  } )
+  })
 }
 
 
@@ -52,7 +52,7 @@ export enum DialogStatus {
 }
 
 export const getAddDelLists = (
-  sourceList: Array<any>,  newList: Array<any>,  keyField?: string
+  sourceList: Array<any>,  newList: Array<any>,  keyField?: string,
 ): AddDelList => {
   const result: AddDelList = { toAdd: [], toDel: [] }
   let a = sourceList
@@ -60,11 +60,11 @@ export const getAddDelLists = (
   if ( keyField ) {
     a = sortItems( sourceList, keyField )
     b = sortItems( newList, keyField )
-    if ( isEqual( a, b )) {
+    if ( isEqual( a, b ) ) {
       return result
     }
-    a = a.map(c => c[keyField])
-    b = b.map(c => c[keyField])
+    a = a.map( c => c[keyField])
+    b = b.map( c => c[keyField])
   }
   const common = intersection( a, b )
   // result.toDel = Array.from( new Set( difference( a, common ) ))
