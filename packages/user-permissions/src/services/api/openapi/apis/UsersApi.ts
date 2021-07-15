@@ -195,9 +195,11 @@ export class UsersApi extends runtime.BaseAPI {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
+        debugger
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( window.localStorage.getItem( 'access_token' ) ){
+            queryParameters["access_token"] = window.localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -242,8 +244,11 @@ export class UsersApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( window.localStorage.getItem( 'access_token' ) ){
+            queryParameters["access_token"] = window.localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -252,6 +257,7 @@ export class UsersApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
         });
+
 
         return new runtime.JSONApiResponse(response, (jsonValue) => InlineResponse2002FromJSON(jsonValue));
     }

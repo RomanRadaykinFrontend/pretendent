@@ -23,6 +23,7 @@ import { authStore } from '../packages/login-form'
 import upAccounts from '../packages/user-permissions/src/store/modules/accounts.module'
 import upGroups from '../packages/user-permissions/src/store/modules/groups.module'
 import { getLoggedUserData } from 'login-form/src/auth/services/helpers/store'
+import { upCommon } from '../packages/user-permissions'
 
 
 @Component({
@@ -60,6 +61,9 @@ export default class App extends Vue {
     }
     if( !this.$store.hasModule( 'upGroups' ) ){
       this.$store.registerModule( 'upGroups', upGroups )
+    }
+    if( !this.$store.hasModule( 'upCommon' ) ){
+      this.$store.registerModule( 'upCommon', upCommon )
     }
 
     // если есть отвеченные вопросы в локал сторадж - пушим в стейт

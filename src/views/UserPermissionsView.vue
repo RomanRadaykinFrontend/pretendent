@@ -4,7 +4,9 @@
       @click-button = "goToAdminPanel"
       button-name = "Вернуться в админ-панель"
     )
-    UserPermissions
+    UserPermissions(
+      :permits = "permits"
+    )
 </template>
 
 <script lang="ts">
@@ -17,6 +19,7 @@ import AdminHeader from '@/views/AdminHeader.vue'
   components: { AdminHeader, UserPermissions, UserPanel },
 })
 export default class UserPermissionsView extends Vue{
+  private permits = [{ alias: 'Аналитик', role: 'analyst' }]
   private logout(){
     window.localStorage.removeItem( 'token' )
   }

@@ -129,7 +129,6 @@ export default class UserPanel extends Vue {
   }
 
   private async prepareData() {
-    debugger
     this.checkUpdateTimer = setInterval( this.checkTokensUpdate, CHECK_NEED_REFRESH_INTERVAL )
     if ( this.isADFS ) {
       clearStorage([ StoreKeys.ADFS_TOKEN ])
@@ -158,7 +157,6 @@ export default class UserPanel extends Vue {
   }
 
   private async created(): Promise<any> {
-    debugger
     if ( !isStorageKeysExist() ) {
       console.error( 'Tokens not detected on component creation' )
       this.logout()

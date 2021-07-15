@@ -299,6 +299,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( window.localStorage.getItem( 'access_token' ) ){
+            queryParameters["access_token"] = window.localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
