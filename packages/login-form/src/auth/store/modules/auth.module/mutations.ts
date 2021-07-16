@@ -32,7 +32,6 @@ export const mutations: MutationTree<AuthState> = {
   },
 
   [SET_ALLOWED_PERMITS]: ( state: AuthState, permits: Array<string> ) => {
-    debugger
     if ( permits ) {
       state.allowedPermits =  [ ...permits ]
       setToStorage( StoreKeys.PERMITS, encodeJSON( permits ) )

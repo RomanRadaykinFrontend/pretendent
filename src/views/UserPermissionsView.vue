@@ -28,8 +28,8 @@ export default class UserPermissionsView extends Vue{
   }
 
 
-  private permits: Array<Permission> = [{ permit: 'Администратор', alias: 'admin' },
-    { permit: 'Пользователь', alias: 'user' }]
+  private permits: Array<Permission> = [{ permit: 'secure_okauth_admin', alias: 'Администратор' },
+    { permit: 'user', alias: 'Пользователь' }]
 }
 </script>
 

@@ -37,6 +37,7 @@ import {
     InlineResponse2005FromJSON,
     InlineResponse2005ToJSON,
 } from '../models';
+import { getFromStorage, StoreKeys } from "../../../../../../login-form/src/auth/services/helpers";
 
 export interface GroupsAddUserRequest {
     ident: string;
@@ -106,6 +107,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -142,6 +145,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -180,6 +185,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -219,6 +226,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -257,6 +266,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -299,8 +310,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if( window.localStorage.getItem( 'access_token' ) ){
-            queryParameters["access_token"] = window.localStorage.getItem( 'access_token' )
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -351,6 +362,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -387,6 +400,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({

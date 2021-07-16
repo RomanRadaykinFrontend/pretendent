@@ -97,9 +97,9 @@ import AppModal from './../common/AppModal.vue'
 import { namespace } from 'vuex-class'
 import EditUserPermits from '../common/EditUserPermits.vue'
 
-const CM = namespace( 'upCommon' )
-const UG = namespace( 'upGroups' )
-const UA = namespace( 'upAccounts' )
+const CM = namespace('upCommon')
+const UG = namespace('upGroups')
+const UA = namespace('upAccounts')
 
 @Component({
   components: { EditUserPermits, RemoteDataContainer, EditUserRegions, EditUserGroup, AppModal },
@@ -108,23 +108,23 @@ export default class UserAccountEdit extends Vue {
   @PropSync( 'modalOpen', { type: Boolean }) private open!: boolean
   @PropSync( 'userItem', { type: Object }) private selectedUser!: User
 
-  @UG.Getter( 'groups' ) private groups!: Array<Group>
+  @UG.Getter( 'groups' ) private groups!: Group[]
   @UG.Action( 'groupsAddUser' ) private groupsAddUser: ActionMethod
   @UG.Action( 'groupDeleteUser' ) private groupDeleteUser: ActionMethod
 
   @UA.Getter( 'user' ) private user!: UserFull
-  @UA.Getter( 'domains' ) private domains!: Array<Domain>
-  @UA.Getter( 'regions' ) private regions!: Array<Region>
-  @UA.Getter( 'userKV' ) private userKV: ( x: string ) => any
+  @UA.Getter( 'domains' ) private domains!: Domain[]
+  @UA.Getter('regions') private regions!: Array<Region>
+  @UA.Getter( 'userKV' ) private userKV: (x: string) => any
   @UA.Action( 'fetchUser' ) private fetchUser: ActionMethod
   @UA.Action( 'userUpdate' ) private userUpdate: ActionMethod
   @UA.Action( 'updateUserKV' ) private updateUserKV: ActionMethod
-  @UA.Getter( 'isRegionsEditEnabled' ) private isEditRegions!: boolean
-  @UA.Getter( 'userPermits' ) private userPermitsStored!: Array<string>
+  @UA.Getter( 'isRegionsEditEnabled') private isEditRegions!: boolean
+  @UA.Getter( 'userPermits') private userPermitsStored!: Array<string>
   @UA.Action( 'updateUserSecureRole' ) private updateUserSecureRole: ActionMethod
   @UA.Action( 'setUserPermits' ) private setPermits: ( x: Array<string> ) => ActionMethod
 
-  @CM.Getter( 'permissions' ) private permissions: Array<Permission>
+  @CM.Getter('permissions') private permissions: Array<Permission>
 
   private userGroups: Array<Group> = []
   private userRegions: Array<string> = []
@@ -157,7 +157,7 @@ export default class UserAccountEdit extends Vue {
   }
 
   get dialogHeader() {
-    return `Редактирование ${this.isCurrentUser ? 'текущей' : ''} учетной записи пользователя`
+    return `Редактирование ${this.isCurrentUser ? `текущей` : ''} учетной записи пользователя`
   }
 
   get buttonCaption() {
@@ -187,14 +187,13 @@ export default class UserAccountEdit extends Vue {
   }
 
   private setUserPermits() {
-    debugger
     this.userPermits = this.userPermitsStored
-    this.userPermitsSource = [ ...this.userPermits ]
+    this.userPermitsSource = [...this.userPermits]
   }
 
   private setUserGroups() {
     this.userGroups = this.user?.groups ?? []
-    this.userGroupsSource = [ ...this.userGroups ]
+    this.userGroupsSource = [...this.userGroups]
   }
 
   private setUserRegions() {
@@ -207,10 +206,10 @@ export default class UserAccountEdit extends Vue {
   }
 
   private async setUserKV( kv: KeyValue ) {
-    await this.updateUserKV({
-      user: this.user,
-      ...kv,
-    })
+      await this.updateUserKV({
+        user: this.user,
+        ...kv
+      })
   }
 
   private async updateUserRegions() {
@@ -219,7 +218,7 @@ export default class UserAccountEdit extends Vue {
     }
     await this.setUserKV({
       key: SECURE_REGIONS,
-      value: JSON.stringify( this.userRegions ),
+      value: JSON.stringify( this.userRegions )
     })
   }
 
@@ -267,10 +266,10 @@ export default class UserAccountEdit extends Vue {
       updatedUser.displayName = this.displayName
       try {
         await this.userUpdate( updatedUser )
-        if ( this.isCurrentUser ) {
+        if (this.isCurrentUser) {
           window.EVENT_BUS.$emit(
             CommonBusEvents.CHANGE_DISPLAY_NAME,
-            updatedUser.displayName,
+            updatedUser.displayName
           )
         }
       } catch ( error ) {
@@ -278,8 +277,8 @@ export default class UserAccountEdit extends Vue {
         return
       }
     }
-    if ( this.isPasswordChanged() ) {
-      if ( !this.isPasswordsEqual() ) {
+    if ( this.isPasswordChanged()) {
+      if (!this.isPasswordsEqual()) {
         this.showError( 'Пароли не совпадают' )
         return
       }
@@ -325,7 +324,7 @@ export default class UserAccountEdit extends Vue {
 
   private async updateUserGroups() {
     const x: AddDelList = getAddDelLists( this.userGroupsSource, this.userGroups, 'ident' )
-    for ( const group of x.toAdd ) {
+    for (const group of x.toAdd) {
       await this.groupsAddUser({
         ident: group,
         user: this.user,

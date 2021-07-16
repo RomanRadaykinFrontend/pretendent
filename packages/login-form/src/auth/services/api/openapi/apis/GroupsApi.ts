@@ -106,6 +106,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -142,6 +144,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -180,6 +184,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -219,6 +225,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -257,6 +265,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -299,6 +309,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -349,6 +361,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({
@@ -385,6 +399,8 @@ export class GroupsApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( localStorage.getItem('access_token') ){
+            queryParameters["access_token"] = localStorage.getItem( 'access_token' )
         }
 
         const response = await this.request({

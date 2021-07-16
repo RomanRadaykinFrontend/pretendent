@@ -15,8 +15,7 @@ import { authStore } from '../../packages/login-form'
 })
 export default class AdminLoginView extends Vue{
   public allowedPermits: Array<string> = [
-    'ssi-proxy',
-    'ssi_sources',
+    'secure_okauth_admin', 'user'
   ]
 
 }

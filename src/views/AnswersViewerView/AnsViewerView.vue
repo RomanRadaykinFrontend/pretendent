@@ -4,7 +4,7 @@
     size = "huge"
     v-if = " isAllDataFetched "
   )
-  AdminHeader
+  AdminHeader( v-if = " !isAllDataFetched " )
   .ans-viewer-view__content
     .ans-viewer-view__control-panel(
       v-if = " !isAllDataFetched "

@@ -107,6 +107,7 @@ export default class UserPanel extends Vue {
     await this.$router.push({ name: 'login' })
   }
 
+
   private logout(): void {
     if ( this.isADFS ) {
       this.logoutADFS()

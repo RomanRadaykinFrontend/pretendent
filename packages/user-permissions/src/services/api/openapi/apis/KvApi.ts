@@ -25,6 +25,7 @@ import {
     InlineResponse2006FromJSON,
     InlineResponse2006ToJSON,
 } from '../models';
+import { getFromStorage, StoreKeys } from "../../../../../../login-form/src/auth/services/helpers";
 
 export interface KvGroupDeleteRequest {
     domain: string;
@@ -90,6 +91,8 @@ export class KvApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -131,6 +134,8 @@ export class KvApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -175,6 +180,8 @@ export class KvApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -217,6 +224,8 @@ export class KvApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -262,6 +271,8 @@ export class KvApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
@@ -306,6 +317,8 @@ export class KvApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
+        } else if( StoreKeys.A_TOKEN ){
+            queryParameters["access_token"] = getFromStorage( 'access_token' )
         }
 
         const response = await this.request({
