@@ -7,16 +7,14 @@ import { UserFull } from '../../../services/api'
 import { KV_SECURE_OKAUTH_ADMIN } from '../../../services/helpers/kvkeys'
 import { checkAccessGranted } from '../../../services/helpers'
 
-export const getDefaultState = (): AuthState => {
-  return {
-    user: null,
-    domains: null,
-    afterLogin: false,
-    status: RemoteDataStatus.INIT,
-    message: '',
-    allowedPermits: [],
-  }
-}
+export const getDefaultState = (): AuthState => ({
+  user: null,
+  domains: null,
+  afterLogin: false,
+  status: RemoteDataStatus.INIT,
+  message: '',
+  allowedPermits: [],
+})
 
 const moduleState: AuthState = getDefaultState()
 
@@ -35,14 +33,13 @@ const getters: GetterTree<AuthState, RootState> = {
     const userKVList = user.kv?.filter( kv => !kv.groupIdent && !kv.groupDomain ) ?? []
     return userKVList.map( kv => kv.key )
   },
-  isAccessGranted: ({ allowedPermits }, getters ): boolean => {
-    if ( getters.isRootUser ) {
-      return true
-    }
-    const grantedByGroupPermits = checkAccessGranted( allowedPermits, getters.groupsPermits )
-    const grantedByUserPermits = checkAccessGranted( allowedPermits, getters.userPermits )
-    return grantedByGroupPermits || grantedByUserPermits
-  },
+  commonPermits: ( s, getters ): Array<string> => Array.from( new Set(
+    [ ...getters.groupsPermits, ...getters.userPermits ],
+  ) ),
+  isAccessGranted: ({ allowedPermits }, getters ): boolean =>
+    getters.isRootUser
+      ? true
+      : checkAccessGranted( allowedPermits, getters.commonPermits ),
 }
 
 export default {

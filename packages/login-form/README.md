@@ -1,5 +1,4 @@
-﻿
-# Login-form v2.6.0
+# Login-form v2.6.1
 Библиотека авторизации пользователя в системах
 
 Включает:
@@ -25,7 +24,9 @@ window.EVENT_BUS = new Vue()
 # Подключение компонента
 
 ## Подключение в App.vue
-```vue
+```ts
+// src/App.vue
+
 // Важно использовать именно `v-if`
 <template lang="pug">
 #app
@@ -33,11 +34,26 @@ window.EVENT_BUS = new Vue()
     RouterView
     AppFooter( v-if="isUserLoggedIn" )
 </template>
+<script lang="ts">
+  ...
+  import { hasUserData, initEventBusActions, isStorageKeysExist } from 'login-form'
+
+  // Добавить переинициализацию шины и проверку на существование пользователя
+  private async created() {
+    initEventBusActions( window.EVENT_BUS )
+    this.isUserLoggedIn = isStorageKeysExist() && await hasUserData()
+  }
+
+  private async updated() {
+    this.isUserLoggedIn = isStorageKeysExist() && await hasUserData()
+  }
+</script>
 ```
 
 
 ## Подключение Vuex
-```ts store\index.ts
+```ts
+src/store/index.ts
 
 // Подключение модуля авторизации в систему,
 // при необходимости работы с данными пользователя
@@ -52,6 +68,7 @@ export default new Vuex.Store({
 
 ## Подключение Vue Router
 ```ts
+src/router/index.ts
 // К путям роутера необходимо добавить проверку перед переходом по ним
 // Если доступ к пути возможен только авторизованному пользователю, указываем beforeEnter: isAuthorized
 // Если доступ к пути возможен только не авторизованному, указываем beforeEnter: isNotAuthorized
@@ -59,13 +76,12 @@ export default new Vuex.Store({
 
 import MainView from '@/views/MainView.vue'
 import LoginView from '@/views/LoginView.vue'
-
-import { checkADFSAuth } from 'login-form'
+import { getFromStorage,checkADFSAuth } from 'login-form'
 
 Vue.use(VueRouter)
 
 const isAuthorized = (to: any, from: any, next: any) => {
-  if (sessionStorage.getItem('access_token') !== null) {
+  if ( getFromStorage( 'access_token' ) !== null) {
     next()
     return
   }
@@ -74,7 +90,7 @@ const isAuthorized = (to: any, from: any, next: any) => {
 
 const isNotAuthorized = (to: any, from: any, next: any) => {
   checkADFSAuth()
-  if (sessionStorage.getItem('access_token') === null) {
+  if (getFromStorage( 'access_token' ) === null) {
     next()
     return
   }
@@ -94,7 +110,24 @@ const routes = [
     component: LoginView,
     beforeEnter: isNotAuthorized,
   },
+  {
+    path: '/1',
+    meta: {
+      title: 'Пермит 1',
+      menu: true,
+      permit: 'secure_permit_1',
+    },
+  },
+  {
+    path: '/2',
+    meta: {
+      title: 'Пермит 2',
+      menu: true,
+      permit: 'secure_permit_2',
+    },
+  },
 ]
+
 ```
 
 ## Подключение в компонентах
@@ -114,15 +147,15 @@ import { LoginForm } from 'login-form'
 @Component({ components: { LoginForm } })
 export default class LoginView extends Vue {
     public allowedPermits: string[] = [
-      'ssi-proxy',
-      'ssi_sources'
+      'secure_permit_1',
+      'secure_permit_2'
     ]
 
 }
 </script>
 ```
 
-```vue
+```ts
 // Панель пользователя в AppHeader
 <template lang="pug">
     .header
@@ -175,3 +208,7 @@ allowedPermits | `Array<string>`  | `[]`          | Список кастомн�
 ```
 # Пропсы
 > Отсутствуют
+# События
+ Имя              | Аргументы      |  Описание
+ -----------------|-----------|--------------|-------------------------------------------------
+ logout| Без аргументов  |  Эмитится при деавторизации пользователя

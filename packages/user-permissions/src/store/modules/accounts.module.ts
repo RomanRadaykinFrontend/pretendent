@@ -31,9 +31,7 @@ const getters: GetterTree<AccountsState, RootState> = {
   users: state => state.users,
   domains: state => state.domains,
   user: state => state.user,
-  userKV: ({ user }) => ( key: string ) => {
-    return JSON.parse( user?.kv?.find( kv => kv.key === key )?.value ?? 'null' )
-  },
+  userKV: ({ user }) => ( key: string ) => JSON.parse( user?.kv?.find( kv => kv.key === key )?.value ?? 'null' ),
   isRegionsEditEnabled: state => !!state.regions,
   regions: state => state.regions ?? [],
   userPermits: ({ user }): Array<string> => user?.kv?.filter( kv => !kv.groupIdent && kv.value === 'true' )?.map( kv => kv.key ) ?? []

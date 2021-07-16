@@ -104,9 +104,8 @@ export default class UserPanel extends Vue {
         refreshToken: getRefreshToken(),
       },
     })
-    await this.$router.push({ name: 'login' })
+    this.$router.push({ name: 'login' })
   }
-
 
   private logout(): void {
     if ( this.isADFS ) {
@@ -198,7 +197,7 @@ export default class UserPanel extends Vue {
 .user-name
   width: max-content
   font-family: Roboto, Arial, NotoSans
-  color: black
+  color: #eaeeff
   font-size: 14px
   text-decoration: none
 

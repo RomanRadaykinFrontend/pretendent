@@ -2,6 +2,8 @@ import { ADFSData, LoginData } from '../../types/login'
 import { TokenStatus } from './../../types/common.types'
 import { ADFS, authApi, AuthRefreshRequest, AuthUserRequest, LDAP, User } from '../../services/api'
 import { getAccessToken, getRefreshToken, saveTokensData, setToStorage } from '../../services/helpers'
+import store from './../../store/'
+import { FETCH_USER } from './../../store/modules/action.types'
 
 export const checkAPI =( api: any ) => {
   if ( !api ) {
@@ -97,4 +99,15 @@ export enum AuthError {
   AUTH_FAILED = 'Не удалось авторизоваться',
   USER_DATA_FAILED = 'Не удалось получить данные пользователя',
   DOMAIN_DATA_FAILED = 'Не удалось получить список доменов'
+}
+
+export const hasUserData = async (): Promise<boolean> => {
+  try {
+    if ( !store.getters['authStore/user']) {
+      await store.dispatch( 'authStore/'+FETCH_USER )
+    }
+    return store.getters['authStore/user']
+  } catch ( e ) {
+    return false
+  }
 }

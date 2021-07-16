@@ -3,6 +3,7 @@ export { default as UserPanel } from './auth/components/UserPanel.vue'
 
 export {
   decodeJSON,
+  hasUserData,
   updateTokens,
   clearStorage,
   checkADFSAuth,

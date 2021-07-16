@@ -126,7 +126,7 @@ import { Domain, Group, User } from './services/api'
 import { ActionMethod, MutationMethod } from 'vuex'
 import { UserFull } from 'login-form'
 import RemoteDataContainer from './components/RemoteDataContainer.vue'
-import { RemoteDataStatus, SortType } from './types/common'
+import { RemoteDataStatus, SortType} from './types/common'
 import { initEventBusActions } from './services/api/index'
 
 const CM = namespace( 'upCommon' )
@@ -137,28 +137,28 @@ const UA = namespace( 'upAccounts' )
 @Component(
   { components: {
     UserAccountItem, UserAccountAdd, UserAccountEdit, ConfirmDialog,
-    GroupItem, UsersGroupEdit, GroupUsers, RemoteDataContainer, AppFilterArrow,
-  } })
+    GroupItem, UsersGroupEdit, GroupUsers, RemoteDataContainer, AppFilterArrow
+  }})
 
 export default class UserPermissons extends Vue {
-  @Prop({ default: () => [] }) private permits: Array<Permission>
-  @Prop({ default: null }) private regions: Array<Region>
+  @Prop({ default: () => [] }) private permits: Permission[]
+  @Prop({ default: null }) private regions: Region[]
 
-  @UG.Action( 'groupDeleteUser' ) private groupDeleteUser!: ActionMethod
-  @UG.Action( 'groupsDelete' ) private groupsDelete!: ActionMethod
-  @UG.Action( 'blockUser' ) private doBlockUser!: ActionMethod
-  @UG.Getter( 'groups' ) private groups!: Array<Group>
-  @UG.Action( 'fetchAllGroups' ) private fetchGroupList: ( x: Array<Domain> ) => ActionMethod
+  @UG.Action('groupDeleteUser') private groupDeleteUser!: ActionMethod
+  @UG.Action('groupsDelete') private groupsDelete!: ActionMethod
+  @UG.Action('blockUser') private doBlockUser!: ActionMethod
+  @UG.Getter('groups') private groups!: Group[]
+  @UG.Action('fetchAllGroups') private fetchGroupList: (x: Domain[]) => ActionMethod
 
-  @UA.Action( 'fetchUsers' ) private fetchUsers!: ActionMethod
-  @UA.Action( 'fetchDomains' ) private fetchDomains!: ActionMethod
-  @UA.Action( 'deleteUser' ) private removeUser!: ActionMethod
-  @UA.Getter( 'domains' ) private domains!: Array<Domain>
-  @UA.Getter( 'users' ) private users!: Array<User>
-  @UA.Mutation( 'setRegions' ) private setRegions!: MutationMethod
+  @UA.Action('fetchUsers') private fetchUsers!: ActionMethod
+  @UA.Action('fetchDomains') private fetchDomains!: ActionMethod
+  @UA.Action('deleteUser') private removeUser!: ActionMethod
+  @UA.Getter('domains') private domains!: Domain[]
+  @UA.Getter('users') private users!: Array<User>
+  @UA.Mutation('setRegions') private setRegions!: MutationMethod
 
   @AS.Getter( 'user' ) private user: UserFull
-  @CM.Mutation( 'setPermissions' ) private setPermissions: ( x: Array<Permission> ) => MutationMethod
+  @CM.Mutation( 'setPermissions' ) private setPermissions: (x: Array<Permission> ) => MutationMethod
 
   private group: Group = {}
   private selection = 'usersAccounts'
@@ -167,11 +167,11 @@ export default class UserPermissons extends Vue {
   private isGroupEditMode = false
   private usersSort: SortType = {
     field: 'displayName',
-    direction: 'desc',
+    direction: 'desc'
   }
   private groupSort: SortType = {
     field: 'displayName',
-    direction: 'desc',
+    direction: 'desc'
   }
 
 
@@ -210,10 +210,10 @@ export default class UserPermissons extends Vue {
   }
 
   get isDataError() {
-    return [ RemoteDataStatus.ERROR, RemoteDataStatus.ERROR_NO_BG ].includes( this.remoteStatus )
+    return [RemoteDataStatus.ERROR, RemoteDataStatus.ERROR_NO_BG].includes(this.remoteStatus)
   }
 
-  @Watch( 'regions', { deep: true }) private onRegionsChange() {
+  @Watch('regions', {deep: true}) private onRegionsChange() {
     this.setRegions( this.regions )
   }
 
@@ -227,30 +227,30 @@ export default class UserPermissons extends Vue {
 
   private dialogConfirmed() {
     switch ( this.dialogParams.status ) {
-    case DialogStatus.DELETE_USER:
-      this.removeUser( this.selectedUser )
-      break
-    case DialogStatus.DELETE_GROUP:
-      this.groupsDelete( this.selecteGroup )
-      break
-    case DialogStatus.DELETE_GROUP_USER:
-      this.groupDeleteUser( this.selectedGroupUser )
-      break
-    case DialogStatus.BLOCK_USER:
-      this.doBlockUser({
-        user: this.selectedUser,
-        blocked: true,
-      })
-      break
-    case DialogStatus.UNBLOCK_USER:
-      this.doBlockUser({
-        user: this.selectedUser,
-        blocked: false,
-      })
-      break
+      case DialogStatus.DELETE_USER:
+          this.removeUser( this.selectedUser )
+        break;
+      case DialogStatus.DELETE_GROUP:
+          this.groupsDelete( this.selecteGroup )
+        break;
+      case DialogStatus.DELETE_GROUP_USER:
+          this.groupDeleteUser( this.selectedGroupUser )
+        break;
+      case DialogStatus.BLOCK_USER:
+        this.doBlockUser({
+            user: this.selectedUser,
+            blocked: true
+          })
+        break;
+      case DialogStatus.UNBLOCK_USER:
+        this.doBlockUser({
+            user: this.selectedUser,
+            blocked: false,
+          })
+        break;
 
-    default:
-      break
+      default:
+        break;
     }
     this.selectedUser = {}
     this.selecteGroup = {}
@@ -267,8 +267,8 @@ export default class UserPermissons extends Vue {
 
   private getSortArrowsType( field: string, sortObj ){
     return field === sortObj.field ?
-      sortObj.direction :
-      'default'
+        sortObj.direction :
+        'default'
   }
 
   private setSorting( field: string, sortObj: SortType ){
@@ -276,7 +276,7 @@ export default class UserPermissons extends Vue {
   }
 
   private addItem() {
-    if ( this.selection === 'usersAccounts' ) {
+    if (this.selection === 'usersAccounts') {
       this.modalOpen = true
     }
     if ( this.selection === 'groups' ) {
@@ -296,25 +296,25 @@ export default class UserPermissons extends Vue {
     this.groupOpen = true
   }
 
-  private showGroupUsers( group: Group ) {
+  private showGroupUsers(group: Group) {
     this.groupUsersModalOpen = true
     this.groupUsersModal.open = true
     this.groupUsersModal.group = group
   }
 
-  private deleteUser( user: User ) {
+  private deleteUser(user: User) {
     this.selectedUser = user
     this.dialogParams = {
       header: 'Удалить пользователя ?',
       buttonCaption: 'Удалить',
       status: DialogStatus.DELETE_USER,
       user: user.login,
-      domain: this.getDomainDescription( user.domain ),
+      domain: this.getDomainDescription( user.domain )
     }
     this.dialogOpen = true
   }
 
-  private deleteGroupUser( groupUser: any ){
+  private deleteGroupUser(groupUser: any){
     this.selectedGroupUser = groupUser
     this.dialogParams = {
       header: 'Удалить пользователя из группы ?',
@@ -327,44 +327,44 @@ export default class UserPermissons extends Vue {
     this.dialogOpen = true
   }
 
-  private blockUser( user: User ) {
+  private blockUser(user: User) {
     this.selectedUser = user
     this.dialogParams = {
       header: 'Заблокировать пользователя ?',
       buttonCaption: 'Заблокировать',
       status: DialogStatus.BLOCK_USER,
       user: user.login,
-      domain: this.getDomainDescription( user.domain ),
+      domain: this.getDomainDescription( user.domain )
     }
     this.dialogOpen = true
   }
 
-  private unBlockUser( user: User ) {
+  private unBlockUser(user: User) {
     this.selectedUser = user
     this.dialogParams = {
       header: 'Разбокировать пользователя ?',
       buttonCaption: 'Разблокировать',
       status: DialogStatus.UNBLOCK_USER,
       user: user.login,
-      domain: this.getDomainDescription( user.domain ),
+      domain: this.getDomainDescription( user.domain )
     }
     this.dialogOpen = true
   }
 
-  private removeGroup( group: Group ) {
+  private removeGroup(group: Group) {
     this.selecteGroup = group
     this.dialogParams = {
       header: 'Удалить группу ?',
       buttonCaption: 'Удалить',
       status: DialogStatus.DELETE_GROUP,
       group: group.ident,
-      domain: this.getDomainDescription( group.domain ),
+      domain: this.getDomainDescription( group.domain )
     }
     this.dialogOpen = true
   }
 
-  private getDomainDescription( domain: string ): string {
-    return `${domain}(${this.domains.find( c => c.name === domain )!.type} )`
+  private getDomainDescription(domain: string): string {
+    return `${domain}(${this.domains.find( c => c.name === domain)!.type} )`
   }
 
   private setPermissionList() {
@@ -386,7 +386,7 @@ export default class UserPermissons extends Vue {
     this.remoteStatus = RemoteDataStatus.SUCCESS
   }
 
-  private async fetchData( user: any ) {
+  private async fetchData(user: any) {
     await this.fetchDomains()
     await this.fetchUsers()
     await this.fetchGroupList( this.domains )
