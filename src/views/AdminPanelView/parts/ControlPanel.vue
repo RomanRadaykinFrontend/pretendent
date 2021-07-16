@@ -5,7 +5,7 @@
     span.control-panel__page-number(
       v-for = " (page, index) in actualCountPages "
       :key = " page "
-      :class = "getSpanClass( page )"
+      :class = " +currentPage === page ? 'span-bold' : '' "
       @click = " goToCurrentPage( page ) "
     ) {{ page }}
     ChangeArrow( @click = "incrementPage" ).forward
@@ -33,35 +33,29 @@ import ChangeArrow from '@/common/images/changeArrow.svg'
 export default class ControlPanel extends Vue{
   @Prop() private resultsCount!: number
   @Prop() private totalCount!: number
+  @Prop() private currentPage!: number | string
 
   private pickedCount = this.resultsCount
-
-  private currentPage = 1
 
   get actualCountPages(){
     return Math.ceil( this.totalCount / +this.pickedCount )
   }
 
   private incrementPage(){
-    const newPage = this.currentPage < this.actualCountPages ? this.currentPage += 1 : this.actualCountPages
+    const currentPage = this.currentPage + 1
+    const newPage = this.currentPage < this.actualCountPages ? currentPage  : this.actualCountPages
     this.$emit( 'to-next-page', newPage )
     return newPage
   }
   private decrementPage(){
-    const newPage = this.currentPage > 1 ? this.currentPage -= 1 : 1
+    const currentPage = this.currentPage - 1
+    const newPage = this.currentPage > 1 ? currentPage : 1
     this.$emit( 'to-previous-page', newPage )
     return newPage
   }
 
   private goToCurrentPage( page: number ){
-    this.currentPage = page
     this.$emit( 'to-current-page', page )
-  }
-
-  private getSpanClass( page: number ){
-    if( this.currentPage === page ){
-      return 'span-bold'
-    }
   }
 
 }

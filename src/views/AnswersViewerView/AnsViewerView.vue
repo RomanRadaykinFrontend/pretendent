@@ -4,7 +4,11 @@
     size = "huge"
     v-if = " isAllDataFetched "
   )
-  AdminHeader( v-if = " !isAllDataFetched " )
+  AdminHeader(
+    v-if = " !isAllDataFetched "
+    button-name = "Задать роли"
+    @click-button = "goToUserPerm"
+  )
   .ans-viewer-view__content
     .ans-viewer-view__control-panel(
       v-if = " !isAllDataFetched "
@@ -232,6 +236,10 @@ export default class AnsViewerView extends Vue{
   }
   private getCurrentRightAnswer( questNumb: number ){
     return this.rightAnswers.find( answ => answ.id + 1 === questNumb )
+  }
+
+  private goToUserPerm(){
+    this.$router.push( '/userpermissions' )
   }
 
 }

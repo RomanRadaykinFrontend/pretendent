@@ -37,11 +37,11 @@ import { DialogStatus } from './../services/helpers/userpermissions'
 
 @Component({ components: { AppModal } })
 export default class ConfirmDialog extends Vue {
-  @PropSync('modalOpen', { type: Boolean }) private open!: boolean
-  @PropSync('params', { type: Object }) private dialogParams!: any
+  @PropSync( 'modalOpen', { type: Boolean }) private open!: boolean
+  @PropSync( 'params', { type: Object }) private dialogParams!: any
 
   get showGroup() {
-    return [DialogStatus.DELETE_GROUP, DialogStatus.DELETE_GROUP_USER].includes(this.dialogParams.status)
+    return [ DialogStatus.DELETE_GROUP, DialogStatus.DELETE_GROUP_USER ].includes( this.dialogParams.status )
   }
 
   get showUser() {
@@ -50,7 +50,7 @@ export default class ConfirmDialog extends Vue {
       DialogStatus.DELETE_USER,
       DialogStatus.UNBLOCK_USER,
       DialogStatus.DELETE_GROUP_USER,
-    ].includes(this.dialogParams.status)
+    ].includes( this.dialogParams.status )
   }
 
   private hideModal() {
@@ -58,7 +58,7 @@ export default class ConfirmDialog extends Vue {
   }
 
   private confirm() {
-    this.$emit('confirm')
+    this.$emit( 'confirm' )
     this.open = false
   }
 }

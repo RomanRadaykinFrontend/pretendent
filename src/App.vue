@@ -22,7 +22,6 @@ import { testingModule } from '@/store'
 import { authStore } from '../packages/login-form'
 import upAccounts from '../packages/user-permissions/src/store/modules/accounts.module'
 import upGroups from '../packages/user-permissions/src/store/modules/groups.module'
-import { getLoggedUserData } from 'login-form/src/auth/services/helpers/store'
 import { upCommon } from '../packages/user-permissions'
 
 

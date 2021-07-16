@@ -4,7 +4,7 @@
       @click-button = "goToAdminPanel"
       button-name = "Вернуться в админ-панель"
     )
-    UserPermissions(
+    UserPermissions.user-permissions-view__user-perm(
       :permits = "permits"
     )
 </template>
@@ -20,21 +20,23 @@ import { Permission } from '../../packages/user-permissions/src/types/userpermis
   components: { AdminHeader, UserPermissions, UserPanel },
 })
 export default class UserPermissionsView extends Vue{
-  private logout(){
-    window.localStorage.removeItem( 'token' )
-  }
+
+  private permits: Array<Permission> = [
+    { permit: 'secure_okauth_admin', alias: 'Администратор' },
+    { permit: 'user', alias: 'Пользователь' },
+  ]
   private goToAdminPanel(){
     this.$router.push( '/adminpanel' )
   }
 
-
-  private permits: Array<Permission> = [{ permit: 'secure_okauth_admin', alias: 'Администратор' },
-    { permit: 'user', alias: 'Пользователь' }]
 }
 </script>
 
 <style scoped lang="sass">
 .user-permissions-view
+  padding-top: 30px
+  &__user-perm
+    margin-top: 15px
   &__header
     width: 63%
     margin: 0 auto

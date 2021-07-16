@@ -8,7 +8,6 @@ import { KV_SECURE_OKAUTH_ADMIN } from '../../../services/helpers/kvkeys'
 import { checkAccessGranted } from '../../../services/helpers'
 
 export const getDefaultState = (): AuthState => {
-  console.log( 'create' )
   return {
     user: null,
     domains: null,

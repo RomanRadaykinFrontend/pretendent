@@ -47,6 +47,7 @@
     @to-previous-page = " getNewUsersList ( $event ) "
     :results-count = " resultsCount "
     :total-count = " totalCount "
+    :current-page = "page"
     v-if = " !isAllDataFetched "
   )
 
@@ -181,16 +182,19 @@ export default class AdminPanelView extends Vue{
   }
 
   private created(){
+    adminModule.mutations.setPage( localStorage.getItem( 'page' ) )
     adminModule.actions.getResults({ offset: 0, limit: this.totalCount })
   }
 
   private changeResultsCount( resultsCount: number  ){
+    adminModule.mutations.setPage( 1 )
     adminModule.mutations.setResultsCount( resultsCount.toString() )
     adminModule.actions.getResults({ offset: 0, limit: resultsCount })
   }
 
   private getNewUsersList( page: number ){
     adminModule.mutations.setPage( page )
+    localStorage.setItem( 'page', page )
     return this.getPaginationResults()
   }
 

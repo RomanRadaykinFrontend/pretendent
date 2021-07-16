@@ -1,6 +1,6 @@
 import { Mutations } from 'vuex-smart-module'
 import { AdminState } from '@/store/modules/admin/index'
-import { CorrectAnswer, Questions, UserResult } from '@/services/api'
+import { CorrectAnswer, Questions } from '@/services/api'
 import { UserResultWithID } from '@/types/common'
 
 

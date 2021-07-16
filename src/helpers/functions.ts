@@ -1,5 +1,4 @@
 import { testingModule } from '@/store'
-import { UserResultWithID } from '@/types/common'
 
 export const sendAnswers = async ( arrayOfValues: Array<string> ) => {
   const picked = testingModule.getters.currentAnswer.pickedValue
