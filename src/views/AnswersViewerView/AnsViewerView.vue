@@ -98,9 +98,10 @@ export default class AnsViewerView extends Vue{
   }
 
   private created(){
-    adminModule.actions.getResults({ offset: 0, limit: +this.$route.params.id })
+    adminModule.actions.getResults()
     adminModule.actions.getAllQuestions()
     adminModule.actions.getRightAnswer()
+
   }
   private beforeDestroy(){
     adminModule.mutations.setQuestions( this.questions )

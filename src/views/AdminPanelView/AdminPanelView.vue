@@ -1,7 +1,13 @@
 <template lang="pug">
-.admin-panel-view
-  h1.admin-panel-view__title Администрирование
-  .admin-panel-view__export
+.admin-panel-view(  :class = "adminPanelViewClass" )
+  VueSimpleSpinner.spinner(
+    size = "huge"
+    v-if = " isAllDataFetched "
+  )
+  h1.admin-panel-view__title(
+    v-if = " !isAllDataFetched "
+  ) Администрирование
+  .admin-panel-view__export( v-if = " !isAllDataFetched " )
     vue-excel-xlsx.admin-panel-view__export-button(
       :data = "dataExcel"
       :columns = "columnsExcel"
@@ -10,7 +16,7 @@
     )
       SortArrowLogo
       | Скачать .xls
-  .admin-panel-view__table
+  .admin-panel-view__table( v-if = " !isAllDataFetched " )
     .admin-panel-view__table-body
       AppHeaderTableRow(
         :is-header-row = "true"
@@ -19,7 +25,7 @@
         @sort-by-percent = " sortByPercent( $event ) "
       )
       TableRowAdmin(
-        v-for = " ( result, index ) in results "
+        v-for = " ( result, index ) in actualResults "
         :key = "index"
         :table-value = "result"
         :row-numb = " result.id  "
@@ -31,6 +37,8 @@
     @to-previous-page = " getNewUsersList ( $event ) "
     :results-count = " resultsCount "
     :total-count = " totalCount "
+    :current-page = "page"
+    v-if = " !isAllDataFetched "
   )
 
 
@@ -45,6 +53,10 @@ import { adminModule } from '@/store'
 import { getDate, sortItems } from '@/helpers/functions'
 import SortArrowLogo from '@/common/images/sort-arrow.svg'
 import { DataExcel } from '@/types/common'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import VueSimpleSpinner from 'vue-simple-spinner'
+
 
 @Component({
   components: {
@@ -52,6 +64,7 @@ import { DataExcel } from '@/types/common'
     AppHeaderTableRow,
     TableRowAdmin,
     SortArrowLogo,
+    VueSimpleSpinner,
   },
 })
 export default class AdminPanelView extends Vue{
@@ -105,6 +118,17 @@ export default class AdminPanelView extends Vue{
     return adminModule.getters.results
   }
 
+  get adminPanelViewClass(){
+    return{
+      ['show-spinner']: this.isAllDataFetched,
+    }
+  }
+
+  get actualResults(){
+    return this.results.slice( +this.resultsCount * +this.page - +this.resultsCount,
+      +this.resultsCount * +this.page )
+  }
+
   get resultsCount(){
     return adminModule.getters.resultsCount
   }
@@ -116,6 +140,11 @@ export default class AdminPanelView extends Vue{
   get page(){
     return adminModule.getters.page
   }
+
+  get isAllDataFetched(){
+    return adminModule.getters.isAllDataFetched
+  }
+
 
   private headerRow = [
     { name: '#', needSort: false },
@@ -135,22 +164,30 @@ export default class AdminPanelView extends Vue{
     return this.results.sort( ( a, b ) => sortItems( a.user?.timeCreate, b.user?.timeCreate, direction ) )
   }
 
-  private mounted(){
-    adminModule.actions.getResults({ offset: 0, limit: +this.resultsCount })
+  private getPaginationResults(){
+    return this.results.slice( +this.resultsCount * +this.page - +this.resultsCount,
+      +this.resultsCount * +this.page )
+  }
+
+  private created(){
+    adminModule.mutations.setPage( localStorage.getItem( 'page' ) ?? 1 )
+    adminModule.actions.getResults({ offset: 0, limit: this.totalCount })
+
   }
 
   private changeResultsCount( resultsCount: number  ){
+    adminModule.mutations.setPage( 1 )
     adminModule.mutations.setResultsCount( resultsCount.toString() )
     adminModule.actions.getResults({ offset: 0, limit: resultsCount })
+
   }
 
   private getNewUsersList( page: number ){
-    const newOffset = ( page * +this.resultsCount ) - +this.resultsCount
-    adminModule.actions.getResults({ offset: newOffset, limit: +this.resultsCount })
     adminModule.mutations.setPage( page )
+    localStorage.setItem( 'page', page.toString() )
+    return this.getPaginationResults()
+
   }
-
-
 
 }
 </script>
@@ -160,6 +197,12 @@ export default class AdminPanelView extends Vue{
   display: flex
   flex-direction: column
   padding: 30px
+
+  &.show-spinner
+    justify-content: center
+    align-items: center
+    height: 100%
+
   &__title
     font-family: Inter, serif
     font-style: normal
