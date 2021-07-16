@@ -53,7 +53,6 @@ export class UserApi extends runtime.BaseAPI {
             query: queryParameters,
             body: UserToJSON(requestParameters.user),
         });
-        debugger
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserFromJSON(jsonValue));
     }
@@ -63,7 +62,6 @@ export class UserApi extends runtime.BaseAPI {
      */
     async usersCreate(requestParameters: UsersCreateRequest): Promise<User> {
         const response = await this.usersCreateRaw(requestParameters);
-        debugger
         return await response.value();
     }
 

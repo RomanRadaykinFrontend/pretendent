@@ -71,25 +71,21 @@ export default class LoginFormView extends Vue {
     return commonModule.getters.isShowFetchedError
   }
 
-  get isLoginDataCorrect(){
+  private checkLoginDataCorrect(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
-    const isCorrectTelegram = () => {
-      if( !this.user.telegram ){
-        return true
-      } else if( this.user.telegram !== '' ){
-        this.telegramValidate.test( this.user.telegram )
-      }
-    }
+    const isCorrectTelegram = this.user.telegram !== '' ?
+      this.telegramValidate.test( this.user.telegram ) : true
     const isCorrectLastName = this.user.name ? this.nameValidate.test( this.user.lastName ) : false
     const isCorrectName = this.user.lastName ? this.nameValidate.test( this.user.name ) : false
 
     return !!this.user.name && !!this.user.email && !!this.user.lastName && isCorrectEmail
-      && isCorrectTelegram() && isCorrectLastName && isCorrectName
+      && isCorrectTelegram && isCorrectLastName && isCorrectName
   }
 
   private async onSubmitHandler(){
-    if ( this.isLoginDataCorrect ) {
-      const userData = this.user.telegram === '' ?
+    const checkResult = this.checkLoginDataCorrect()
+    if ( checkResult ) {
+      const userData = this.user.telegram === '' || !this.user.telegram ?
         { name: this.user.name, lastName: this.user.lastName, email: this.user.email } :
         this.user
       const result = await commonModule.actions.fetchUser({ user: userData })
