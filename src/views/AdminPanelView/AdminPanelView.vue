@@ -182,7 +182,7 @@ export default class AdminPanelView extends Vue{
   }
 
   private created(){
-    adminModule.mutations.setPage( localStorage.getItem( 'page' ) )
+    adminModule.mutations.setPage( localStorage.getItem( 'page' ) ?? 1 )
     adminModule.actions.getResults({ offset: 0, limit: this.totalCount })
   }
 
