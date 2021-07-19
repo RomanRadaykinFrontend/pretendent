@@ -71,7 +71,8 @@ export default class LoginFormView extends Vue {
 
   get isLoginDataCorrect(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
-    const isCorrectTelegram = this.user.telegram !== '' ? this.telegramValidate.test( this.user.telegram ) : true
+    const isCorrectTelegram = this.user.telegram && this.user.telegram !== '' ?
+      this.telegramValidate.test( this.user.telegram ) : true
     const isCorrectLastName = this.user.name ? this.nameValidate.test( this.user.lastName ) : false
     const isCorrectName = this.user.lastName ? this.nameValidate.test( this.user.name ) : false
 
