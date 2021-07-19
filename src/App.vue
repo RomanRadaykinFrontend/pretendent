@@ -88,8 +88,4 @@ export default class App extends Vue {
   #app
     height: auto
     position: relative
-    -moz-user-select: none
-    -webkit-user-select: none
-    -ms-user-select: none
-    user-select: none
 </style>
