@@ -7,12 +7,7 @@ import { Answers } from '@/services/api'
 import { DoneTaskList } from '@/types/common'
 
 export class CommonState {
-  public user = {
-    name: '',
-    lastName: '',
-    email: '',
-    telegram: '',
-  } as User
+  public user = {} as User
 
   public answers = {
     answers: [],
