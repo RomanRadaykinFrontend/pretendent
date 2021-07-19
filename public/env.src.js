@@ -1,3 +1,2 @@
 window.API_URL = '$API_URL'
-window.API_URL_DEPLOY = '$API_URL_DEPLOY'
 window.VUE_APP_SHOW_STUB = '$VUE_APP_SHOW_STUB'
