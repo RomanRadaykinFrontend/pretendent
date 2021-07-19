@@ -2,6 +2,6 @@
 
 describe( 'Empty test', () => {
   it( 'Visits home', () => {
-    cy.visit( '/' )
+    cy.visit( '/login' )
   })
 })
