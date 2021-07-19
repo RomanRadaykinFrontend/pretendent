@@ -58,4 +58,5 @@ export default class TaskView extends Vue {
     width: 100%
     height: 100%
     padding: 15px 15px
+
 </style>
