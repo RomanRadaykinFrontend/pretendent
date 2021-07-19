@@ -200,6 +200,7 @@ export default class UserPanel extends Vue {
   color: #eaeeff
   font-size: 14px
   text-decoration: none
+  color: black
 
 .user-icon
   display: flex

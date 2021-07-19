@@ -42,7 +42,7 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    telegram: string;
+    telegram?: string;
     /**
      * User creation time
      * @type {Date}
@@ -70,7 +70,7 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'name': json['name'],
         'lastName': json['lastName'],
         'email': json['email'],
-        'telegram': json['telegram'],
+        'telegram': !exists(json, 'telegram') ? undefined : json['telegram'],
         'timeCreate': !exists(json, 'timeCreate') ? undefined : (new Date(json['timeCreate'])),
         'userGUID': !exists(json, 'userGUID') ? undefined : json['userGUID'],
     };
