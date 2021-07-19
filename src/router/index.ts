@@ -3,8 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import RegistrationView from '@/views/Registration/RegistrationView.vue'
 import TaskView from '@/views/Task/TaskView.vue'
 import FinalPageView from '@/views/FinalPage/FinalPageView.vue'
-import { commonModule } from '@/store'
 import StubView from '@/views/StubView.vue'
+import { commonModule } from '@/store'
 
 
 Vue.use( VueRouter )

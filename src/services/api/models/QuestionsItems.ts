@@ -31,7 +31,7 @@ export interface QuestionsItems {
      * @type {Array<Questions>}
      * @memberof QuestionsItems
      */
-    questions?: Array<Questions>;
+    questions: Array<Questions>;
 }
 
 export function QuestionsItemsFromJSON(json: any): QuestionsItems {
@@ -44,7 +44,7 @@ export function QuestionsItemsFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'questions': (json as Array<any>).map(QuestionsFromJSON),
+        'questions': ((json as Array<any>).map(QuestionsFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function QuestionsItemsToJSON(value?: QuestionsItems | null): any {
     }
     return {
         
-        'Questions': value.questions === undefined ? undefined : ((value.questions as Array<any>).map(QuestionsToJSON)),
+        'questions': ((value.questions as Array<any>).map(QuestionsToJSON)),
     };
 }
 
