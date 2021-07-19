@@ -38,7 +38,7 @@ export default class ControlPanel extends Vue{
   private pickedCount = this.resultsCount
 
   get actualCountPages(){
-    return Math.ceil( this.totalCount / +this.pickedCount ).toString()
+    return Math.ceil( this.totalCount / +this.pickedCount )
   }
 
   private incrementPage(){

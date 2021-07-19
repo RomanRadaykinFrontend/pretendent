@@ -7,6 +7,7 @@
   AdminHeader(
     @click-button = "goToUserPerm"
     button-name = "Задать роли"
+    v-if = " !isAllDataFetched "
   )
   .admin-panel-view__header-wrapper
     .admin-panel-view__header(
@@ -182,19 +183,18 @@ export default class AdminPanelView extends Vue{
   }
 
   private created(){
-    const pageFromLocalStorage = localStorage.getItem( 'page' ) ?
-      localStorage.getItem( 'page' ) : '1'
-    adminModule.mutations.setPage( JSON.stringify( pageFromLocalStorage ) )
+    const pageFromLocalStorage = localStorage.getItem( 'page' ) || 1
+    adminModule.mutations.setPage( +pageFromLocalStorage  )
     adminModule.actions.getResults({ offset: 0, limit: this.totalCount })
   }
 
   private changeResultsCount( resultsCount: number  ){
-    adminModule.mutations.setPage( '1' )
+    adminModule.mutations.setPage( 1 )
     adminModule.mutations.setResultsCount( resultsCount.toString() )
     adminModule.actions.getResults({ offset: 0, limit: resultsCount })
   }
 
-  private getNewUsersList( page: string ){
+  private getNewUsersList( page: number ){
     adminModule.mutations.setPage( page )
     localStorage.setItem( 'page', page.toString() )
     return this.getPaginationResults()
