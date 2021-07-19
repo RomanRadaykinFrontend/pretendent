@@ -24,6 +24,7 @@ CommonActions> {
       } else {
         this.commit( 'setIsErrorLogin', 'Что-то пошло не-так, обратитесь к администратору' )
       }
+      console.log( error )
       return error.message
     }
   }
