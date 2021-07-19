@@ -5,8 +5,8 @@
     span.control-panel__page-number(
       v-for = " (page, index) in actualCountPages "
       :key = " page "
-      :class = " +currentPage === page ? 'span-bold' : '' "
-      @click = " goToCurrentPage( page ) "
+      :class = " currentPage === page ? 'span-bold' : '' "
+      @click = " goToCurrentPage( page.toString() ) "
     ) {{ page }}
     ChangeArrow( @click = "incrementPage" ).forward
   .control-panel__count-changer
@@ -38,23 +38,23 @@ export default class ControlPanel extends Vue{
   private pickedCount = this.resultsCount
 
   get actualCountPages(){
-    return Math.ceil( this.totalCount / +this.pickedCount )
+    return Math.ceil( this.totalCount / +this.pickedCount ).toString()
   }
 
   private incrementPage(){
-    const currentPage = this.currentPage + 1
+    const currentPage = +this.currentPage + 1
     const newPage = this.currentPage < this.actualCountPages ? currentPage  : this.actualCountPages
     this.$emit( 'to-next-page', newPage )
     return newPage
   }
   private decrementPage(){
-    const currentPage = this.currentPage - 1
+    const currentPage = +this.currentPage - 1
     const newPage = this.currentPage > 1 ? currentPage : 1
     this.$emit( 'to-previous-page', newPage )
     return newPage
   }
 
-  private goToCurrentPage( page: number ){
+  private goToCurrentPage( page: string ){
     this.$emit( 'to-current-page', page )
   }
 

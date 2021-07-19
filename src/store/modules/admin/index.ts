@@ -14,7 +14,7 @@ export class AdminState {
   public userID = ''
   public typeTasks = 'Все вопросы'
   public questions = [] as Array<Questions> | undefined
-  public page = 1
+  public page = '1'
   public sortQuestions = [] as Array<Questions>
   public isAllDataFetched = false
   public rightAnswers = [] as Array<CorrectAnswer>
