@@ -20,7 +20,6 @@
     "@types/uuid": "^8.3.0",
     "base-64": "^1.0.0",
     "core-js": "^3.6.5",
-    "cypress": "^7.7.0",
     "eslint-plugin-jsdoc": "^30.7.8",
     "eslint-plugin-prefer-arrow": "^1.2.2",
     "highlight.js": "^11.0.1",
