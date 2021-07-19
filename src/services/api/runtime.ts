@@ -13,7 +13,7 @@
  */
 
 
-export const BASE_PATH = window.API_URL_DEPLOY.replace(/\/+$/, "");
+export const BASE_PATH = window.API_URL.replace(/\/+$/, "");
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 
