@@ -61,6 +61,7 @@ import { getDate, sortItems } from '@/helpers/functions'
 // @ts-ignore
 import VueSimpleSpinner from 'vue-simple-spinner'
 import AdminHeader from '@/views/AdminHeader.vue'
+import { UserResultWithID } from '@/types/common'
 
 @Component({
   components: {
@@ -123,7 +124,7 @@ export default class AnsViewerView extends Vue{
   }
 
   get result(){
-    return adminModule.getters.results[ this.id ] || {}
+    return adminModule.getters.results[ this.id ] || {} as UserResultWithID
   }
 
   get isAllDataFetched(){
