@@ -20,7 +20,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import TaskCode from '@/views/Task/parts/TaskCode.vue'
 import RadioView from '@/views/Task/parts/RadioView.vue'
-import { Questions } from '@/services/api'
 
 @Component({
   components: {

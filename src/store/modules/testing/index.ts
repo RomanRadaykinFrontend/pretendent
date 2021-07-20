@@ -6,7 +6,7 @@ import { TestingGetters } from '@/store/modules/testing/getters'
 import { TestingMutations } from '@/store/modules/testing/mutations'
 import { TestingActions } from '@/store/modules/testing/actions'
 
-export class TestingState {
+export class CommonState {
   public user = {
     name: '',
     lastName: '',
