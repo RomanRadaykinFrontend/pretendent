@@ -84,12 +84,12 @@ export function UserToJSON(value?: User | null): any {
         return null;
     }
     return {
-        
+
         'name': value.name,
         'lastName': value.lastName,
         'email': value.email,
         'telegram': value.telegram,
-    };
+    }
 }
 
 

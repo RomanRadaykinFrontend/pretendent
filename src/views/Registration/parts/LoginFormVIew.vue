@@ -54,7 +54,9 @@ export default class LoginFormView extends Vue {
     { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram' },
   ]
 
-  private user = commonModule.getters.user
+  get user(){
+    return commonModule.getters.user
+  }
 
 
   private emailValidate = regExpEmail
@@ -69,7 +71,7 @@ export default class LoginFormView extends Vue {
     return commonModule.getters.isShowFetchedError
   }
 
-  get isLoginDataCorrect(){
+  private checkLoginDataCorrect(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
     const isCorrectTelegram = this.user.telegram && this.user.telegram !== '' ?
       this.telegramValidate.test( this.user.telegram ) : true
@@ -81,8 +83,12 @@ export default class LoginFormView extends Vue {
   }
 
   private async onSubmitHandler(){
-    if ( this.isLoginDataCorrect ) {
-      const result = await commonModule.actions.fetchUser({ user: this.user })
+    const checkResult = this.checkLoginDataCorrect()
+    if ( checkResult ) {
+      const userData = this.user.telegram === '' || !this.user.telegram ?
+        { name: this.user.name, lastName: this.user.lastName, email: this.user.email } :
+        this.user
+      const result = await commonModule.actions.fetchUser({ user: userData })
       if ( !this.errorLogin ) {
 
         if( result ){
