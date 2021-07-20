@@ -32,20 +32,13 @@ AdminActions> {
       const users = result.users.map( ( u: UserResult, idx: number ) => ({ ...u, id: idx + 1 }) )
 
       this.commit( 'setResults', users )
+      this.commit( 'setTotalCount', result.count )
     } catch ( e ) {
       return e.message
     }
     this.commit( 'setIsAllDataFetched', false )
   }
 
-  // public async getTotalCount( resReq = { offset: 0, limit: 1 }) {
-  //   try {
-  //     const result = await RESULTS_API.results( resReq )
-  //     this.commit( 'setTotalCount', result.count )
-  //   } catch ( e ) {
-  //     return e.message
-  //   }
-  // }
 
   public async getRightAnswer(){
     try{

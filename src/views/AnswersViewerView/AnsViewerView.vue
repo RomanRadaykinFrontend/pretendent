@@ -109,6 +109,7 @@ export default class AnsViewerView extends Vue{
     adminModule.actions.getResults()
     adminModule.actions.getAllQuestions()
     adminModule.actions.getRightAnswer()
+
   }
   private beforeDestroy(){
     adminModule.mutations.setQuestions( this.questions )

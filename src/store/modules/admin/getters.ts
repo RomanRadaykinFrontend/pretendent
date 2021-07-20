@@ -43,4 +43,9 @@ export class AdminGetters extends Getters<AdminState> {
     return this.state.rightAnswers
   }
 
+  get questionTotalCount(){
+    return this.state.totalCount
+  }
+
+
 }

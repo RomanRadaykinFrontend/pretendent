@@ -33,7 +33,7 @@ export default class TaskBody extends Vue {
   @Prop() private questionTotalCount!: number
 
   get actualQuestion(){
-    return this.currentQuestion.question
+    return this.currentQuestion.question ?? {}
   }
 
 }
@@ -51,6 +51,10 @@ export default class TaskBody extends Vue {
   border-radius: 8px
   display: flex
   overflow: hidden
+  -moz-user-select: none
+  -webkit-user-select: none
+  -ms-user-select: none
+  user-select: none
 
   &__task-question
     width: 50%

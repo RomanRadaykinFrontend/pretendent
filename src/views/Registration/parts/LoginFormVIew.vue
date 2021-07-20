@@ -54,7 +54,9 @@ export default class LoginFormView extends Vue {
     { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram' },
   ]
 
-  private user = testingModule.getters.user
+  get user(){
+    return testingModule.getters.user
+  }
 
 
   private emailValidate = regExpEmail
@@ -69,7 +71,7 @@ export default class LoginFormView extends Vue {
     return testingModule.getters.isShowFetchedError
   }
 
-  get isLoginDataCorrect(){
+  private checkLoginDataCorrect(){
     const isCorrectEmail = this.user.email ? this.emailValidate.test( this.user.email ) : false
     const isCorrectTelegram = this.user.telegram && this.user.telegram !== '' ?
       this.telegramValidate.test( this.user?.telegram ) : true
@@ -80,12 +82,16 @@ export default class LoginFormView extends Vue {
       && isCorrectTelegram && isCorrectLastName && isCorrectName
   }
 
-  private async onSubmitHandler(){
-    if ( this.isLoginDataCorrect ) {
-      const result = await testingModule.actions.fetchUser({ user: this.user })
+  private async onSubmitHandler() {
+    const checkResult = this.checkLoginDataCorrect()
+    if ( checkResult ) {
+      const userData = this.user.telegram === '' || !this.user.telegram ?
+        { name: this.user.name, lastName: this.user.lastName, email: this.user.email } :
+        this.user
+      const result = await testingModule.actions.fetchUser({ user: userData })
       if ( !this.errorLogin ) {
 
-        if( result ){
+        if ( result ) {
           await testingModule.mutations.setTimeRemainLocalStorage( 5400 )
           localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
           await testingModule.mutations.setIsAuthorized( true )

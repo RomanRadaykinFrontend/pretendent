@@ -30,7 +30,7 @@ export class AdminMutations extends Mutations<AdminState> {
     this.state.questions = value
   }
 
-  public setPage( value: number ){
+  public setPage( value: string | number ){
     this.state.page = value
   }
 
