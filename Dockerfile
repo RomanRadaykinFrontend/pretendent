@@ -7,6 +7,7 @@ COPY yarn.lock ./
 
 RUN yarn
 
+COPY .eslintignore ./
 COPY .eslintrc.js ./
 COPY .pug-lintrc.js ./
 COPY .stylelintrc.json ./
