@@ -1,0 +1,12 @@
+export const KV_ALL = '*';
+export const KV_SECURE_SMP = 'secure_smp';
+export const KV_SECURE_ROLE = 'secure_role';
+export const KV_SECURE_MAFI = 'secure_mafi';
+export const KV_SWRM_FILTER = 'swrm_filter';
+export const KV_SECURE_SPARK = 'secure_spark';
+export const KV_SECURE_REGIONS = 'secure_regions';
+export const KV_SECURE_SCENARIO = 'secure_scenario';
+export const KV_SECURE_OKAUTH_ADMIN = 'secure_okauth_admin';
+export const KV_DELETED_NOTIFICATIONS = 'deleted_notifications';
+export const KV_SECURE_CONFSTORE_WRITE = 'secure_confstore_write';
+//# sourceMappingURL=kvkeys.js.map

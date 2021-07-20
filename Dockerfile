@@ -33,6 +33,7 @@ COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 ENV \
-    API_URL=http://192.168.49.103:8080/api/v1/
+    API_URL=http://192.168.49.103:8080/api/v1/ \
+    AUTH_API_URL=https://okauth.dev.ok.ok.loc
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

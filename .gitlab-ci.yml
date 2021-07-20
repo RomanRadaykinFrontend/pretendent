@@ -2,6 +2,13 @@ stages:
   - test
   - build
 
+variables:
+  CI_CONFIG_FILE: "public/env.js"
+  CI_CONFIG: |
+    window.API_URL="$API_URL"
+    window.AUTH_API_URL="$AUTH_API_URL"
+    window.VUE_APP_SHOW_STUB="$VUE_APP_SHOW_STUB"
+
 include:
   - project: 'pretendent/devops/deploy'
     ref: 'master'

@@ -11,124 +11,60 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-
-
 import * as runtime from '../runtime';
-import {
-    InlineObject4,
-    InlineObject4FromJSON,
-    InlineObject4ToJSON,
-    InlineObject5,
-    InlineObject5FromJSON,
-    InlineObject5ToJSON,
-    InlineResponse2002,
-    InlineResponse2002FromJSON,
-    InlineResponse2002ToJSON,
-    InlineResponse2003,
-    InlineResponse2003FromJSON,
-    InlineResponse2003ToJSON,
-} from '../models';
-
-export interface UsersBlockRequest {
-    domain: string;
-    login: string;
-}
-
-export interface UsersCreateRequest {
-    inlineObject4: InlineObject4;
-}
-
-export interface UsersDeleteRequest {
-    domain: string;
-    login: string;
-}
-
-export interface UsersGetRequest {
-    domain: string;
-    login: string;
-}
-
-export interface UsersGetAllRequest {
-    domain: string;
-    page?: number;
-    limit?: number;
-    blocked?: boolean;
-}
-
-export interface UsersUnblockRequest {
-    domain: string;
-    login: string;
-}
-
-export interface UsersUpdateRequest {
-    login: string;
-    inlineObject5?: InlineObject5;
-}
-
+import { InlineObject4ToJSON, InlineObject5ToJSON, InlineResponse2002FromJSON, InlineResponse2003FromJSON, } from '../models';
 /**
  *
  */
 export class UsersApi extends runtime.BaseAPI {
-
     /**
      * block user. It will be hidden from user queries and only admin will be able to request it, will not be able to authenticate and all refresh tokens will be invalidated.  Protected users cannot be blocked.  Allowed scopes:   - admin
      */
-    async usersBlockRaw(requestParameters: UsersBlockRequest): Promise<runtime.ApiResponse<void>> {
+    async usersBlockRaw(requestParameters) {
         if (requestParameters.domain === null || requestParameters.domain === undefined) {
-            throw new runtime.RequiredError('domain','Required parameter requestParameters.domain was null or undefined when calling usersBlock.');
+            throw new runtime.RequiredError('domain', 'Required parameter requestParameters.domain was null or undefined when calling usersBlock.');
         }
-
         if (requestParameters.login === null || requestParameters.login === undefined) {
-            throw new runtime.RequiredError('login','Required parameter requestParameters.login was null or undefined when calling usersBlock.');
+            throw new runtime.RequiredError('login', 'Required parameter requestParameters.login was null or undefined when calling usersBlock.');
         }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
+        const queryParameters = {};
+        const headerParameters = {};
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if(localStorage.getItem("access_token")) {
-            queryParameters["access_token"] = localStorage.getItem("access_token")
         }
-
+        else if (localStorage.getItem("access_token")) {
+            queryParameters["access_token"] = localStorage.getItem("access_token");
+        }
         const response = await this.request({
             path: `/users/{domain}/{login}/block`.replace(`{${"domain"}}`, encodeURIComponent(String(requestParameters.domain))).replace(`{${"login"}}`, encodeURIComponent(String(requestParameters.login))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
         });
-
         return new runtime.VoidApiResponse(response);
     }
-
     /**
      * block user. It will be hidden from user queries and only admin will be able to request it, will not be able to authenticate and all refresh tokens will be invalidated.  Protected users cannot be blocked.  Allowed scopes:   - admin
      */
-    async usersBlock(requestParameters: UsersBlockRequest): Promise<void> {
+    async usersBlock(requestParameters) {
         await this.usersBlockRaw(requestParameters);
     }
-
     /**
      * create user in local domain.  Allowed scopes:   - admin
      */
-    async usersCreateRaw(requestParameters: UsersCreateRequest): Promise<runtime.ApiResponse<void>> {
+    async usersCreateRaw(requestParameters) {
         if (requestParameters.inlineObject4 === null || requestParameters.inlineObject4 === undefined) {
-            throw new runtime.RequiredError('inlineObject4','Required parameter requestParameters.inlineObject4 was null or undefined when calling usersCreate.');
+            throw new runtime.RequiredError('inlineObject4', 'Required parameter requestParameters.inlineObject4 was null or undefined when calling usersCreate.');
         }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
+        const queryParameters = {};
+        const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
-
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if(localStorage.getItem("access_token")) {
-            queryParameters["access_token"] = localStorage.getItem("access_token")
         }
-
+        else if (localStorage.getItem("access_token")) {
+            queryParameters["access_token"] = localStorage.getItem("access_token");
+        }
         const response = await this.request({
             path: `/users/_`,
             method: 'PUT',
@@ -136,203 +72,166 @@ export class UsersApi extends runtime.BaseAPI {
             query: queryParameters,
             body: InlineObject4ToJSON(requestParameters.inlineObject4),
         });
-
         return new runtime.VoidApiResponse(response);
     }
-
     /**
      * create user in local domain.  Allowed scopes:   - admin
      */
-    async usersCreate(requestParameters: UsersCreateRequest): Promise<void> {
+    async usersCreate(requestParameters) {
         await this.usersCreateRaw(requestParameters);
     }
-
     /**
      * delete users. Protected user cannot be deleted.  Allowed scopes:   - admin
      */
-    async usersDeleteRaw(requestParameters: UsersDeleteRequest): Promise<runtime.ApiResponse<void>> {
+    async usersDeleteRaw(requestParameters) {
         if (requestParameters.domain === null || requestParameters.domain === undefined) {
-            throw new runtime.RequiredError('domain','Required parameter requestParameters.domain was null or undefined when calling usersDelete.');
+            throw new runtime.RequiredError('domain', 'Required parameter requestParameters.domain was null or undefined when calling usersDelete.');
         }
-
         if (requestParameters.login === null || requestParameters.login === undefined) {
-            throw new runtime.RequiredError('login','Required parameter requestParameters.login was null or undefined when calling usersDelete.');
+            throw new runtime.RequiredError('login', 'Required parameter requestParameters.login was null or undefined when calling usersDelete.');
         }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
+        const queryParameters = {};
+        const headerParameters = {};
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if(localStorage.getItem("access_token")) {
-            queryParameters["access_token"] = localStorage.getItem("access_token")
         }
-
+        else if (localStorage.getItem("access_token")) {
+            queryParameters["access_token"] = localStorage.getItem("access_token");
+        }
         const response = await this.request({
             path: `/users/{domain}/{login}`.replace(`{${"domain"}}`, encodeURIComponent(String(requestParameters.domain))).replace(`{${"login"}}`, encodeURIComponent(String(requestParameters.login))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
         });
-
         return new runtime.VoidApiResponse(response);
     }
-
     /**
      * delete users. Protected user cannot be deleted.  Allowed scopes:   - admin
      */
-    async usersDelete(requestParameters: UsersDeleteRequest): Promise<void> {
+    async usersDelete(requestParameters) {
         await this.usersDeleteRaw(requestParameters);
     }
-
     /**
      * get specific users.  Allowed scopes:   - admin   - self. Can request any user but without groups and KV. Groups and KVs (including secure ones) are returned only when requesting yourself
      */
-    async usersGetRaw(requestParameters: UsersGetRequest): Promise<runtime.ApiResponse<InlineResponse2003>> {
+    async usersGetRaw(requestParameters) {
         if (requestParameters.domain === null || requestParameters.domain === undefined) {
-            throw new runtime.RequiredError('domain','Required parameter requestParameters.domain was null or undefined when calling usersGet.');
+            throw new runtime.RequiredError('domain', 'Required parameter requestParameters.domain was null or undefined when calling usersGet.');
         }
-
         if (requestParameters.login === null || requestParameters.login === undefined) {
-            throw new runtime.RequiredError('login','Required parameter requestParameters.login was null or undefined when calling usersGet.');
+            throw new runtime.RequiredError('login', 'Required parameter requestParameters.login was null or undefined when calling usersGet.');
         }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
+        const queryParameters = {};
+        const headerParameters = {};
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if(localStorage.getItem("access_token")) {
-            queryParameters["access_token"] = localStorage.getItem("access_token")
         }
-
+        else if (localStorage.getItem("access_token")) {
+            queryParameters["access_token"] = localStorage.getItem("access_token");
+        }
         const response = await this.request({
             path: `/users/{domain}/{login}`.replace(`{${"domain"}}`, encodeURIComponent(String(requestParameters.domain))).replace(`{${"login"}}`, encodeURIComponent(String(requestParameters.login))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         });
-
         return new runtime.JSONApiResponse(response, (jsonValue) => InlineResponse2003FromJSON(jsonValue));
     }
-
     /**
      * get specific users.  Allowed scopes:   - admin   - self. Can request any user but without groups and KV. Groups and KVs (including secure ones) are returned only when requesting yourself
      */
-    async usersGet(requestParameters: UsersGetRequest): Promise<InlineResponse2003> {
+    async usersGet(requestParameters) {
         const response = await this.usersGetRaw(requestParameters);
         return await response.value();
     }
-
     /**
      * get users.  Allowed scopes:   - admin
      */
-    async usersGetAllRaw(requestParameters: UsersGetAllRequest): Promise<runtime.ApiResponse<InlineResponse2002>> {
+    async usersGetAllRaw(requestParameters) {
         if (requestParameters.domain === null || requestParameters.domain === undefined) {
-            throw new runtime.RequiredError('domain','Required parameter requestParameters.domain was null or undefined when calling usersGetAll.');
+            throw new runtime.RequiredError('domain', 'Required parameter requestParameters.domain was null or undefined when calling usersGetAll.');
         }
-
-        const queryParameters: any = {};
-
+        const queryParameters = {};
         if (requestParameters.page !== undefined) {
             queryParameters['page'] = requestParameters.page;
         }
-
         if (requestParameters.limit !== undefined) {
             queryParameters['limit'] = requestParameters.limit;
         }
-
         if (requestParameters.blocked !== undefined) {
             queryParameters['blocked'] = requestParameters.blocked;
         }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
+        const headerParameters = {};
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if(localStorage.getItem("access_token")) {
-            queryParameters["access_token"] = localStorage.getItem("access_token")
         }
-
+        else if (localStorage.getItem("access_token")) {
+            queryParameters["access_token"] = localStorage.getItem("access_token");
+        }
         const response = await this.request({
             path: `/users/{domain}`.replace(`{${"domain"}}`, encodeURIComponent(String(requestParameters.domain))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         });
-
         return new runtime.JSONApiResponse(response, (jsonValue) => InlineResponse2002FromJSON(jsonValue));
     }
-
     /**
      * get users.  Allowed scopes:   - admin
      */
-    async usersGetAll(requestParameters: UsersGetAllRequest): Promise<InlineResponse2002> {
+    async usersGetAll(requestParameters) {
         const response = await this.usersGetAllRaw(requestParameters);
         return await response.value();
     }
-
     /**
      * unblock user.  Allowed scopes:   - admin
      */
-    async usersUnblockRaw(requestParameters: UsersUnblockRequest): Promise<runtime.ApiResponse<void>> {
+    async usersUnblockRaw(requestParameters) {
         if (requestParameters.domain === null || requestParameters.domain === undefined) {
-            throw new runtime.RequiredError('domain','Required parameter requestParameters.domain was null or undefined when calling usersUnblock.');
+            throw new runtime.RequiredError('domain', 'Required parameter requestParameters.domain was null or undefined when calling usersUnblock.');
         }
-
         if (requestParameters.login === null || requestParameters.login === undefined) {
-            throw new runtime.RequiredError('login','Required parameter requestParameters.login was null or undefined when calling usersUnblock.');
+            throw new runtime.RequiredError('login', 'Required parameter requestParameters.login was null or undefined when calling usersUnblock.');
         }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
+        const queryParameters = {};
+        const headerParameters = {};
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if(localStorage.getItem("access_token")) {
-            queryParameters["access_token"] = localStorage.getItem("access_token")
         }
-
+        else if (localStorage.getItem("access_token")) {
+            queryParameters["access_token"] = localStorage.getItem("access_token");
+        }
         const response = await this.request({
             path: `/users/{domain}/{login}/unblock`.replace(`{${"domain"}}`, encodeURIComponent(String(requestParameters.domain))).replace(`{${"login"}}`, encodeURIComponent(String(requestParameters.login))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
         });
-
         return new runtime.VoidApiResponse(response);
     }
-
     /**
      * unblock user.  Allowed scopes:   - admin
      */
-    async usersUnblock(requestParameters: UsersUnblockRequest): Promise<void> {
+    async usersUnblock(requestParameters) {
         await this.usersUnblockRaw(requestParameters);
     }
-
     /**
      * change user in local domain.  Allowed scopes:   - admin   - self. User can only modify itself
      */
-    async usersUpdateRaw(requestParameters: UsersUpdateRequest): Promise<runtime.ApiResponse<void>> {
+    async usersUpdateRaw(requestParameters) {
         if (requestParameters.login === null || requestParameters.login === undefined) {
-            throw new runtime.RequiredError('login','Required parameter requestParameters.login was null or undefined when calling usersUpdate.');
+            throw new runtime.RequiredError('login', 'Required parameter requestParameters.login was null or undefined when calling usersUpdate.');
         }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
+        const queryParameters = {};
+        const headerParameters = {};
         headerParameters['Content-Type'] = 'application/json';
-
         if (this.configuration && this.configuration.apiKey) {
             queryParameters["access_token"] = this.configuration.apiKey("access_token"); // AccessToken authentication
-        } else if(localStorage.getItem("access_token")){
-            queryParameters["access_token"] = localStorage.getItem("access_token")
         }
-
+        else if (localStorage.getItem("access_token")) {
+            queryParameters["access_token"] = localStorage.getItem("access_token");
+        }
         const response = await this.request({
             path: `/users/_/{login}`.replace(`{${"login"}}`, encodeURIComponent(String(requestParameters.login))),
             method: 'PATCH',
@@ -340,15 +239,13 @@ export class UsersApi extends runtime.BaseAPI {
             query: queryParameters,
             body: InlineObject5ToJSON(requestParameters.inlineObject5),
         });
-
         return new runtime.VoidApiResponse(response);
     }
-
     /**
      * change user in local domain.  Allowed scopes:   - admin   - self. User can only modify itself
      */
-    async usersUpdate(requestParameters: UsersUpdateRequest): Promise<void> {
+    async usersUpdate(requestParameters) {
         await this.usersUpdateRaw(requestParameters);
     }
-
 }
+//# sourceMappingURL=UsersApi.js.map
