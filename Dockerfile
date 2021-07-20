@@ -9,7 +9,7 @@ COPY package*.json ./
 
 RUN yarn
 
-
+COPY .eslintignore ./
 COPY .eslintrc.js ./
 COPY .pug-lintrc.js ./
 COPY .stylelintrc.json ./
