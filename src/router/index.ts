@@ -42,7 +42,7 @@ const routes: Array<RouteConfig> = [
     beforeEnter: ( to, from, next ) => {
       if( isStub === 'false' ) {
         if( localStorage.getItem( 'isAuthorized' ) === 'true' ){
-          commonModule.mutations.setIsModalWindowShowed( true )
+          testingModule.mutations.setIsModalWindowShowed( true )
           next()
         }
         next()

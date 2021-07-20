@@ -44,7 +44,7 @@ export function QuestionsItemsFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'questions': (json as Array<any>).map(QuestionsFromJSON),
+        'questions': ((json as Array<any>).map(QuestionsFromJSON)),
     };
 }
 

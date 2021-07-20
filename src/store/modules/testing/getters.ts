@@ -49,4 +49,12 @@ export class TestingGetters extends Getters<TestingState> {
   get isShowFetchedError(){
     return this.state.isShowFetchedError
   }
+
+  get allQuestions(){
+    return this.state.allQuestions
+  }
+
+  get questionTotalCount(){
+    return this.state.questionTotalCount
+  }
 }

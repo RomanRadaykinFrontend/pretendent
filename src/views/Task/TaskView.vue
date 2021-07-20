@@ -26,13 +26,13 @@ import { testingModule } from '@/store'
 export default class TaskView extends Vue {
 
   get allQuestions(){
-    return testingModule.getters.allQuestions
+    return testingModule.getters.allQuestions ?? []
   }
   get currentQuestion(){
-    return this.allQuestions[+this.$route.params.id - 1] || {}
+    return this.allQuestions[+this.$route.params.id - 1] ?? {}
   }
   get questionTotalCount(){
-    return testingModule.getters.questionTotalCount || 0
+    return testingModule.getters.questionTotalCount ?? 0
   }
 }
 

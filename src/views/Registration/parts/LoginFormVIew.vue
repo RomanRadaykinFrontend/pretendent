@@ -83,33 +83,31 @@ export default class LoginFormView extends Vue {
   }
 
   private async onSubmitHandler() {
-    if (this.isLoginDataCorrect) {
-      const checkResult = this.checkLoginDataCorrect()
-      if (checkResult) {
-        const userData = this.user.telegram === '' || !this.user.telegram ?
-          { name: this.user.name, lastName: this.user.lastName, email: this.user.email } :
-          this.user
-        const result = await testingModule.actions.fetchUser({ user: userData })
-        if (!this.errorLogin) {
+    const checkResult = this.checkLoginDataCorrect()
+    if ( checkResult ) {
+      const userData = this.user.telegram === '' || !this.user.telegram ?
+        { name: this.user.name, lastName: this.user.lastName, email: this.user.email } :
+        this.user
+      const result = await testingModule.actions.fetchUser({ user: userData })
+      if ( !this.errorLogin ) {
 
-          if (result) {
-            await testingModule.mutations.setTimeRemainLocalStorage(5400)
-            localStorage.setItem('timeStart', (Math.floor(Date.now() / 1000)).toString())
-            await testingModule.mutations.setIsAuthorized(true)
-            await testingModule.mutations.setIsIncorrectFormData(true)
-            await this.$router.push('/questions/1')
-            await testingModule.mutations.setTimeRemain()
-
-          }
+        if ( result ) {
+          await testingModule.mutations.setTimeRemainLocalStorage( 5400 )
+          localStorage.setItem( 'timeStart', ( Math.floor( Date.now() / 1000 ) ).toString() )
+          await testingModule.mutations.setIsAuthorized( true )
+          await testingModule.mutations.setIsIncorrectFormData( true )
+          await this.$router.push( '/questions/1' )
+          await testingModule.mutations.setTimeRemain()
 
         }
 
-
-      } else {
-        await testingModule.mutations.setIsIncorrectFormData(true)
       }
-      localStorage.userGUID = testingModule.getters.answers.userGUID
+
+
+    } else {
+      await testingModule.mutations.setIsIncorrectFormData( true )
     }
+    localStorage.userGUID = testingModule.getters.answers.userGUID
   }
 
   private askToSendMail( event: any ){

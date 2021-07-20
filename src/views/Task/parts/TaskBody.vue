@@ -20,6 +20,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import TaskCode from '@/views/Task/parts/TaskCode.vue'
 import RadioView from '@/views/Task/parts/RadioView.vue'
+import { Questions } from '@/services/api'
 
 @Component({
   components: {
@@ -32,7 +33,7 @@ export default class TaskBody extends Vue {
   @Prop() private questionTotalCount!: number
 
   get actualQuestion(){
-    return this.currentQuestion.question
+    return this.currentQuestion.question ?? {}
   }
 
 }
