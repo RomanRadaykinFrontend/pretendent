@@ -2,6 +2,11 @@ stages:
   - test
   - build
 
+variables:
+  CI_CONFIG_FILE: 'public/env.js'
+  CI_CONFIG: |
+    window.API_URL = 'http://localhost/'
+
 include:
   - project: 'pretendent/devops/deploy'
     ref: 'master'
