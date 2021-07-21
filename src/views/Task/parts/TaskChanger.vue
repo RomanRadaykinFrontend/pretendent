@@ -1,7 +1,7 @@
 <template lang="pug">
   .task-changer
     QuestionButton(
-      v-for = "(q,index) in questions.length"
+      v-for = "(q,index) in questionTotalCount"
       :key = "index"
       :class = "+$route.params.id === q ? 'task-changer__task-focus' : ''"
       @change-question = "changeTask(q, $event)"
@@ -11,7 +11,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { questions } from '@/common/questions'
 import QuestionButton from '@/views/Task/parts/QuestionButton.vue'
 import {  sendAnswers } from '@/helpers/functions'
 
@@ -21,11 +20,10 @@ import {  sendAnswers } from '@/helpers/functions'
 export default class TaskChanger extends Vue{
 
   @Prop() private arrayOfValues!: Array<string>
-
-  private questions = questions
+  @Prop() private questionTotalCount!: number
 
   private changeTask( nextTask: number, previousTask: number ){
-    if( nextTask !== previousTask ){
+    if( nextTask !== +previousTask ){
       sendAnswers( this.arrayOfValues )
       localStorage.task = nextTask
       this.$router.push({

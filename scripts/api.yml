@@ -157,6 +157,7 @@ components:
         - name
         - lastName
         - email
+        - telegram
       properties:
         name:     
           type: string
@@ -300,6 +301,9 @@ components:
         answer:
           type: integer
           description: Answer to the question on this number
+
+
+
 
   # responses
   responses:

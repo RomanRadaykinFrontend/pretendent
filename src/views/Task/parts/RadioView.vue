@@ -23,7 +23,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import AppButton from '../../../components/AppButton.vue'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 import { sendAnswers } from '@/helpers/functions'
 
 @Component({
@@ -40,21 +40,21 @@ export default class RadioView extends Vue {
   @Prop() private questionNumber!: number
 
   private taskNumber = +this.$route.params.id
-  private doneTasksCount = commonModule.getters.doneTaskList.length
+  private doneTasksCount = testingModule.getters.doneTaskList.length
 
   // пушим в стейт выбранный вариант ответа и достаем по необходимости
   set picked( value: string ){
-    commonModule.mutations.setCurrentAnswer({
+    testingModule.mutations.setCurrentAnswer({
       question: this.taskNumber,
       pickedValue: value,
     })
-    commonModule.mutations.setDoneTaskList({
+    testingModule.mutations.setDoneTaskList({
       taskNumber: this.taskNumber,
       value,
     })
   }
   get picked(){
-    const currentValue = commonModule.getters.doneTaskList
+    const currentValue = testingModule.getters.doneTaskList
       .find( item => item.taskNumber === this.taskNumber )
     if( currentValue ){
       return currentValue.value
@@ -72,7 +72,7 @@ export default class RadioView extends Vue {
   // если мы на 44 вовпросе - модалка "закончить тест", если нет - следующая таска
   private changePageHandler() {
     if ( +this.$route.params.id === this.totalCount && this.totalCount !== this.doneTasksCount ) {
-      commonModule.mutations.setIsModalWindowShowed( true )
+      testingModule.mutations.setIsModalWindowShowed( true )
     } else if( +this.$route.params.id === this.totalCount && this.totalCount === this.doneTasksCount ){
       this.$router.push( '/final' )
     } else {

@@ -44,7 +44,7 @@ export function QuestionsItemsFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'questions': !exists(json, 'Questions') ? undefined : ((json['Questions'] as Array<any>).map(QuestionsFromJSON)),
+        'questions': ((json as Array<any>).map(QuestionsFromJSON)),
     };
 }
 

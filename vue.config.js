@@ -41,7 +41,7 @@ const vueCliConfig = {
       .end()
       .resolve.alias.set(
         'fs',
-        path.resolve( __dirname, 'src/common/mocks/mock-fs.js' ),
+        path.resolve( __dirname, 'src/testing/mocks/mock-fs.js' ),
       )
   },
   configureWebpack: {

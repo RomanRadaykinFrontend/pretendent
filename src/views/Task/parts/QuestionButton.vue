@@ -7,12 +7,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { commonModule } from '@/store'
+import { testingModule } from '@/store'
 
 @Component
 export default class QuestionButton extends Vue{
   @Prop() private questionNumber!: number
-  private doneTaskList = commonModule.getters.doneTaskList
+  private doneTaskList = testingModule.getters.doneTaskList
   private doneTasks = this.doneTaskList.map( item => item.taskNumber )
   private styleDoneIsApplied = this.doneTasks.includes( this.questionNumber )
 

@@ -1,7 +1,13 @@
 <template lang="pug">
   .task-view
-    TaskBody
-    TaskInfo
+    TaskBody(
+      :current-question="currentQuestion"
+      :question-total-count="questionTotalCount"
+    )
+    TaskInfo(
+      :current-question="currentQuestion"
+      :question-total-count="questionTotalCount"
+    )
 </template>
 
 <script lang="ts">
@@ -9,6 +15,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import TaskInfo from '@/views/Task/parts/TaskInfo.vue'
 import TaskBody from '@/views/Task/parts/TaskBody.vue'
+import { testingModule } from '@/store'
 
 @Component({
   components: {
@@ -16,7 +23,18 @@ import TaskBody from '@/views/Task/parts/TaskBody.vue'
     TaskBody,
   },
 })
-export default class TaskView extends Vue {}
+export default class TaskView extends Vue {
+
+  get allQuestions(){
+    return testingModule.getters.allQuestions ?? []
+  }
+  get currentQuestion(){
+    return this.allQuestions[+this.$route.params.id - 1] ?? {}
+  }
+  get questionTotalCount(){
+    return testingModule.getters.questionTotalCount ?? 0
+  }
+}
 
 </script>
 

@@ -44,7 +44,7 @@ export function CorrectAnswersFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'correctAnswers': ((json['CorrectAnswers'] as Array<any>).map(CorrectAnswerFromJSON)),
+        'correctAnswers': ((json['correct_answers'] as Array<any>).map(CorrectAnswerFromJSON)),
     };
 }
 
