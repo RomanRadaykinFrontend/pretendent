@@ -4,7 +4,8 @@
   height: 100%
   display: flex
   flex-direction: column
-  justify-content: center
+  justify-content: space-around
+
 
   &__button
     width: 350px
@@ -42,10 +43,8 @@
     width: 90%
 
   &__contacts
-    padding-bottom: 10px
+    padding-bottom: 5px
     font: $main-text-style
-    position: absolute
-    bottom: 0
 
   &__contacts-email
     text-decoration: underline
@@ -62,8 +61,7 @@
     height: auto
     justify-content: space-between
     &__contacts
-      position: static
-      padding: 40px 0
+      margin-top: 50px
 
 @media screen and (max-width: 650px)
   .login-form-view

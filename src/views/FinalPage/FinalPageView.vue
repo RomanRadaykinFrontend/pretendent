@@ -72,7 +72,7 @@ export default class FinalPageView extends Vue {
     width: 30%
     text-align: center
     font: $main-text-style
-    margin-top: 30px
+    margin-top: 10px
     line-height: 1.5
 
 @media screen and (max-width: 560px)
