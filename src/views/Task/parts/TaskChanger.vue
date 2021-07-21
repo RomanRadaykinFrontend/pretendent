@@ -39,12 +39,11 @@ export default class TaskChanger extends Vue{
 <style lang="sass" scoped>
 .task-changer
   width: 872px
-  height: 72px
   display: flex
   flex-wrap: wrap
 
   &__task-focus
-    border: 3px solid #1A8BDB
+    border: 3px solid #4D64AA
 
 @media screen and (max-width: 1024px)
   .task-changer

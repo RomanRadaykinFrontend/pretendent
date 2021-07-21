@@ -32,6 +32,7 @@ AdminActions> {
       const users = result.users.map( ( u: UserResult, idx: number ) => ({ ...u, id: idx + 1 }) )
 
       this.commit( 'setResults', users )
+      this.commit( 'setTotalCount', result.count )
     } catch ( e ) {
       return e.message
     }

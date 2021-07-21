@@ -15,8 +15,6 @@ tags:
     description: Results users with their answers
   - name: questions
     description: List questions
-    
-
 
 paths:
   # user creation section
@@ -40,12 +38,10 @@ paths:
         '409':
           $ref: '#/components/responses/ErrorConflict'
         '429':
-          $ref: '#/components/responses/ErrorRateLimit'     
+          $ref: '#/components/responses/ErrorRateLimit'
         '500':
           $ref: '#/components/responses/ErrorUnexpected'
 
-  
-  # responses received from users
   /answer:
     post:
       description: Add new answers
@@ -64,13 +60,12 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorBadRequest'
         '403':
-          $ref: '#/components/responses/ErrorForbidden'          
+          $ref: '#/components/responses/ErrorForbidden'
         '429':
-          $ref: '#/components/responses/ErrorRateLimit'          
+          $ref: '#/components/responses/ErrorRateLimit'
         '500':
           $ref: '#/components/responses/ErrorUnexpected'
 
-  # Results information page
   /results:
     get:
       description: Results users with their answers
@@ -85,9 +80,9 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorBadRequest'
         '403':
-          $ref: '#/components/responses/ErrorForbidden'          
+          $ref: '#/components/responses/ErrorForbidden'
         '429':
-          $ref: '#/components/responses/ErrorRateLimit'          
+          $ref: '#/components/responses/ErrorRateLimit'
         '500':
           $ref: '#/components/responses/ErrorUnexpected'
 
@@ -102,9 +97,9 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorBadRequest'
         '403':
-          $ref: '#/components/responses/ErrorForbidden'          
+          $ref: '#/components/responses/ErrorForbidden'
         '429':
-          $ref: '#/components/responses/ErrorRateLimit'          
+          $ref: '#/components/responses/ErrorRateLimit'
         '500':
           $ref: '#/components/responses/ErrorUnexpected'
 
@@ -119,11 +114,11 @@ paths:
         '400':
           $ref: '#/components/responses/ErrorBadRequest'
         '403':
-          $ref: '#/components/responses/ErrorForbidden'          
+          $ref: '#/components/responses/ErrorForbidden'
         '429':
-          $ref: '#/components/responses/ErrorRateLimit'          
+          $ref: '#/components/responses/ErrorRateLimit'
         '500':
-          $ref: '#/components/responses/ErrorUnexpected'          
+          $ref: '#/components/responses/ErrorUnexpected'
 
 components:
   schemas:
@@ -157,9 +152,8 @@ components:
         - name
         - lastName
         - email
-        - telegram
       properties:
-        name:     
+        name:
           type: string
           description: User name
         lastName:
@@ -167,14 +161,14 @@ components:
           description: User last name
         email:
           type: string
-          description: User email  
+          description: User email
         telegram:
           type: string
           description: User telegram
         timeCreate:
           type: string
           format: date-time
-          description: User creation time 
+          description: User creation time
           readOnly: true
         userGUID:
           type: string
@@ -193,20 +187,23 @@ components:
           items:
             $ref: '#/components/schemas/UserResult'
         count:
-          type: integer 
+          type: integer
           description: Total count of users
           readOnly: true
 
     UserResult:
       type: object
+      required:
+        - user
+        - answers
+        - percent
       properties:
           user:
             $ref: '#/components/schemas/User'
-            readOnly: true  
           percent:
-            type: integer 
+            type: integer
             description: Percentage of correct answers
-            readOnly: true   
+            readOnly: true
           answers:
             type: array
             items:
@@ -214,32 +211,38 @@ components:
 
     QuestionsItems:
       description: List of questions
+      required:
+        - questions
       properties:
-        Questions:
+        questions:
           type: array
           items:
-            $ref: '#/components/schemas/Questions'         
+            $ref: '#/components/schemas/Questions'
 
     Questions:
       type: object
       description: list of questions with answers
       required:
-      - id
-      - code
-      - question
-      - answers
+        - id
+        - order_number
+        - code
+        - question
+        - answers
       properties:
-        order_number:     
+        id:
+          type: integer
+          description: Question identifier
+        order_number:
           type: integer
           description: Question number
-        code:     
+        code:
           type: string
-          description: Code question       
+          description: Code question
         question:
           type: string
-          description: Question 
+          description: Question
         answers:
-          description: Answer options    
+          description: Answer options
           type: array
           items:
             type: string
@@ -247,30 +250,28 @@ components:
     CorrectAnswers:
       description: list of correct answers
       required:
-      - CorrectAnswers
+        - correct_answers
       properties:
-        CorrectAnswers:
+        correct_answers:
           type: array
           items:
-            $ref: '#/components/schemas/CorrectAnswer'  
+            $ref: '#/components/schemas/CorrectAnswer'
 
     CorrectAnswer:
       type: object
       description: The object describes the user response
       required:
-      - id
-      - answers
+        - id
+        - answers
       properties:
-        id:     
+        id:
           type: integer
-          description: Question number
+          description: Question identifier
         answers:
           type: array
           items:
             type: integer
-            description: Answer to the question on this number    
-
-
+            description: Answer to the question on this number
 
     Answers:
       type: object
@@ -295,19 +296,15 @@ components:
         - question
         - answer
       properties:
-        question:     
+        question:
           type: integer
           description: Question number
         answer:
           type: integer
           description: Answer to the question on this number
 
-
-
-
-  # responses
   responses:
-  
+
     SuccessfulRecord:
       description: Successful record
       content:
@@ -315,7 +312,6 @@ components:
           schema:
             $ref: '#/components/schemas/Message'
 
-    # user responses
     UserResponse:
       description: Created user info
       content:
@@ -323,7 +319,6 @@ components:
           schema:
             $ref: '#/components/schemas/User'
 
-    # Results responses
     ResultsResponse:
       description: Results
       content:
@@ -331,7 +326,6 @@ components:
           schema:
             $ref: '#/components/schemas/Results'
 
-    # Questions responses
     QuestionsResponse:
       description: Questions
       content:
@@ -339,7 +333,6 @@ components:
           schema:
             $ref: '#/components/schemas/QuestionsItems'
 
-    # Correct answers 
     CorrectAnswersResponse:
       description: Correct Answers
       content:
@@ -347,7 +340,6 @@ components:
           schema:
             $ref: '#/components/schemas/CorrectAnswers'
 
-    # error responses            
     ErrorUnexpected:
       description: Unexpected error
       content:
@@ -384,7 +376,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Message'
-  
+
   parameters:
     PaginationLimit:
       name: limit
@@ -402,4 +394,4 @@ components:
       required: false
       schema:
         type: integer
-        format: int64            
+        format: int64

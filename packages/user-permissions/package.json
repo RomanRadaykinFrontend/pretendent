@@ -1,0 +1,13 @@
+{
+  "name": "user-permissons",
+  "version": "1.9.1",
+  "private": false,
+  "main": "src/index.ts",
+  "files": [
+    "src/*",
+    "*.json"
+  ],
+  "dependencies": {
+    "@types/lodash": "^4.14.150",
+    "lodash": "^4.17.15" }
+}
