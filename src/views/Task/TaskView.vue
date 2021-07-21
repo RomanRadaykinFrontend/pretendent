@@ -66,12 +66,14 @@ export default class TaskView extends Vue {
     font-family: Roboto, serif
     font-style: normal
     font-weight: normal
-    font-size: 20px
+    font-size: 16px
 
 @media screen and (max-width: 1024px)
   .task-view
     width: 100%
-    height: 100%
+    height: auto
     padding: 15px 15px
+    &__header
+      display: none
 
 </style>

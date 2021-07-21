@@ -1,14 +1,14 @@
 <template lang="pug">
   .login-form-view
-    .login-form-view__logo-items
-      TestLogo
-      STCLogo
     .login-form-view__title
-      span Привет, начнем?
+      p Тест на знание C++
+      p от компании СТЦ
     .login-form-view__description-wrapper
-      span.login-form-view__description {{ `Мы подготовили для вас тесты на языке C++. Они помогут&nbsp
-        | нам оценить ваши знания, а вам - проверить свои.
-        | \n На все вопросы у вас будет 1 час 30 минут, удачи` }}!
+      span.login-form-view__description {{ `После успешного прохождения нашего теста
+        | \n
+        | Вы сможете попасть на наш бесплатный \n
+        | обучающий курс с возможностью дальнейшего \n
+        | трудоустройства в компанию` }}
 
     form.login-form-view__login-form(@submit.prevent="onSubmitHandler")
       LoginFormInputView(
@@ -20,7 +20,7 @@
       .login-form-view__account-exist( v-show = " errorLogin !== '' " )
         InfoLogo.login-form-view__logo
         p.login-form-view__text {{ errorLogin }}
-      AppButton( name-of-button = "registration" ) Начать тестирование
+      AppButton.login-form-view__button( name-of-button = "registration" ) Начать тестирование
     .login-form-view__contacts
       span Связаться с нами&nbsp
         span.login-form-view__contacts-email
@@ -37,13 +37,11 @@ import LoginFormInputView from './LoginFormInputView.vue'
 import { regExpEmail, regExpTelegram, regExpName } from '@/common/regexp/regexp'
 import { testingModule } from '@/store'
 import InfoLogo from '@/common/images/info.svg'
-import STCLogo from '@/common/images/logo-stc.svg'
-import TestLogo from '@/common/images/logo-test.svg'
 
 @Component({
   components: {
     AppButton, LoginFormInputView,
-    InfoLogo, STCLogo, TestLogo,
+    InfoLogo,
   },
 })
 
