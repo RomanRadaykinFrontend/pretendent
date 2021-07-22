@@ -20,7 +20,7 @@ import { exists, mapValues } from '../runtime';
  */
 export interface CorrectAnswer {
     /**
-     * Question identifier
+     * Question number
      * @type {number}
      * @memberof CorrectAnswer
      */

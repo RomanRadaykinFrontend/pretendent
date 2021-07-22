@@ -1,7 +1,7 @@
 <template lang="pug">
     button.question-button(
     @click.prevent = "$emit('change-question', $route.params.id)"
-    :class = " doneClass "
+    :style = " doneClass "
     ) {{ questionNumber }}
 </template>
 
@@ -18,11 +18,18 @@ export default class QuestionButton extends Vue{
 
   get doneClass(){
     if( this.styleDoneIsApplied && +this.$route.params.id === this.questionNumber ){
-      return'done-check'
+      return {
+        border: '3px solid black',
+        background: '#1A8BDB',
+        color: 'white',
+      }
     } else if( this.styleDoneIsApplied ) {
-      return'done'
+      return {
+        background: '#1A8BDB',
+        color: 'white',
+      }
     } else {
-      return ''
+      return {}
     }
   }
 
@@ -33,27 +40,15 @@ export default class QuestionButton extends Vue{
 .question-button
   width: 32px
   height: 32px
-  background: #FFFFFF
+  background: #E1E1E1
   border-radius: 2px
   outline: none
   border: none
   color: #5A5A5A
-  margin: 3px
+  margin: 4px 3px
   &:hover
     cursor: pointer
-    background: #EEF2FF
-
-  &.done
-    background: #4D64AA
-    color: white
-  &.done-check
-    background: #4D64AA
-    box-sizing: border-box
-    outline: 2.5px solid #4D64AA
-    color: white
-    border-radius: 0
-
-
+    background: #D2D2D2
 @media screen and (max-width: 1024px)
   .question-button
     width: 40px

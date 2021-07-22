@@ -1,20 +1,16 @@
 <template lang="pug">
   .task-info
-    .task-info__task-control
-      TaskChanger(
-        :array-of-values = "currentQuestion.answers"
-        :question-total-count = "questionTotalCount"
-        )
-      .task-info__control-panel
-        TimeRemain(
-          :seconds = "seconds"
-          :minutes = "minutes"
-          :hours = "hours"
-        )
-    .task-info__description
-      .task-info__text
-        p Если сомневаетесь в ответе, то просто выберите другой вопрос.
-        p Также ответ всегда можно изменить.
+    TaskChanger(
+      :array-of-values = "currentQuestion.answers"
+      :question-total-count = "questionTotalCount"
+      )
+    .task-info__control-panel
+      .task-info__time-remain
+        span Осталось &nbsp
+          span(
+            :style = " timeRemain <= 20 && {color: 'red'} "
+          ) {{ hours }}:{{ /^[0-9]$/.test(minutes) ? '0' + minutes : minutes }}:
+        | {{ /^[0-9]$/.test(seconds) ? '0' + seconds : seconds }}
       button.task-info__test-end(
         @click.prevent="showModalWindow"
       ) Закончить тест
@@ -25,11 +21,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { testingModule } from '@/store'
 import TaskChanger from '@/views/Task/parts/TaskChanger.vue'
 import { Questions } from '@/services/api'
-import TimeRemain from '@/views/Task/parts/TimeRemain.vue'
 
 @Component({
   components: {
-    TimeRemain,
     TaskChanger,
   },
 })
@@ -70,49 +64,26 @@ export default class TaskInfo extends Vue{
 @import '../../../common/assets/common'
 .task-info
   display: flex
-  flex-direction: column
+  justify-content: space-between
   width: 1100px
   padding: 20px 20px
   box-sizing: border-box
-  &__task-control
-    display: flex
-    justify-content: space-between
-    align-items: center
-  &__description
-    display: flex
-    justify-content: space-between
-    align-items: center
-    margin-top: 5px
   &__control-panel
     font-size: 16px
     display: flex
     flex-direction: column
     align-items: flex-end
-
-  &__text
-    font-family: Roboto, serif
-    font-style: normal
-    font-weight: normal
-    font-size: 16px
-    letter-spacing: 0.02em
-    line-height: 0.5
+  &__time-remain
+    margin-top: 13px
   &__test-end
-    font-family: Roboto, serif
-    font-style: normal
-    font-weight: 500
-    font-size: 14px
-    letter-spacing: 0.02em
-    color: #DB1A26
-    border-radius: 2px
-    border: 1px solid #FFF3F3
-    background: #FFF3F3
-    width: 200px
+    margin-top: 18px
+    background: none
+    color: $primary-color
+    border: none
     outline: none
+    font-size: 16px
+    padding: 0
     cursor: pointer
-    padding: 8px 16px
-    display: flex
-    align-self: center
-    justify-content: center
 
 @media screen and (max-width: 1024px)
   .task-info
@@ -121,14 +92,8 @@ export default class TaskInfo extends Vue{
     height: auto
     margin-top: 30px
     padding: 0
-    &__task-control
-      flex-direction: column-reverse
     &__control-panel
       flex-direction: row
       justify-content: space-evenly
-    &__description
-      flex-direction: column-reverse
-    &__text
-      line-height: 1
 
 </style>

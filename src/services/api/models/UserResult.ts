@@ -35,19 +35,19 @@ export interface UserResult {
      * @type {User}
      * @memberof UserResult
      */
-    user: User;
+    user?: User;
     /**
      * Percentage of correct answers
      * @type {number}
      * @memberof UserResult
      */
-    readonly percent: number;
+    readonly percent?: number;
     /**
      * 
      * @type {Array<Answer>}
      * @memberof UserResult
      */
-    answers: Array<Answer>;
+    answers?: Array<Answer>;
 }
 
 export function UserResultFromJSON(json: any): UserResult {
@@ -60,9 +60,9 @@ export function UserResultFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
-        'user': UserFromJSON(json['user']),
-        'percent': json['percent'],
-        'answers': ((json['answers'] as Array<any>).map(AnswerFromJSON)),
+        'user': !exists(json, 'user') ? undefined : UserFromJSON(json['user']),
+        'percent': !exists(json, 'percent') ? undefined : json['percent'],
+        'answers': !exists(json, 'answers') ? undefined : ((json['answers'] as Array<any>).map(AnswerFromJSON)),
     };
 }
 
@@ -76,7 +76,7 @@ export function UserResultToJSON(value?: UserResult | null): any {
     return {
         
         'user': UserToJSON(value.user),
-        'answers': ((value.answers as Array<any>).map(AnswerToJSON)),
+        'answers': value.answers === undefined ? undefined : ((value.answers as Array<any>).map(AnswerToJSON)),
     };
 }
 

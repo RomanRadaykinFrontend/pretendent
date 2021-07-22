@@ -57,7 +57,7 @@ export function CorrectAnswersToJSON(value?: CorrectAnswers | null): any {
     }
     return {
         
-        'correct_answers': ((value.correctAnswers as Array<any>).map(CorrectAnswerToJSON)),
+        'CorrectAnswers': ((value.correctAnswers as Array<any>).map(CorrectAnswerToJSON)),
     };
 }
 

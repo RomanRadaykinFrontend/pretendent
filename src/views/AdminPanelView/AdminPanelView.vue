@@ -4,30 +4,19 @@
     size = "huge"
     v-if = " isAllDataFetched "
   )
-  AdminHeader(
-    @click-button = "goToUserPerm"
-    button-name = "Задать роли"
+  h1.admin-panel-view__title(
     v-if = " !isAllDataFetched "
-  )
-  .admin-panel-view__header-wrapper
-    .admin-panel-view__header(
-      v-if = " !isAllDataFetched "
+  ) Администрирование
+  .admin-panel-view__export( v-if = " !isAllDataFetched " )
+    vue-excel-xlsx.admin-panel-view__export-button(
+      :data = "dataExcel"
+      :columns = "columnsExcel"
+      filename = "table"
+      sheetnam= "sheetname"
     )
-      h1.admin-panel-view__title Администрирование
-    .admin-panel-view__export(
-      v-if = " !isAllDataFetched "
-    )
-      vue-excel-xlsx.admin-panel-view__export-button(
-        :data = "dataExcel"
-        :columns = "columnsExcel"
-        filename = "table"
-        sheetnam= "sheetname"
-      )
-        SortArrowLogo
-        | Скачать .xls
-  .admin-panel-view__table(
-    v-if = " !isAllDataFetched "
-  )
+      SortArrowLogo
+      | Скачать .xls
+  .admin-panel-view__table( v-if = " !isAllDataFetched " )
     .admin-panel-view__table-body
       AppHeaderTableRow(
         :is-header-row = "true"
@@ -67,11 +56,10 @@ import { DataExcel } from '@/types/common'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import VueSimpleSpinner from 'vue-simple-spinner'
-import AdminHeader from '@/views/AdminHeader.vue'
+
 
 @Component({
   components: {
-    AdminHeader,
     ControlPanel,
     AppHeaderTableRow,
     TableRowAdmin,
@@ -111,7 +99,6 @@ export default class AdminPanelView extends Vue{
       field: 'date',
     },
   ]
-
 
   get dataExcel(){
     return this.results.map( ( res, idx ) => {
@@ -179,34 +166,29 @@ export default class AdminPanelView extends Vue{
 
   private getPaginationResults(){
     return this.results.slice( +this.resultsCount * +this.page - +this.resultsCount,
-      +this.resultsCount * ( +this.page ?? 10 ) )
+      +this.resultsCount * +this.page )
   }
 
   private created(){
-    const pageFromLocalStorage = localStorage.getItem( 'page' ) || 1
-    adminModule.mutations.setPage( +pageFromLocalStorage  )
+    adminModule.mutations.setPage( localStorage.getItem( 'page' ) ?? 1 )
     adminModule.actions.getResults({ offset: 0, limit: this.totalCount })
+
   }
 
   private changeResultsCount( resultsCount: number  ){
     adminModule.mutations.setPage( 1 )
     adminModule.mutations.setResultsCount( resultsCount.toString() )
     adminModule.actions.getResults({ offset: 0, limit: resultsCount })
+
   }
 
   private getNewUsersList( page: number ){
     adminModule.mutations.setPage( page )
     localStorage.setItem( 'page', page.toString() )
     return this.getPaginationResults()
+
   }
 
-  private logout(){
-    window.localStorage.removeItem( 'token' )
-  }
-
-  private goToUserPerm(){
-    this.$router.push( '/userpermissions' )
-  }
 }
 </script>
 
@@ -220,15 +202,6 @@ export default class AdminPanelView extends Vue{
     justify-content: center
     align-items: center
     height: 100%
-  &__header
-    display: flex
-    justify-content: space-between
-
-  &__header-wrapper
-    display: flex
-    justify-content: space-between
-    align-items: center
-    margin: 10px 0
 
   &__title
     font-family: Inter, serif
@@ -238,7 +211,9 @@ export default class AdminPanelView extends Vue{
     line-height: 29px
     color: #2D2F33
     margin: 0
-
+  &__export
+    display: flex
+    justify-content: flex-end
   &__export-button
     background: #F5F5F5
     border: 1px solid #D2D4D6
@@ -253,7 +228,7 @@ export default class AdminPanelView extends Vue{
   &__table
     display: table
     width: 100%
-    margin: 20px 0
+    margin: 40px 0
     table-layout: fixed
   &__table-body
     display: table-row-group

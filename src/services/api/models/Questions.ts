@@ -20,17 +20,11 @@ import { exists, mapValues } from '../runtime';
  */
 export interface Questions {
     /**
-     * Question identifier
-     * @type {number}
-     * @memberof Questions
-     */
-    id: number;
-    /**
      * Question number
      * @type {number}
      * @memberof Questions
      */
-    orderNumber: number;
+    orderNumber?: number;
     /**
      * Code question
      * @type {string}
@@ -61,8 +55,7 @@ export function QuestionsFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     }
     return {
         
-        'id': json['id'],
-        'orderNumber': json['order_number'],
+        'orderNumber': !exists(json, 'order_number') ? undefined : json['order_number'],
         'code': json['code'],
         'question': json['question'],
         'answers': json['answers'],
@@ -78,7 +71,6 @@ export function QuestionsToJSON(value?: Questions | null): any {
     }
     return {
         
-        'id': value.id,
         'order_number': value.orderNumber,
         'code': value.code,
         'question': value.question,

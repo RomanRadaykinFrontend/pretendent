@@ -131,20 +131,21 @@ export default class LoginFormInputView extends Vue {
   @Watch( 'value' )
   private onValueChangedHandler() {
     testingModule.mutations.setIsIncorrectFormData( false )
+    // this.borderColorStyle['border-color'] =  this.value === ''  ? 'blue' : 'red'
     switch ( this.name ) {
     case 'email': {
       const val = regExpEmail.test( this.value )
-      this.borderColorStyle['border-color'] = val ? '#4D64AA' : 'red'
+      this.borderColorStyle['border-color'] = val ? 'blue' : 'red'
       break
     }
     case 'telegram':
-      this.borderColorStyle['border-color'] = regExpTelegram.test( this.value ) ? '#4D64AA' : 'red'
+      this.borderColorStyle['border-color'] = regExpTelegram.test( this.value ) ? 'blue' : 'red'
       if( this.value === '' ) {
         this.borderColorStyle['border-color'] = 'rgb(225, 225, 225)'
       }
       break
     default:
-      this.borderColorStyle['border-color'] = regExpName.test( this.value ) ? '#4D64AA' : 'red'
+      this.borderColorStyle['border-color'] = regExpName.test( this.value ) ? 'blue' : 'red'
     }
   }
 }

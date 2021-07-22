@@ -7,32 +7,11 @@ import { testingModule } from '@/store'
 import StubView from '@/views/StubView.vue'
 import AdminPanelView from '@/views/AdminPanelView/AdminPanelView.vue'
 import AnsViewerView from '@/views/AnswersViewerView/AnsViewerView.vue'
-import { checkADFSAuth } from '../../packages/login-form'
-import AdminLoginView from '@/views/AdminLoginView.vue'
-import UserPermissionsView from '@/views/UserPermissionsView.vue'
 
 
 Vue.use( VueRouter )
 
 const isStub = 'false'
-
-const isAuthorized = ( to: any, from: any, next: any ) => {
-  if ( window.localStorage.getItem( 'access_token' ) !== null ) {
-    next()
-    return
-  }
-  next( '/adminlogin' )
-}
-
-const isNotAuthorized = ( to: any, from: any, next: any ) => {
-  checkADFSAuth()
-  if ( window.localStorage.getItem( 'access_token' ) === null ) {
-    next()
-    return
-  }
-  next( '/adminpanel' )
-}
-
 
 
 const routes: Array<RouteConfig> = [
@@ -108,29 +87,13 @@ const routes: Array<RouteConfig> = [
     },
   },
   {
-    path: '/adminpanel',
+    path: '/admin',
     component: AdminPanelView,
-    beforeEnter: isAuthorized,
   },
   {
     path: '/answersviewer/:id',
     component: AnsViewerView,
-    beforeEnter: isAuthorized,
   },
-  {
-    path: '/adminlogin',
-    name: 'login',
-    component: AdminLoginView,
-    beforeEnter: isNotAuthorized,
-  },
-  {
-    path: '/userpermissions',
-    name: 'userpermissions',
-    component: UserPermissionsView,
-    beforeEnter: isAuthorized,
-  },
-
-
 ]
 
 const router = new VueRouter({

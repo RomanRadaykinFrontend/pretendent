@@ -4,50 +4,44 @@
     size = "huge"
     v-if = " isAllDataFetched "
   )
-  AdminHeader(
+  .ans-viewer-view__control-panel(
     v-if = " !isAllDataFetched "
-    button-name = "Задать роли"
-    @click-button = "goToUserPerm"
   )
-  .ans-viewer-view__content
-    .ans-viewer-view__control-panel(
-      v-if = " !isAllDataFetched "
+    button( @click = " () => $router.push('/admin')" ).ans-viewer-view__back-button Назад
+    h1.ans-viewer-view__title Просмотр ответов
+    select(
+      v-model = " taskType "
+    ).ans-viewer-view__select
+      option( selected ) Все вопросы
+      option( :disabled = " isAnsweredFlag " ) Отвеченные вопросы
+      option( :disabled = " isNotAnsweredFlag " ) Неотвеченные вопросы
+      option( :disabled = " isRightAnswFlag " ) Отвеченные правильно
+      option( :disabled = " isWrongAnswFlag " ) Отвеченные неправильно
+    .ans-viewer-view__about(
+      v-for = " data in pretendData "
+      :key = " data.title "
     )
-      button( @click = " () => $router.push('/adminpanel')" ).ans-viewer-view__back-button Назад
-      h1.ans-viewer-view__title Просмотр ответов
-      select(
-        v-model = " taskType "
-      ).ans-viewer-view__select
-        option( selected ) Все вопросы
-        option( :disabled = " isAnsweredFlag " ) Отвеченные вопросы
-        option( :disabled = " isNotAnsweredFlag " ) Неотвеченные вопросы
-        option( :disabled = " isRightAnswFlag " ) Отвеченные правильно
-        option( :disabled = " isWrongAnswFlag " ) Отвеченные неправильно
-      .ans-viewer-view__about(
-        v-for = " data in pretendData "
-        :key = " data.title "
-      )
-        span.subtitle {{ data.title }}
-        span.data {{ data.data }}
+      span.subtitle {{ data.title }}
+      span.data {{ data.data }}
 
 
-    .ans-viewer-view__table(
-      v-if = " !isAllDataFetched "
+  .ans-viewer-view__table(
+    v-if = " !isAllDataFetched "
+  )
+    .ans-viewer-view__table-body
+    AppHeaderTableRow(
+      :is-header-row = "true"
+      :table-value = "headerRow"
+      @sort-by-id = "sortByNumber( $event )"
     )
-      .ans-viewer-view__table-body
-      AppHeaderTableRow(
-        :is-header-row = "true"
-        :table-value = "headerRow"
-        @sort-by-id = "sortByNumber( $event )"
-      )
-      TableRowAnsw(
-        v-for = "(question, index) in sortQuestions"
-        :key = "index"
-        :table-value = "question"
-        :quest-number = "question.orderNumber"
-        :user-answer = " getCurrentAnswer( question.orderNumber ) "
-        :right-answer = " getCurrentRightAnswer( question.orderNumber ) "
-      )
+    TableRowAnsw(
+      v-for = "(question, index) in sortQuestions"
+      :key = "index"
+      :table-value = "question"
+      :quest-number = "question.orderNumber"
+      :user-answer = " getCurrentAnswer( question.orderNumber ) "
+      :right-answer = " getCurrentRightAnswer( question.orderNumber ) "
+    )
 
 </template>
 
@@ -60,12 +54,9 @@ import { getDate, sortItems } from '@/helpers/functions'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import VueSimpleSpinner from 'vue-simple-spinner'
-import AdminHeader from '@/views/AdminHeader.vue'
-import { UserResultWithID } from '@/types/common'
 
 @Component({
   components: {
-    AdminHeader,
     TableRowAnsw, AppHeaderTableRow, VueSimpleSpinner,
   },
 })
@@ -124,7 +115,7 @@ export default class AnsViewerView extends Vue{
   }
 
   get result(){
-    return adminModule.getters.results[ this.id ] || {} as UserResultWithID
+    return adminModule.getters.results[ this.id ] || {}
   }
 
   get isAllDataFetched(){
@@ -238,10 +229,6 @@ export default class AnsViewerView extends Vue{
   }
   private getCurrentRightAnswer( questNumb: number ){
     return this.rightAnswers.find( answ => answ.id + 1 === questNumb )
-  }
-
-  private goToUserPerm(){
-    this.$router.push( '/userpermissions' )
   }
 
 }

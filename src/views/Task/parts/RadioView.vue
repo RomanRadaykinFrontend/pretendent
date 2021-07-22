@@ -17,9 +17,7 @@
     .radio-view__buttons-block
       AppButton.radio-view__button(
         :is-primary = "true"
-      )
-        |Далее
-        ArrayForwardLogo.logo
+      ) Далее
 </template>
 
 <script lang="ts">
@@ -27,11 +25,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import AppButton from '../../../components/AppButton.vue'
 import { testingModule } from '@/store'
 import { sendAnswers } from '@/helpers/functions'
-import ArrayForwardLogo from '@/common/images/array-forward.svg'
 
 @Component({
   components: {
-    AppButton, ArrayForwardLogo,
+    AppButton,
   },
 })
 
@@ -100,58 +97,6 @@ export default class RadioView extends Vue {
     transform: scale(1.4)
     margin: 10px 10px 10px 0
 
-    &:before
-      width: 12px
-      height: 12px
-      border-radius: 12px
-      top: -1px
-      left: -1px
-      position: relative
-      background-color: white
-      content: ''
-      display: inline-block
-      visibility: visible
-      border: 2px solid #8C9196
-
-    &:after
-      width: 8px
-      height: 8px
-      border-radius: 15px
-      bottom: 157%
-      left: 24%
-      position: relative
-      background-color: white
-      content: ''
-      display: inline-block
-      visibility: visible
-
-    &:checked
-      &:before
-        width: 12px
-        height: 12px
-        border-radius: 12px
-        top: -1px
-        left: -1px
-        position: relative
-        background-color: white
-        content: ''
-        display: inline-block
-        visibility: visible
-        border: 2px solid #4D64AA
-
-    &:checked
-      &:after
-        width: 8px
-        height: 8px
-        border-radius: 15px
-        bottom: 157%
-        left: 24%
-        position: relative
-        background-color: #4D64AA
-        content: ''
-        display: inline-block
-        visibility: visible
-
   &__answer, &__label
     font: $answer-text-style
 
@@ -163,9 +108,6 @@ export default class RadioView extends Vue {
     display: flex
     .button
       cursor: pointer
-  &__button
-    .logo
-      margin-left: 15px
 
 @media screen and (max-width: 479px)
   .radio-view

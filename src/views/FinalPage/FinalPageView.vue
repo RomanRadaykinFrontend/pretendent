@@ -1,10 +1,9 @@
 <template lang="pug">
   .final-page-view
-    .final-page-view__content
-      .final-page-view__image-wrapper
-      .final-page-view__message-wrapper
-        span.final-page-view__message-header Спасибо за ответы.
-        span.final-page-view__message-text Наш специалист свяжется с вами.
+    .final-page-view__image-wrapper
+    .final-page-view__message-wrapper
+      span.final-page-view__message-header Спасибо за ответы.
+      span.final-page-view__message-text Наш специалист свяжется с вами.
 </template>
 
 <script lang="ts">
@@ -32,30 +31,23 @@ export default class FinalPageView extends Vue {
 @import '../../common/assets/common'
 .final-page-view
   display: flex
-  justify-content: center
-  align-items: center
+  flex-direction: column
+  padding: 6px 0
+  margin: 0 auto
   width: 100%
   height: 100vh
-  background: #DBE4FF
-
-  &__content
-    width: 60%
-    height: 70%
-    display: flex
-    flex-direction: column
-    justify-content: center
-    border: 17px solid #ecf1ff
-    border-radius: 24px
-    background: white
+  justify-content: center
+  box-sizing: border-box
 
   &__image-wrapper
     width: 100%
     height: 60%
     background: url("../../common/images/baloons.png") no-repeat center
-    background-size: contain
+    background-size: auto
 
   &__message-wrapper
     width: 100%
+    height: 20%
     text-align: center
     display: flex
     flex-direction: column
@@ -72,13 +64,17 @@ export default class FinalPageView extends Vue {
     width: 30%
     text-align: center
     font: $main-text-style
-    margin-top: 10px
+    margin-top: 30px
     line-height: 1.5
+
+@media screen and (max-width: 768px)
+  .final-page-view
+    justify-content: flex-start
+    &__image-wrapper
+      background-size: contain
 
 @media screen and (max-width: 560px)
   .final-page-view
-    &__content
-      width: 80%
     &__message-header
       font-size: 30px
       width: 90%

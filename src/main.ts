@@ -10,8 +10,6 @@ import VueExcelXlsx from 'vue-excel-xlsx'
 Vue.config.productionTip = false
 Vue.use( VueExcelXlsx )
 
-window.EVENT_BUS = new Vue()
-
 new Vue({
   router,
   store,

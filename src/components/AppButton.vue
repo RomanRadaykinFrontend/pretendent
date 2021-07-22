@@ -25,10 +25,10 @@ export default class AppButton extends Vue {
   height: 40px
   padding: 3px 20px
   margin-top: 30px
+  border-radius: 5px
   font-size: 16px
   cursor: pointer
   font: $main-text-style
-  border-radius: 5px
 
 .is-primary
   background-color: $primary-color
