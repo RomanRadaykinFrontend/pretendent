@@ -42,3 +42,10 @@ export const sortItems = ( a: any, b: any, direction: boolean ) => direction ?
   a > b ? 1 : -1
   :
   a < b ? 1 : -1
+
+export const getTime = ( type: string ) => {
+  if( /^[0-9]$/.test( type ) ){
+    return [ '0', type ]
+  }
+  return type.split( '' )
+}

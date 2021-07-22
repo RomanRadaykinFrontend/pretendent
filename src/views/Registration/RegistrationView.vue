@@ -29,34 +29,46 @@ export default class RegistrationView extends Vue {}
   display: flex
   flex-wrap: wrap
   align-items: flex-start
-  position: relative
+  background: #DBE4FF
+  padding: 70px 120px
+  box-sizing: border-box
 
   &__login
-    width: 45%
+    width: 50%
     height: 100%
     display: flex
-    justify-content: flex-end
     align-items: flex-start
+    background: white
+    border-radius: 24px 0px 0px 24px
+    padding-left: 120px
+    position: relative
+    box-sizing: border-box
 
   &__blank
-    width: 55%
+    width: 50%
     height: 100%
+    background: white
+    box-sizing: border-box
+    border-radius: 0px 24px 24px 0px
 
 @media screen and (max-width: 1200px)
   .registration-view
     justify-content: center
+    padding: 30px
+    height: auto
     &__blank
       display: none
-
-@media screen and (max-width: 800px)
-  .registration-view
     &__login
       width: 70%
+      height: auto
       justify-content: center
+      border-radius: 24px
+      padding: 25px
 
 @media screen and (max-width: 600px)
   .registration-view
     &__login
-      width: 90%
+      width: 100%
       justify-content: center
+      padding: 10px
 </style>

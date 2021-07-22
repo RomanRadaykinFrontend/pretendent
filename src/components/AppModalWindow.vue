@@ -60,10 +60,10 @@ export default class AppModalWindow extends Vue {
 
 
   &__text
-    font-family: Jost, serif
+    font-family: Roboto, serif
     color: black
     font-weight: 500
-    font-size: 36px
+    font-size: 24px
     align-self: self-start
 
   &__buttons
@@ -82,13 +82,13 @@ export default class AppModalWindow extends Vue {
 
   &__secondary
     margin-right: 10px
-    background-color: white
-    color: $primary-color
-    border: 1px solid $primary-color
+    color: #4D64AA
+    background: none
 
   &__primary
-    background-color: $primary-color
-    color: white
+    border: 1px solid #FFF3F3
+    background: #FFF3F3
+    color: #DB1A26
 
 @media screen and (max-width: 767px)
   .modal-window
