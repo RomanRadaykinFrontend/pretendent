@@ -3,7 +3,7 @@
     .task-body__task-question
       .task-body__task-title {{ actualQuestion}}
       TaskCode(
-        v-show = " currentQuestion.hasOwnProperty('code') "
+        v-show = " currentQuestion.code !== '' "
         :code = " currentQuestion.code "
       )
 
@@ -44,11 +44,11 @@ export default class TaskBody extends Vue {
 .task-body
   width: 1100px
   height: 730px
-  border: 1px solid #97979D
+  border: 1px solid white
   box-sizing: border-box
   background: #FFFFFF
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08)
-  border-radius: 8px
+  box-shadow: 0 4px 32px rgba(77, 100, 170, 0.1)
+  border-radius: 4px
   display: flex
   overflow: hidden
   -moz-user-select: none
@@ -74,9 +74,10 @@ export default class TaskBody extends Vue {
   .task-body
     width: 100%
     height: auto
+    &__task-question
+      height: auto
 @media screen and (max-width: 479px)
   .task-body
-    height: auto
     flex-direction: column
     border: none
     box-shadow: none
