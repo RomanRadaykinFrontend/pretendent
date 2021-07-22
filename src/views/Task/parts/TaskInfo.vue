@@ -13,7 +13,7 @@
         )
     .task-info__description
       .task-info__text
-        p Если сомневаетесь в ответе, то просто кликнете на другой.
+        p Если сомневаетесь в ответе, то можете выбрать другой вопрос.
         p Также ответ всегда можно изменить.
       button.task-info__test-end(
         @click.prevent="showModalWindow"
