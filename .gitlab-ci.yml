@@ -5,7 +5,9 @@ stages:
 variables:
   CI_CONFIG_FILE: 'public/env.js'
   CI_CONFIG: |
-    window.API_URL = 'http://localhost/'
+    window.API_URL='$API_URL'
+    window.AUTH_API_URL="$AUTH_API_URL"
+
 
 include:
   - project: 'pretendent/devops/deploy'
