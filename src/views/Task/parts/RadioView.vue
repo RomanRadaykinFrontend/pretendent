@@ -98,12 +98,15 @@ export default class RadioView extends Vue {
 
   &__radio-button
     transform: scale(1.4)
-    margin: 10px 10px 10px 0
+    margin: 5px 0 0 5px
+
+    &:hover:before
+      border-color: #4D64AA
 
     &:before
-      width: 12px
-      height: 12px
-      border-radius: 12px
+      width: 10px
+      height: 10px
+      border-radius: 10px
       top: -1px
       left: -1px
       position: relative
@@ -113,22 +116,10 @@ export default class RadioView extends Vue {
       visibility: visible
       border: 2px solid #8C9196
 
-    &:after
-      width: 8px
-      height: 8px
-      border-radius: 15px
-      bottom: 157%
-      left: 24%
-      position: relative
-      background-color: white
-      content: ''
-      display: inline-block
-      visibility: visible
-
     &:checked
       &:before
-        width: 12px
-        height: 12px
+        width: 10px
+        height: 10px
         border-radius: 12px
         top: -1px
         left: -1px
@@ -144,8 +135,8 @@ export default class RadioView extends Vue {
         width: 8px
         height: 8px
         border-radius: 15px
-        bottom: 157%
-        left: 24%
+        bottom: 150%
+        left: 14%
         position: relative
         background-color: #4D64AA
         content: ''
@@ -156,14 +147,21 @@ export default class RadioView extends Vue {
     font: $answer-text-style
 
   &__answer
+    margin-top: 15px
+
+  &__label
+    line-height: 1.5
+    margin-left: 10px
+  &__button-wrapper
     display: flex
-    align-items: center
+    align-items: flex-start
 
   &__buttons-block
     display: flex
-    .button
-      cursor: pointer
+
   &__button
+    cursor: pointer
+    border-radius: 0px 0px 5px 5px
     .logo
       margin-left: 15px
 
@@ -175,4 +173,6 @@ export default class RadioView extends Vue {
       width: 100%
       button
         width: 100%
+    &__answer
+      padding-left: 12px
 </style>

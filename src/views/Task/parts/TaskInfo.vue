@@ -113,22 +113,34 @@ export default class TaskInfo extends Vue{
     display: flex
     align-self: center
     justify-content: center
+    &:hover
+      background: #FFE9E9
 
 @media screen and (max-width: 1024px)
   .task-info
-    flex-direction: column-reverse
+    flex-direction: column
     width: 100%
     height: auto
-    margin-top: 30px
+    margin-top: 15px
     padding: 0
     &__task-control
       flex-direction: column-reverse
     &__control-panel
+      margin-top: 15px
       flex-direction: row
       justify-content: space-evenly
     &__description
       flex-direction: column-reverse
     &__text
       line-height: 1
+      text-align: center
+      font-size: 12px
+    &__test-end
+      margin-top: 15px
+      width: 100%
 
+@media screen and (max-width: 414px)
+  .task-info
+    &__control-panel
+      width: 100%
 </style>

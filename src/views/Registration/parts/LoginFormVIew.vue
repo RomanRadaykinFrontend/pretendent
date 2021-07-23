@@ -49,8 +49,8 @@ import InfoLogo from '@/common/images/info.svg'
 export default class LoginFormView extends Vue {
 
   private objNames = [
-    { name: 'name', placeholder: 'Имя*' }, { name: 'lastName', placeholder: 'Фамилия*' },
-    { name: 'email', placeholder: 'Email*' }, { name: 'telegram', placeholder: 'Telegram' },
+    { name: 'name', placeholder: 'Имя' }, { name: 'lastName', placeholder: 'Фамилия' },
+    { name: 'email', placeholder: 'Email' }, { name: 'telegram', placeholder: 'Telegram' },
   ]
 
   get user(){

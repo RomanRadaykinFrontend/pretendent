@@ -1,7 +1,7 @@
 <template lang="pug">
   .task-view
     .task-view__header
-      .task-view__question-title Вопрос {{ currentQuestion.id }}
+      .task-view__question-title Вопрос {{ currentQuestion.orderNumber }}
       .task-view__answers-title Варианты ответов
     TaskBody(
       :current-question="currentQuestion"

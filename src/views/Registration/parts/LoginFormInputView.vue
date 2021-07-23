@@ -1,9 +1,10 @@
 <template lang="pug">
   .login-form-input-view
-    label.login-form-input-view__label(v-if = "value !== ''") {{ placeholder }}
+    label.login-form-input-view__label(v-show = " showCustomLabel ")
+      span.login-form-input-view__custom-label {{ placeholder }}
+        span( v-show = " placeholder !== 'Telegram' " ) *
     input.login-form-input-view__input(
       type="text"
-      :placeholder = "placeholder"
       :name = "name"
       v-model.trim = "value"
       @focus = "isFocused = 'focused'; focusCount +=1"
@@ -12,6 +13,8 @@
       :style = "borderColorStyle"
       :key="name"
     )
+    span( v-show = " showCustomPlaceholder " ).login-form-input-view__custom-placeholder {{ placeholder }}
+      span( v-show = " placeholder !== 'Telegram' " ) *
     .login-form-input-view__error(
       v-show = "doValidate === 'incorrectName'"
     ) Буквы русского алфавита, от 2 символов
@@ -44,6 +47,20 @@ export default class LoginFormInputView extends Vue {
   private borderColorStyle = { 'border-color': 'rgb( 225, 225, 225 )' }
 
   private value = ''
+
+  get showCustomPlaceholder(){
+    if( this.value === '' && this.isFocused === 'focused' ){
+      return false
+    } else if( this.value === '' ){
+      return true
+    }
+
+    return false
+  }
+
+  get showCustomLabel(){
+    return this.isFocused === 'focused' || this.value !== ''
+  }
 
   private changeUserInfo( data: [InputName, string]){
     testingModule.mutations.setUser( data )
@@ -163,6 +180,7 @@ export default class LoginFormInputView extends Vue {
     font: normal 10px Roboto, serif
     position: absolute
     top: -7px
+    z-index: 2
 
   &__input
     width: 240px
@@ -172,6 +190,29 @@ export default class LoginFormInputView extends Vue {
     border-bottom: solid 1px $secondary-color
     outline: none
     font: $main-text-style
+    position: relative
+
+  &__custom-placeholder
+    position: absolute
+    font-family: Roboto, serif
+    font-style: normal
+    font-weight: normal
+    font-size: 14px
+    color: #8C98A9
+    bottom: 34%
+    left: 1%
+    span
+      color: red
+
+  &__custom-label
+    font-family: Roboto, serif
+    font-style: normal
+    font-weight: normal
+    font-size: 11px
+    line-height: 13px
+    color: #8C98A9
+    span
+      color: red
 
   &__error
     font: normal 12px Roboto, serif

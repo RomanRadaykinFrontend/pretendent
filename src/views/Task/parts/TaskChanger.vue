@@ -50,6 +50,6 @@ export default class TaskChanger extends Vue{
     width: 100%
     justify-content: center
     height: auto
-    margin-top: 30px
+    margin-top: 15px
 
 </style>
