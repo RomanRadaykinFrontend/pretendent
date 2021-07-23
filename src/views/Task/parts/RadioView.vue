@@ -149,6 +149,9 @@ export default class RadioView extends Vue {
   &__answer
     margin-top: 15px
 
+    &:nth-child(1)
+      margin-top: 0
+
   &__label
     line-height: 1.5
     margin-left: 10px
@@ -161,7 +164,7 @@ export default class RadioView extends Vue {
 
   &__button
     cursor: pointer
-    border-radius: 0px 0px 5px 5px
+    border-radius: 5px
     .logo
       margin-left: 15px
 
@@ -171,6 +174,7 @@ export default class RadioView extends Vue {
       padding-left: 5px
     &__button
       width: 100%
+      border-radius: 0px 0px 5px 5px
       button
         width: 100%
     &__answer

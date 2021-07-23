@@ -65,6 +65,7 @@ export default class TaskBody extends Vue {
     @include custom-scroll-bar
   &__task-title
     font-weight: bold
+    line-height: 1.5
   &__task-answers
     width: 50%
     background: white

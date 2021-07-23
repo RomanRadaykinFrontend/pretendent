@@ -1,12 +1,15 @@
 <template lang="pug">
   #app(
     :key = "uniqueId"
+    :class = "appModalStyle"
+    ref = "app"
   )
     router-view(:key="$route.path")
     ModalWindow(
       v-if="isShowed"
       @close-modal="hideModalWindow"
       @end-test="goToFinalPage"
+      :height = "this.$refs.app.clientHeight"
     )
 </template>
 
@@ -41,6 +44,17 @@ export default class App extends Vue {
   get isShowed(){
     return testingModule.getters.isModalWindowShowed
   }
+
+  get appModalStyle(){
+    return {
+      ['is-modal-on']: this.$route.name === 'TaskView',
+    }
+  }
+
+  $refs!: {
+    app: HTMLDivElement
+  }
+
 
   // при создании app задаем вводные - проверяем авторизацию, пушим данные из локала в стор
   private created(){
@@ -86,4 +100,6 @@ export default class App extends Vue {
   width: 100%
   white-space: pre-line
   color: #2A3640
+  &.is-modal-on
+    height: auto
 </style>

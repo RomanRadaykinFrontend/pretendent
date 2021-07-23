@@ -10,10 +10,15 @@
       @focus = "isFocused = 'focused'; focusCount +=1"
       @blur = "isFocused = 'blur'"
       @input = "changeUserInfo([ name, value ])"
+      @click = "addFocusToInput"
       :style = "borderColorStyle"
       :key="name"
+      ref="input"
     )
-    span( v-show = " showCustomPlaceholder " ).login-form-input-view__custom-placeholder {{ placeholder }}
+    span(
+        v-show = " showCustomPlaceholder "
+        @click = "addFocusToInput"
+    ).login-form-input-view__custom-placeholder {{ placeholder }}
       span( v-show = " placeholder !== 'Telegram' " ) *
     .login-form-input-view__error(
       v-show = "doValidate === 'incorrectName'"
@@ -38,15 +43,23 @@ import { InputName } from '@/types/common'
 @Component
 
 export default class LoginFormInputView extends Vue {
-
+  $refs!: {
+    input: HTMLInputElement
+  }
   @Prop() private name!: InputName
   @Prop({ required: false }) private placeholder!: string
+
 
   private isFocused = 'default'
   private focusCount = 0
   private borderColorStyle = { 'border-color': 'rgb( 225, 225, 225 )' }
 
   private value = ''
+
+  private addFocusToInput(){
+    this.isFocused = 'focused'
+    this.$refs.input.focus()
+  }
 
   get showCustomPlaceholder(){
     if( this.value === '' && this.isFocused === 'focused' ){
@@ -183,7 +196,7 @@ export default class LoginFormInputView extends Vue {
     z-index: 2
 
   &__input
-    width: 240px
+    width: 296px
     height: 40px
     border: none
     font-size: $main-font-size
