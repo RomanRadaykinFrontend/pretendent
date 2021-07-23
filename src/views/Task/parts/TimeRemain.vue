@@ -78,4 +78,8 @@ export default class TimeRemain extends Vue{
     border-radius: 3px
     background: white
     margin: 0 1px
+
+@media screen and (max-width: 414px)
+  .time-remain
+    width: 100%
 </style>

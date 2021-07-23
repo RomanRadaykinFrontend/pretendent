@@ -84,11 +84,15 @@ export default class AppModalWindow extends Vue {
     margin-right: 10px
     color: #4D64AA
     background: none
+    &:hover
+      color: #4159A1
 
   &__primary
     border: 1px solid #FFF3F3
     background: #FFF3F3
     color: #DB1A26
+    &:hover
+      background: #FFE9E9
 
 @media screen and (max-width: 767px)
   .modal-window

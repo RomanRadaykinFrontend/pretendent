@@ -31,7 +31,6 @@ TestingActions> {
     try {
       await ANSWER_API.addNewAnswers( data )
     } catch ( error ) {
-      console.log( error.message )
       return  error.message
     }
   }

@@ -67,8 +67,9 @@ export default class TaskBody extends Vue {
     font-weight: bold
   &__task-answers
     width: 50%
-    background: #FAFAFA
+    background: white
     padding: 20px
+    border-left: 2px solid #EEF2FF
 
 @media screen and (max-width: 1024px)
   .task-body
@@ -76,6 +77,9 @@ export default class TaskBody extends Vue {
     height: auto
     &__task-question
       height: auto
+      line-height: 1.5
+    &__task-answers
+      border: none
 @media screen and (max-width: 479px)
   .task-body
     flex-direction: column
@@ -83,7 +87,10 @@ export default class TaskBody extends Vue {
     box-shadow: none
     &__task-answers, &__task-question
       width: 100%
-      padding: 0
       background: white
-
+      padding: 0
+      box-sizing: border-box
+    &__task-question
+      padding: 12px
+      box-sizing: border-box
 </style>

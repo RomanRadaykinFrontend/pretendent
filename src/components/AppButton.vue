@@ -33,6 +33,8 @@ export default class AppButton extends Vue {
 .is-primary
   background-color: $primary-color
   color: white
+  &:hover
+    background: #4159A1
 
 .is-secondary
   background-color: white

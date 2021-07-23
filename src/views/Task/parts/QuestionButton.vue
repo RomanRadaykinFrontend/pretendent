@@ -46,6 +46,8 @@ export default class QuestionButton extends Vue{
   &.done
     background: #4D64AA
     color: white
+    &:hover
+      background: #4159A1
   &.done-check
     background: #4D64AA
     box-sizing: border-box
