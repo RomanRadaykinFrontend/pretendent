@@ -261,4 +261,9 @@ export default class LoginFormInputView extends Vue {
       left: 0
       &:before
         display: none
+@media screen and (max-width: 414px)
+  .login-form-input-view
+    width: 100%
+    &__input
+      width: 100%
 </style>
