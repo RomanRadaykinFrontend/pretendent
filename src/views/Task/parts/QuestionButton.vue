@@ -8,11 +8,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { testingModule } from '@/store'
+import { Questions } from '@/services/api'
 
 @Component
 export default class QuestionButton extends Vue{
   @Prop() private questionNumber!: number
-  @Prop() private allQuestions!: number
+  @Prop() private allQuestions!: Array<Questions>
   private doneTaskList = testingModule.getters.doneTaskList
   private doneTasks = this.doneTaskList.map( item => item.taskNumber )
   private needTasks = this.allQuestions.map( ( n, index ) => {
