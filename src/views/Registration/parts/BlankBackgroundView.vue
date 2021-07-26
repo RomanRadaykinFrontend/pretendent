@@ -9,8 +9,8 @@ import DisclaimerLogo from '@/common/images/disclaimer.svg'
 
 @Component({
   components: {
-    DisclaimerLogo
-  }
+    DisclaimerLogo,
+  },
 })
 export default class BlankBackgroundView extends Vue {}
 

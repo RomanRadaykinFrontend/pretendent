@@ -9,9 +9,8 @@
 
     .task-body__task-answers
       RadioView(
-        :ordinalNumber = " currentQuestion.orderNumber "
         :array-of-values = "currentQuestion.answers"
-        :questionNumber = " currentQuestion.orderNumber "
+        :questionNumber = " currentQuestion.id "
         :totalCount = "questionTotalCount"
       )
 </template>
@@ -31,6 +30,7 @@ export default class TaskBody extends Vue {
 
   @Prop() private currentQuestion!: Questions
   @Prop() private questionTotalCount!: number
+  @Prop() private allQuestions!: Array<Questions>
 
   get actualQuestion(){
     return this.currentQuestion.question ?? {}

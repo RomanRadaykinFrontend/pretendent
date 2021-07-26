@@ -12,9 +12,15 @@ import { testingModule } from '@/store'
 @Component
 export default class QuestionButton extends Vue{
   @Prop() private questionNumber!: number
+  @Prop() private allQuestions!: number
   private doneTaskList = testingModule.getters.doneTaskList
   private doneTasks = this.doneTaskList.map( item => item.taskNumber )
-  private styleDoneIsApplied = this.doneTasks.includes( this.questionNumber )
+  private needTasks = this.allQuestions.map( ( n, index ) => {
+    if( this.doneTasks.includes( n.id ) ){
+      return index + 1
+    }
+  })
+  private styleDoneIsApplied = this.needTasks.includes( this.questionNumber )
 
   get doneClass(){
     if( this.styleDoneIsApplied && +this.$route.params.id === this.questionNumber ){

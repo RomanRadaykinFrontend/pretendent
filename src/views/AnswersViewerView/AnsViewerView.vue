@@ -38,9 +38,9 @@
       v-for = "(question, index) in sortQuestions"
       :key = "index"
       :table-value = "question"
-      :quest-number = "question.orderNumber"
-      :user-answer = " getCurrentAnswer( question.orderNumber ) "
-      :right-answer = " getCurrentRightAnswer( question.orderNumber ) "
+      :quest-number = "question.id"
+      :user-answer = " getCurrentAnswer( question.id ) "
+      :right-answer = " getCurrentRightAnswer( question.id ) "
     )
 
 </template>
@@ -71,9 +71,9 @@ export default class AnsViewerView extends Vue{
 
   private sortByNumber( direction: boolean ){
     if( this.taskType === 'Все вопросы' ){
-      return this.questions.sort( ( a, b ) => sortItems( a.orderNumber, b.orderNumber, direction ) )
+      return this.questions.sort( ( a, b ) => sortItems( a.id, b.id, direction ) )
     } else{
-      return this.sortQuestions?.sort( ( a, b ) => sortItems( a.orderNumber, b.orderNumber, direction ) )
+      return this.sortQuestions?.sort( ( a, b ) => sortItems( a.id, b.id, direction ) )
     }
   }
 
@@ -170,17 +170,17 @@ export default class AnsViewerView extends Vue{
   }
 
   get answeredQuestionList(){
-    return this.questions.filter( q => q.orderNumber ? this.userTasksID.includes( q.orderNumber ) : false ) ?? []
+    return this.questions.filter( q => q.id ? this.userTasksID.includes( q.id ) : false ) ?? []
   }
 
   get unAnsweredQuestionList(){
-    return this.questions.filter( q => q.orderNumber ? !this.userTasksID.includes( q.orderNumber ) : false ) ?? []
+    return this.questions.filter( q => q.id ? !this.userTasksID.includes( q.id ) : false ) ?? []
   }
 
   get answeredRightQuestionList(){
     return this.answeredQuestionList.filter( aq => {
-      const userA = this.answers.find( uq => uq.question === aq.orderNumber )
-      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.orderNumber )
+      const userA = this.answers.find( uq => uq.question === aq.id )
+      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.id )
       if( userA && rightA ){
         return userA.question === rightA.id + 1 && userA.answer === rightA.answers[0]
       }
@@ -190,8 +190,8 @@ export default class AnsViewerView extends Vue{
 
   get answeredWrongQuestionList(){
     return this.answeredQuestionList.filter( aq => {
-      const userA = this.answers.find( uq => uq.question === aq.orderNumber )
-      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.orderNumber )
+      const userA = this.answers.find( uq => uq.question === aq.id )
+      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.id )
       if( userA && rightA ){
         return !( userA.question === rightA.id + 1 && userA.answer === rightA.answers[0])
       }

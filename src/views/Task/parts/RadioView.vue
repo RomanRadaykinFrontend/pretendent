@@ -28,6 +28,7 @@ import AppButton from '../../../components/AppButton.vue'
 import { testingModule } from '@/store'
 import { sendAnswers } from '@/helpers/functions'
 import ArrayForwardLogo from '@/common/images/array-forward.svg'
+import { Questions } from '@/services/api'
 
 @Component({
   components: {
@@ -42,23 +43,22 @@ export default class RadioView extends Vue {
   @Prop() private arrayOfValues!: Array<string>
   @Prop() private questionNumber!: number
 
-  private taskNumber = +this.$route.params.id
   private doneTasksCount = testingModule.getters.doneTaskList.length
 
   // пушим в стейт выбранный вариант ответа и достаем по необходимости
   set picked( value: string ){
     testingModule.mutations.setCurrentAnswer({
-      question: this.taskNumber,
+      question: this.questionNumber,
       pickedValue: value,
     })
     testingModule.mutations.setDoneTaskList({
-      taskNumber: this.taskNumber,
+      taskNumber: this.questionNumber,
       value,
     })
   }
   get picked(){
     const currentValue = testingModule.getters.doneTaskList
-      .find( item => item.taskNumber === this.taskNumber )
+      .find( item => item.taskNumber === this.questionNumber )
     if( currentValue ){
       return currentValue.value
     } else{
@@ -79,10 +79,10 @@ export default class RadioView extends Vue {
     } else if( +this.$route.params.id === this.totalCount && this.totalCount === this.doneTasksCount ){
       this.$router.push( '/final' )
     } else {
-      localStorage.task = 1 + this.questionNumber
+      localStorage.task = 1 + +this.$route.params.id
       this.$router.push({
         name: 'TaskView', params: {
-          id: ( 1 + this.questionNumber ).toString(),
+          id: ( 1 + +this.$route.params.id ).toString(),
         },
       })
     }

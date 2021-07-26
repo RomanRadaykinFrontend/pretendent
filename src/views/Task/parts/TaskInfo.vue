@@ -3,7 +3,7 @@
     .task-info__task-control
       TaskChanger(
         :array-of-values = "currentQuestion.answers"
-        :question-total-count = "questionTotalCount"
+        :all-questions = "allQuestions"
         )
       .task-info__control-panel
         TimeRemain(
@@ -36,7 +36,7 @@ import TimeRemain from '@/views/Task/parts/TimeRemain.vue'
 export default class TaskInfo extends Vue{
 
   @Prop() private currentQuestion!: Questions
-  @Prop() private questionTotalCount!: number
+  @Prop() private allQuestions!: number
 
   get timeRemain(){
     if( testingModule.getters.timeRemain <= 0 ){
