@@ -1,5 +1,5 @@
 <template lang="pug">
-  .modal-window
+  .modal-window( :style="modalWindowStyle" )
       .modal-window__text-message(
         ref = "textMessage"
         :style = "marginStyle"
@@ -17,16 +17,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import AppButton from '@/components/AppButton.vue'
 
 @Component({
   components: { AppButton },
 })
 export default class AppModalWindow extends Vue {
+  @Prop() height!: number
 
   $refs!: {
-    textMessage: HTMLDivElement
+    textMessage: HTMLDivElement,
   }
 
   private marginStyle = {}
@@ -34,6 +35,12 @@ export default class AppModalWindow extends Vue {
   private mounted(){
     this.marginStyle = {
       marginTop: `${ window.pageYOffset + this.$refs.textMessage.clientHeight }px`,
+    }
+  }
+
+  get modalWindowStyle(){
+    return {
+      height: `${this.height}px`,
     }
   }
 
