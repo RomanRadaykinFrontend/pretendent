@@ -15,7 +15,8 @@ AdminActions> {
   public async getAllQuestions() {
     try{
       const result = await QUESTIONS_API.questions()
-      this.commit( 'setQuestions', result.questions )
+      const questionsWithOrderNum = result.questions.map( ( q, index ) => ({ ...q, orderNum: index + 1 }) )
+      this.commit( 'setQuestions', questionsWithOrderNum )
     } catch( e ){
       return e.message
     }
