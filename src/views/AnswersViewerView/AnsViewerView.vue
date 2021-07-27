@@ -38,7 +38,7 @@
       v-for = "(question, index) in sortQuestions"
       :key = "index"
       :table-value = "question"
-      :quest-number = "question.id"
+      :quest-number = "question.orderNum"
       :user-answer = " getCurrentAnswer( question.id ) "
       :right-answer = " getCurrentRightAnswer( question.id ) "
     )
@@ -54,6 +54,7 @@ import { getDate, sortItems } from '@/helpers/functions'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import VueSimpleSpinner from 'vue-simple-spinner'
+import { createLogger } from 'vuex'
 
 @Component({
   components: {
@@ -180,9 +181,9 @@ export default class AnsViewerView extends Vue{
   get answeredRightQuestionList(){
     return this.answeredQuestionList.filter( aq => {
       const userA = this.answers.find( uq => uq.question === aq.id )
-      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.id )
+      const rightA = this.rightAnswers.find( rq => rq.id === aq.id )
       if( userA && rightA ){
-        return userA.question === rightA.id + 1 && userA.answer === rightA.answers[0]
+        return userA.question === rightA.id && userA.answer === rightA.answers[0]
       }
     },
     ) ?? []
@@ -191,9 +192,9 @@ export default class AnsViewerView extends Vue{
   get answeredWrongQuestionList(){
     return this.answeredQuestionList.filter( aq => {
       const userA = this.answers.find( uq => uq.question === aq.id )
-      const rightA = this.rightAnswers.find( rq => rq.id + 1 === aq.id )
+      const rightA = this.rightAnswers.find( rq => rq.id === aq.id )
       if( userA && rightA ){
-        return !( userA.question === rightA.id + 1 && userA.answer === rightA.answers[0])
+        return !( userA.question === rightA.id && userA.answer === rightA.answers[0])
       }
 
     },
@@ -228,7 +229,7 @@ export default class AnsViewerView extends Vue{
     return this.answers?.find( answ => answ.question === questNumb )
   }
   private getCurrentRightAnswer( questNumb: number ){
-    return this.rightAnswers.find( answ => answ.id + 1 === questNumb )
+    return this.rightAnswers.find( answ => answ.id  === questNumb )
   }
 
 }

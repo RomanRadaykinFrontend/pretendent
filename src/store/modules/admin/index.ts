@@ -3,7 +3,7 @@ import { AdminGetters } from '@/store/modules/admin/getters'
 import { AdminMutations } from '@/store/modules/admin/mutations'
 import { AdminActions } from '@/store/modules/admin/actions'
 import { CorrectAnswer, Questions } from '@/services/api'
-import { UserResultWithID } from '@/types/common'
+import { QuestionsWithOrderNum, UserResultWithID } from '@/types/common'
 
 
 
@@ -13,9 +13,9 @@ export class AdminState {
   public totalCount = 0
   public userID = ''
   public typeTasks = 'Все вопросы'
-  public questions = [] as Array<Questions> | undefined
+  public questions = [] as Array<QuestionsWithOrderNum> | undefined
   public page: string | number = 1
-  public sortQuestions = [] as Array<Questions>
+  public sortQuestions = [] as Array<QuestionsWithOrderNum>
   public isAllDataFetched = false
   public rightAnswers = [] as Array<CorrectAnswer>
 }

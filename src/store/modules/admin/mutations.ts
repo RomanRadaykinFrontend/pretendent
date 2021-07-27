@@ -1,7 +1,7 @@
 import { Mutations } from 'vuex-smart-module'
 import { AdminState } from '@/store/modules/admin/index'
 import { CorrectAnswer, Questions } from '@/services/api'
-import { UserResultWithID } from '@/types/common'
+import { QuestionsWithOrderNum, UserResultWithID } from '@/types/common'
 
 
 
@@ -26,7 +26,7 @@ export class AdminMutations extends Mutations<AdminState> {
     this.state.typeTasks = value
   }
 
-  public setQuestions( value: Array<Questions> | undefined ){
+  public setQuestions( value: Array<QuestionsWithOrderNum> | undefined ){
     this.state.questions = value
   }
 
@@ -34,7 +34,7 @@ export class AdminMutations extends Mutations<AdminState> {
     this.state.page = value
   }
 
-  public setSortQuestions( value: Array<Questions> ){
+  public setSortQuestions( value: Array<QuestionsWithOrderNum> ){
     this.state.sortQuestions = value
   }
 

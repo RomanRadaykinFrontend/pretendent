@@ -1,4 +1,4 @@
-import { UserResult } from '@/services/api'
+import { Questions, UserResult } from '@/services/api'
 
 export interface QuestionData {
   [id: number]: {
@@ -32,4 +32,8 @@ export interface DataExcel{
 
 export interface UserResultWithID extends UserResult{
   id: number
+}
+
+export interface QuestionsWithOrderNum extends Questions{
+  orderNum: number
 }
